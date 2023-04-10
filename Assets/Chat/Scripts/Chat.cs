@@ -66,7 +66,7 @@ public class Chat : MonoBehaviour
     public TMP_InputField mInput;
     public TMP_Text bText;
 
-    private string apiKey = "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";
+    private string apiKey = "//apikey在上传git时不要暴露，会被禁用";
     public string apiUrl = "http://aiopen.deno.dev/v1/chat/completions";
     public string mModel = "gpt-3.5-turbo";
     public string prompt;
@@ -75,13 +75,13 @@ public class Chat : MonoBehaviour
 
     private void Start()
     {
-
         dataList.Add(new SendData("system", prompt));
     }
 
     public IEnumerator GetPostData(string postWord, string apiKey)
     {
         dataList.Add(new SendData("user", postWord));
+        GetHistory.hQuestion.Add(postWord);
 
         using (UnityWebRequest request = new UnityWebRequest(apiUrl, "POST"))
         {
@@ -117,10 +117,16 @@ public class Chat : MonoBehaviour
                     string thmessage = backtext.choices[0].message.content;
                     dataList.Add(new SendData("assistant", thmessage));
                     bText.text = thmessage;
+                    GetHistory.hAnswer.Add(thmessage);
                 }
             }
 
         }
+    }
+
+    void Awake()
+    {
+        
     }
     void Update()
     {
