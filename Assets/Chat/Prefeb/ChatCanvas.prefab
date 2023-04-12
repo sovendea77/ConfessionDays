@@ -784,6 +784,7 @@ GameObject:
   - component: {fileID: 6711997888715709194}
   - component: {fileID: 6711997888715709197}
   - component: {fileID: 6711997888715709196}
+  - component: {fileID: 16199518}
   m_Layer: 5
   m_Name: ChatCanvas
   m_TagString: Untagged
@@ -892,10 +893,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mInput: {fileID: 6711997889559997256}
   bText: {fileID: 6711997890248665381}
+  confirmB: {fileID: 1560519448}
   apiUrl: http://aiopen.deno.dev/v1/chat/completions
   mModel: gpt-3.5-turbo
   prompt: "\u53EA\u80FD\u8BC4\u4EF7\u4E00\u53E5\u8BDD\u7684\u666E\u901A\u4EBA"
   dataList: []
+--- !u!114 &16199518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6711997888715709199}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b76d88c4db7248544a6aab7eba9b63cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  historyB: {fileID: 1405245261}
+  saintB: {fileID: 6711997888348513546}
+  chatCanvas: {fileID: 6711997888715709199}
+  historyCanvas: {fileID: 0}
+  judgeCanvas: {fileID: 0}
 --- !u!1 &6711997889310034845
 GameObject:
   m_ObjectHideFlags: 0

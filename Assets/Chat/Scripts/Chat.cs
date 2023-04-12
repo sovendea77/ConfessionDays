@@ -65,8 +65,10 @@ public class Chat : MonoBehaviour
 {
     public TMP_InputField mInput;
     public TMP_Text bText;
+    public Button confirmB;
 
-    private string apiKey = "//apikey在上传git时不要暴露，会被禁用";
+    //apikey不要上传git
+    private string apiKey = "666";
     public string apiUrl = "http://aiopen.deno.dev/v1/chat/completions";
     public string mModel = "gpt-3.5-turbo";
     public string prompt;
@@ -124,17 +126,21 @@ public class Chat : MonoBehaviour
         }
     }
 
+    public void StartChat()
+    {
+            string input = mInput.text;
+            StartCoroutine(GetPostData(input, apiKey));
+            mInput.text = "";
+    }
     void Awake()
     {
-        
+        confirmB.GetComponent<Button>().onClick.AddListener(StartChat);
     }
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            string input = mInput.text;
-            StartCoroutine(GetPostData(input, apiKey));
-            mInput.text = "";
+            StartChat();
         }
     }
 
