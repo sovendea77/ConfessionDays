@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 using TMPro;
+using System.IO;
 
 
 [Serializable]
@@ -65,10 +66,14 @@ public class Chat : MonoBehaviour
 {
     public TMP_InputField mInput;
     public TMP_Text bText;
-    public Button confirmB;
+    public GameObject bTextBody;
+    public GameObject inputBody;
+    public Animator anim;
+
+    public bool isAnswer;
 
     //apikey不要上传git
-    private string apiKey = "666";
+    private string apiKey = "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";
     public string apiUrl = "http://aiopen.deno.dev/v1/chat/completions";
     public string mModel = "gpt-3.5-turbo";
     public string prompt;
@@ -78,6 +83,19 @@ public class Chat : MonoBehaviour
     private void Start()
     {
         dataList.Add(new SendData("system", prompt));
+    }
+
+    IEnumerator PutText(string text)
+    {
+        Debug.Log(text);
+        for (int j = 0; j < text.Length; j++)
+        {
+            string word = text.Substring((0), j);
+            bText.text = word;
+            yield return new WaitForSeconds(0.1f);
+        }
+        yield return new WaitForSeconds(5f);
+
     }
 
     public IEnumerator GetPostData(string postWord, string apiKey)
@@ -109,16 +127,21 @@ public class Chat : MonoBehaviour
             {
                 //PlanB
                 Debug.LogError(request.error);
+                int n = UnityEngine.Random.Range(1, 10);
+                anim.SetTrigger("ex" + n.ToString());
             }
             else
             {
                 string backmessage = request.downloadHandler.text;
                 BackMessage backtext = JsonUtility.FromJson<BackMessage>(backmessage);
                 {
-
+                    int n = UnityEngine.Random.Range(1, 10);
+                    anim.SetTrigger("ex" + n.ToString());
                     string thmessage = backtext.choices[0].message.content;
                     dataList.Add(new SendData("assistant", thmessage));
-                    bText.text = thmessage;
+                    bTextBody.SetActive(true);
+                    isAnswer = true;
+                    StartCoroutine(PutText(thmessage));
                     GetHistory.hAnswer.Add(thmessage);
                 }
             }
@@ -128,20 +151,44 @@ public class Chat : MonoBehaviour
 
     public void StartChat()
     {
-            string input = mInput.text;
-            StartCoroutine(GetPostData(input, apiKey));
-            mInput.text = "";
+
+        string input = mInput.text;
+        StartCoroutine(GetPostData(input, apiKey));
+        mInput.text = "";
+
     }
-    void Awake()
+
+    public void CheckChat()
     {
-        confirmB.GetComponent<Button>().onClick.AddListener(StartChat);
-    }
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (isAnswer)
+        {
+            bText.text = " ";
+            bTextBody.SetActive(false);
+            isAnswer = false;
+        }
+        else
         {
             StartChat();
         }
+    }
+    void Awake()
+    {
+    }
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Return) && !isAnswer)
+        {
+            StartChat();
+        }
+        
+        if(isAnswer)
+        {
+            inputBody.SetActive(false);
+        }
+        else
+        {
+            inputBody.SetActive(true);
+        }    
     }
 
 }

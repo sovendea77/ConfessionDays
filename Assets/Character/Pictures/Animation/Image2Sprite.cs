@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Curtain : MonoBehaviour
+public class Image2Sprite : MonoBehaviour
 {
-    public GameObject curtain;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,6 +14,6 @@ public class Curtain : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        curtain.GetComponent<Image>().sprite = curtain.GetComponent<SpriteRenderer>().sprite;
+        this.GetComponent<Image>().sprite = this.GetComponent<SpriteRenderer>().sprite;
     }
 }

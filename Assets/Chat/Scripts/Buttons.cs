@@ -42,7 +42,8 @@ public class Buttons : MonoBehaviour
     {
         historyB.GetComponent<Button>().onClick.AddListener(History);
         saintB.GetComponent<Button>().onClick.AddListener(Saint);
-        hBackB.GetComponent<Button>().onClick.AddListener(HistoryBack);    }
+        hBackB.GetComponent<Button>().onClick.AddListener(HistoryBack);    
+    }
 
     // Update is called once per frame
     void Update()

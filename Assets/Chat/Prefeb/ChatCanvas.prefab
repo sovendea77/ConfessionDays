@@ -447,8 +447,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u5386\u53F2"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: c45cd1bc54a5fb24e9891e2affda0024, type: 2}
-  m_sharedMaterial: {fileID: -2791440794469857847, guid: c45cd1bc54a5fb24e9891e2affda0024, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -704,8 +704,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u200B"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: c45cd1bc54a5fb24e9891e2affda0024, type: 2}
-  m_sharedMaterial: {fileID: -2791440794469857847, guid: c45cd1bc54a5fb24e9891e2affda0024, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -805,8 +805,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6711997889780030335}
-  - {fileID: 6711997890248665379}
   - {fileID: 6711997889559997257}
+  - {fileID: 6711997890248665379}
   - {fileID: 6711997888348513547}
   - {fileID: 1405245262}
   - {fileID: 1560519447}
@@ -894,6 +894,7 @@ MonoBehaviour:
   mInput: {fileID: 6711997889559997256}
   bText: {fileID: 6711997890248665381}
   confirmB: {fileID: 1560519448}
+  anim: {fileID: 0}
   apiUrl: http://aiopen.deno.dev/v1/chat/completions
   mModel: gpt-3.5-turbo
   prompt: "\u53EA\u80FD\u8BC4\u4EF7\u4E00\u53E5\u8BDD\u7684\u666E\u901A\u4EBA"
@@ -912,9 +913,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   historyB: {fileID: 1405245261}
   saintB: {fileID: 6711997888348513546}
+  hBackB: {fileID: 0}
   chatCanvas: {fileID: 6711997888715709199}
   historyCanvas: {fileID: 0}
   judgeCanvas: {fileID: 0}
+  charaCanvas: {fileID: 0}
+  churchCanvas: {fileID: 0}
 --- !u!1 &6711997889310034845
 GameObject:
   m_ObjectHideFlags: 0
@@ -983,8 +987,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u9009\u62E9"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: c45cd1bc54a5fb24e9891e2affda0024, type: 2}
-  m_sharedMaterial: {fileID: -2791440794469857847, guid: c45cd1bc54a5fb24e9891e2affda0024, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1239,7 +1243,7 @@ RectTransform:
   m_Children:
   - {fileID: 6711997889837543802}
   m_Father: {fileID: 6711997888715709192}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1542,7 +1546,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6711997888715709192}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1579,8 +1583,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: New Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: c45cd1bc54a5fb24e9891e2affda0024, type: 2}
-  m_sharedMaterial: {fileID: -2791440794469857847, guid: c45cd1bc54a5fb24e9891e2affda0024, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
