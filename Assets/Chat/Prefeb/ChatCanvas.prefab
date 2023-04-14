@@ -404,6 +404,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: PlayAudio, Assembly-CSharp
+        m_MethodName: PlaybackB
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1478523056
 GameObject:
   m_ObjectHideFlags: 0
@@ -525,7 +537,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1478523059}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: PlayAudio, Assembly-CSharp
+        m_MethodName: PlaybackB
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1560519446
 GameObject:
   m_ObjectHideFlags: 0
@@ -663,6 +687,18 @@ MonoBehaviour:
       - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Judge, Assembly-CSharp
         m_MethodName: FinishJdge
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: PlayAudio, Assembly-CSharp
+        m_MethodName: PlayconfirmB
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1151,6 +1187,7 @@ GameObject:
   - component: {fileID: 6711997888715709197}
   - component: {fileID: 6711997888715709196}
   - component: {fileID: 16199518}
+  - component: {fileID: 548513394}
   m_Layer: 5
   m_Name: ChatCanvas
   m_TagString: Untagged
@@ -1269,7 +1306,13 @@ MonoBehaviour:
   isAnswer: 0
   apiUrl: http://aiopen.deno.dev/v1/chat/completions
   mModel: gpt-3.5-turbo
-  prompt: "\u53EA\u80FD\u8BC4\u4EF710\u4E2A\u5B57\u7684\u666E\u901A\u4EBA"
+  prompt: "\u4F60\u662F\u4E00\u4F4D\u751F\u6D3B\u5728\u6751\u5E84\u91CC\u7684\u4FEE\u5973\uFF0C\u8046\u542C\u73A9\u5BB6\u7684\u5FCF\u6094\uFF1B
+    \u4F60\u6536\u5230\u7684\u5E26\u6709\u771F\u76F8\u548C\u7EBF\u7D22\u7684\u4FE1\u606F\u4F5C\u4E3A\u77E5\u8BC6\u5E93\u3002
+    \u73A9\u5BB6\u5411\u4F60\u63D0\u95EE\uFF0C\u4F60\u9700\u8981\u6839\u636E\u77E5\u8BC6\u5E93\u4FE1\u606F\u56DE\u7B54\u5E76\u7ED9\u4ED6\u63D0\u793A\u3002
+    \u4F60\u6BCF\u6B21\u56DE\u7B54\u4E0D\u53EF\u4EE5\u8D85\u8FC720\u4E2A\u5B57\uFF1B\u4E0D\u53EF\u4EE5\u8D85\u8FC720\u4E2A\u5B57\u3002
+    \u5F53\u4F60\u56DE\u590D\u65F6\uFF0C\u4F60\u5FC5\u987B\u7ED3\u5408\u4E0A\u4E0B\u6587\u8BED\u5883\u5BF9\u5176\u8BED\u6C14\u8FDB\u884C\u4FEE\u9970\uFF0C\u4F60\u4E0D\u80FD\u5B8C\u5168\u7167\u642C\u77E5\u8BC6\u5E93\u4E2D\u7684\u5185\u5BB9\uFF1B
+    \u5F53\u73A9\u5BB6\u5FCF\u6094\u7684\u5185\u5BB9\u4E0E\u77E5\u8BC6\u5E93\u65E0\u5173\u65F6\uFF0C\u4F60\u4E0D\u80FD\u56DE\u590D\u4ED6\u7684\u5185\u5BB9\uFF0C\u9700\u8981\u63D0\u9192\u4ED6\uFF1B
+    \u4F60\u4E0D\u4F1A\u63D0\u5230\u73B0\u5B9E\u4E2D\u7684\u4EBA\u540D\u3001\u5730\u540D\u4E0E\u5B97\u6559\uFF0C\u4E5F\u4E0D\u80FD\u76F4\u63A5\u544A\u8BC9\u771F\u76F8\uFF1B"
   dataList: []
 --- !u!114 &16199518
 MonoBehaviour:
@@ -1294,6 +1337,102 @@ MonoBehaviour:
   charaCanvas: {fileID: 0}
   churchCanvas: {fileID: 0}
   muneCanvas: {fileID: 0}
+--- !u!82 &548513394
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6711997888715709199}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 2dcdd898deb1ef348803223bd701cc6d, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &6711997889310034845
 GameObject:
   m_ObjectHideFlags: 0

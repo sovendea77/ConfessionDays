@@ -30,6 +30,7 @@ public class MuneButtons : MonoBehaviour
     private void Start()
     {
         isstart = false;
+        this.GetComponent<AudioSource>().Play();
 
     }
     void Update()

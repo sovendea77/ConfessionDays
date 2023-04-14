@@ -206,6 +206,7 @@ public class Chat : MonoBehaviour
         Judge.iscorrect = false;
         black.SetActive(false);
         saintTime = 0;
+        this.GetComponent<AudioSource>().Play();
     }
     void Update()
     {
