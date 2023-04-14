@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using System.IO;
+using Unity.VisualScripting;
+using UnityEngine.SceneManagement;
 
 [Serializable]
 public class Answer
@@ -27,6 +29,7 @@ public class Judge : MonoBehaviour
     public TMP_Dropdown cPlace;
     public TMP_Dropdown cCrime;
     public GameObject judgeCanvas;
+    public static bool iscorrect;
 
     [SerializeField] public List<Answer> answers;
 
@@ -42,10 +45,6 @@ public class Judge : MonoBehaviour
             {
                 return true;
             }
-            //Debug.Log(answer.character);
-            //Debug.Log(answer.time);
-            //Debug.Log(answer.place);
-            //Debug.Log(answer.crime);
         }
         return false;
     }
@@ -57,6 +56,7 @@ public class Judge : MonoBehaviour
         if (CheckAnswer(cCharacter.value, cTime.value, cPlace.value, cCrime.value))
         {
             Debug.Log("âã»ÚÕýÈ·");
+            iscorrect = true;
         }
         else
         {
@@ -66,6 +66,7 @@ public class Judge : MonoBehaviour
     }
     void Start()
     {
+        
         string path = Application.dataPath + "/InerData/Answer.json";
         string jsontext = File.ReadAllText(path);
         AnswerList answerList = JsonUtility.FromJson<AnswerList>(jsontext);
@@ -80,5 +81,7 @@ public class Judge : MonoBehaviour
         {
             FinishJdge();
         }
+
+
     }
 }

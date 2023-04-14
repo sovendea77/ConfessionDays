@@ -57,8 +57,8 @@ public class GetHistory : MonoBehaviour
 
     void Start()
     {
-        hAnswer.Add("TEST");
-        hQuestion.Add("aaaaaaaaaaa");
+        //hAnswer.Add("TEST");
+        //hQuestion.Add("aaaaaaaaaaa");
         SetDialogue();
     }
 

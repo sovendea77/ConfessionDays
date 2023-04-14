@@ -36,7 +36,6 @@ public class CheckLoad : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(videoPlayer.isPlaying);
         if(!videoPlayer.isPlaying && ischeck)
         {
             SceneManager.LoadScene("Saint");

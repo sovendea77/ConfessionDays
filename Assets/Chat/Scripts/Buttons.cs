@@ -25,6 +25,7 @@ public class Buttons : MonoBehaviour
         churchCanvas.SetActive(false);
         charaCanvas.SetActive(false);
         muneCanvas.SetActive(true);
+        judgeCanvas.SetActive(false);
     }
 
     private void MuneBack()
@@ -41,6 +42,7 @@ public class Buttons : MonoBehaviour
         churchCanvas.SetActive(false);
         charaCanvas.SetActive(false);
         historyCanvas.SetActive(true);
+        judgeCanvas.SetActive(false);
     }
 
     private void Saint()

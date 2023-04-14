@@ -8,6 +8,7 @@ using UnityEngine.Networking;
 using UnityEngine.UI;
 using TMPro;
 using System.IO;
+using UnityEngine.SceneManagement;
 
 
 [Serializable]
@@ -70,6 +71,7 @@ public class Chat : MonoBehaviour
     public GameObject inputBody;
     public Animator anim;
     public GameObject saintB;
+    public GameObject black;
 
     public static int saintTime;
 
@@ -85,7 +87,15 @@ public class Chat : MonoBehaviour
 
     private void Start()
     {
+        dataList.Clear();
         dataList.Add(new SendData("system", prompt));
+        for(int i = 1; i <= 2; i++)
+        {
+            string textPath = Application.dataPath + "/InerData/test" + i.ToString() + ".txt";
+            string knowledgeText = File.ReadAllText(textPath);
+            Debug.Log(knowledgeText);
+            dataList.Add(new SendData("user", knowledgeText));
+        }
     }
 
     IEnumerator PutText(string text)
@@ -188,6 +198,8 @@ public class Chat : MonoBehaviour
     }
     void Awake()
     {
+        Judge.iscorrect = false;
+        black.SetActive(false);
         saintTime = 0;
     }
     void Update()
@@ -215,6 +227,20 @@ public class Chat : MonoBehaviour
             saintB.SetActive(false);
         }
         Debug.Log(saintTime);
+
+        if(Judge.iscorrect)
+        {
+            black.SetActive(true);
+            float color = black.GetComponent<RawImage>().color.a;
+            float a = Mathf.Lerp(color, 1, 0.5f * Time.deltaTime);
+            Debug.Log(color);
+            black.GetComponent<RawImage>().color = new UnityEngine.Color(0, 0, 0, a);
+
+            if (black.GetComponent<RawImage>().color.a > 0.95f)
+            {
+                SceneManager.LoadScene("End");
+            }
+        }
     }
 
 }
