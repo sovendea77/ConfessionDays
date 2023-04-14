@@ -77,7 +77,7 @@ public class Chat : MonoBehaviour
 
     public bool isAnswer;
     //apikey不要上传git
-    private string apiKey = "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";
+    private string apiKey = "sk-666";
     public string apiUrl = "http://aiopen.deno.dev/v1/chat/completions";
     public string mModel = "gpt-3.5-turbo";
     public string prompt;
@@ -143,7 +143,7 @@ public class Chat : MonoBehaviour
                 anim.SetTrigger("ex" + n.ToString());
                 bTextBody.SetActive(true);
                 isAnswer = true;
-                StartCoroutine(PutText("网络错误，请重试"));
+                StartCoroutine(PutText("网络错误，请重试。"));
                 saintTime--;
             }
             else
