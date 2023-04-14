@@ -76,9 +76,8 @@ public class Chat : MonoBehaviour
     public static int saintTime;
 
     public bool isAnswer;
-
     //apikey不要上传git
-    private string apiKey = "666";
+    private string apiKey = "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";
     public string apiUrl = "http://aiopen.deno.dev/v1/chat/completions";
     public string mModel = "gpt-3.5-turbo";
     public string prompt;
@@ -89,13 +88,10 @@ public class Chat : MonoBehaviour
     {
         dataList.Clear();
         dataList.Add(new SendData("system", prompt));
-        for(int i = 1; i <= 2; i++)
-        {
-            string textPath = Application.dataPath + "/InerData/test" + i.ToString() + ".txt";
-            string knowledgeText = File.ReadAllText(textPath);
-            Debug.Log(knowledgeText);
-            dataList.Add(new SendData("user", knowledgeText));
-        }
+        string textPath = Application.dataPath + "/InerData/test.txt";
+        string knowledgeText = File.ReadAllText(textPath);
+        Debug.Log(knowledgeText);
+        dataList.Add(new SendData("user", knowledgeText));
     }
 
     IEnumerator PutText(string text)
@@ -118,7 +114,6 @@ public class Chat : MonoBehaviour
         {
             GetHistory.hQuestion.Clear();
         }
-        GetHistory.hQuestion.Add(postWord);
 
         using (UnityWebRequest request = new UnityWebRequest(apiUrl, "POST"))
         {
@@ -146,25 +141,35 @@ public class Chat : MonoBehaviour
                 Debug.LogError(request.error);
                 int n = UnityEngine.Random.Range(1, 10);
                 anim.SetTrigger("ex" + n.ToString());
-                if (saintTime % 6 == 0 && saintTime != 0)
-                {
-                    GetHistory.hAnswer.Clear();
-                }
+                bTextBody.SetActive(true);
+                isAnswer = true;
+                StartCoroutine(PutText("网络错误，请重试"));
+                saintTime--;
             }
             else
             {
                 string backmessage = request.downloadHandler.text;
                 BackMessage backtext = JsonUtility.FromJson<BackMessage>(backmessage);
                 {
+                    if (saintTime % 6 == 0 && saintTime != 0)
+                    {
+                        GetHistory.hAnswer.Clear();
+                        dataList.Clear();
+                        dataList.Clear();
+                        dataList.Add(new SendData("system", prompt));
+                        string textPath = Application.dataPath + "/InerData/test.txt";
+                        string knowledgeText = File.ReadAllText(textPath);
+                        Debug.Log(knowledgeText);
+                        dataList.Add(new SendData("user", knowledgeText));
+                        dataList.Add(new SendData("user", postWord));
+                    }
                     int n = UnityEngine.Random.Range(1, 10);
                     anim.SetTrigger("ex" + n.ToString());
                     string thmessage = backtext.choices[0].message.content;
                     dataList.Add(new SendData("assistant", thmessage));
-                    if (saintTime % 6 == 0 && saintTime != 0)
-                    {
-                        GetHistory.hAnswer.Clear();
-                    }
+
                     GetHistory.hAnswer.Add(thmessage);
+                    GetHistory.hQuestion.Add(postWord);
                     bTextBody.SetActive(true);
                     isAnswer = true;
                     StartCoroutine(PutText(thmessage));
