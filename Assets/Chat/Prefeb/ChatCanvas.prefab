@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u8FD4\u56DE"
+  m_text: "\u83DC\u5355"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 288c15e2a51be824a8adc69f97211f77, type: 2}
   m_sharedMaterial: {fileID: -3919474951020707543, guid: 288c15e2a51be824a8adc69f97211f77, type: 2}
@@ -417,7 +417,7 @@ GameObject:
   - component: {fileID: 1478523059}
   - component: {fileID: 1478523058}
   m_Layer: 5
-  m_Name: BackButton
+  m_Name: MuneButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1211,11 +1211,14 @@ MonoBehaviour:
   historyB: {fileID: 1405245261}
   saintB: {fileID: 6711997888348513546}
   hBackB: {fileID: 0}
+  muneB: {fileID: 1478523056}
+  mBackB: {fileID: 0}
   chatCanvas: {fileID: 6711997888715709199}
   historyCanvas: {fileID: 0}
   judgeCanvas: {fileID: 0}
   charaCanvas: {fileID: 0}
   churchCanvas: {fileID: 0}
+  muneCanvas: {fileID: 0}
 --- !u!1 &6711997889310034845
 GameObject:
   m_ObjectHideFlags: 0
