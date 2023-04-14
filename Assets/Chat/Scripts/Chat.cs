@@ -69,11 +69,14 @@ public class Chat : MonoBehaviour
     public GameObject bTextBody;
     public GameObject inputBody;
     public Animator anim;
+    public GameObject saintB;
+
+    public static int saintTime;
 
     public bool isAnswer;
 
     //apikey不要上传git
-    private string apiKey = "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";
+    private string apiKey = "666";
     public string apiUrl = "http://aiopen.deno.dev/v1/chat/completions";
     public string mModel = "gpt-3.5-turbo";
     public string prompt;
@@ -101,6 +104,10 @@ public class Chat : MonoBehaviour
     public IEnumerator GetPostData(string postWord, string apiKey)
     {
         dataList.Add(new SendData("user", postWord));
+        if (saintTime % 6 == 0 && saintTime != 0)
+        {
+            GetHistory.hQuestion.Clear();
+        }
         GetHistory.hQuestion.Add(postWord);
 
         using (UnityWebRequest request = new UnityWebRequest(apiUrl, "POST"))
@@ -129,6 +136,10 @@ public class Chat : MonoBehaviour
                 Debug.LogError(request.error);
                 int n = UnityEngine.Random.Range(1, 10);
                 anim.SetTrigger("ex" + n.ToString());
+                if (saintTime % 6 == 0 && saintTime != 0)
+                {
+                    GetHistory.hAnswer.Clear();
+                }
             }
             else
             {
@@ -139,10 +150,14 @@ public class Chat : MonoBehaviour
                     anim.SetTrigger("ex" + n.ToString());
                     string thmessage = backtext.choices[0].message.content;
                     dataList.Add(new SendData("assistant", thmessage));
+                    if (saintTime % 6 == 0 && saintTime != 0)
+                    {
+                        GetHistory.hAnswer.Clear();
+                    }
+                    GetHistory.hAnswer.Add(thmessage);
                     bTextBody.SetActive(true);
                     isAnswer = true;
                     StartCoroutine(PutText(thmessage));
-                    GetHistory.hAnswer.Add(thmessage);
                 }
             }
 
@@ -151,7 +166,7 @@ public class Chat : MonoBehaviour
 
     public void StartChat()
     {
-
+        saintTime++;
         string input = mInput.text;
         StartCoroutine(GetPostData(input, apiKey));
         mInput.text = "";
@@ -173,6 +188,7 @@ public class Chat : MonoBehaviour
     }
     void Awake()
     {
+        saintTime = 0;
     }
     void Update()
     {
@@ -188,7 +204,17 @@ public class Chat : MonoBehaviour
         else
         {
             inputBody.SetActive(true);
-        }    
+        }
+        
+        if(saintTime%5 == 0 && saintTime != 0)
+        {
+            saintB.SetActive(true);
+        }
+        else
+        {
+            saintB.SetActive(false);
+        }
+        Debug.Log(saintTime);
     }
 
 }

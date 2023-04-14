@@ -26,9 +26,14 @@ public class Judge : MonoBehaviour
     public TMP_Dropdown cTime;
     public TMP_Dropdown cPlace;
     public TMP_Dropdown cCrime;
+    public GameObject judgeCanvas;
 
     [SerializeField] public List<Answer> answers;
 
+    public void StartJudge()
+    {
+        judgeCanvas.SetActive(true);
+    }
     public bool CheckAnswer(int character, int time, int place, int crime)
     {
         foreach (Answer answer in answers)
@@ -44,13 +49,27 @@ public class Judge : MonoBehaviour
         }
         return false;
     }
+
+    public void FinishJdge()
+    {
+        judgeCanvas.SetActive(false);
+
+        if (CheckAnswer(cCharacter.value, cTime.value, cPlace.value, cCrime.value))
+        {
+            Debug.Log("âã»ÚÕýÈ·");
+        }
+        else
+        {
+            Debug.Log("âã»Ú´íÎó");
+        }
+
+    }
     void Start()
     {
         string path = Application.dataPath + "/InerData/Answer.json";
         string jsontext = File.ReadAllText(path);
         AnswerList answerList = JsonUtility.FromJson<AnswerList>(jsontext);
         answers = answerList.answers;
-        Debug.Log(answers);
 
     }
 
@@ -59,19 +78,7 @@ public class Judge : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Return))
         {
-            //Debug.Log(cCharacter.value);
-            //Debug.Log(cTime.value);
-            //Debug.Log(cPlace.value);
-            //Debug.Log(cCrime.value);
-
-            if (CheckAnswer(cCharacter.value, cTime.value, cPlace.value, cCrime.value))
-            {
-                Debug.Log("âã»ÚÕýÈ·");
-            }
-            else
-            {
-                Debug.Log("âã»Ú´íÎó");
-            }
+            FinishJdge();
         }
     }
 }
