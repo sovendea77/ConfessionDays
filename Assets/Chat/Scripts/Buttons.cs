@@ -12,6 +12,7 @@ public class Buttons : MonoBehaviour
     public GameObject muneB;
     public GameObject mBackB;
     public GameObject sBackB;
+    public GameObject cBackB;
 
     public GameObject chatCanvas;
     public GameObject historyCanvas;
@@ -19,6 +20,7 @@ public class Buttons : MonoBehaviour
     public GameObject charaCanvas;
     public GameObject churchCanvas;
     public GameObject muneCanvas;
+    public GameObject courseCanvas;
 
     private void Mune()
     {
@@ -26,6 +28,7 @@ public class Buttons : MonoBehaviour
         churchCanvas.SetActive(false);
         charaCanvas.SetActive(false);
         muneCanvas.SetActive(true);
+        judgeCanvas.SetActive(false);
 
     }
 
@@ -35,6 +38,7 @@ public class Buttons : MonoBehaviour
         churchCanvas.SetActive(true);
         charaCanvas.SetActive(true);
         muneCanvas.SetActive(false);
+        judgeCanvas.SetActive(true);
     }
 
     private void History()
@@ -43,6 +47,7 @@ public class Buttons : MonoBehaviour
         churchCanvas.SetActive(false);
         charaCanvas.SetActive(false);
         historyCanvas.SetActive(true);
+        judgeCanvas.SetActive(false);
 
     }
 
@@ -62,6 +67,12 @@ public class Buttons : MonoBehaviour
         churchCanvas.SetActive(true);
         charaCanvas.SetActive(true);
         historyCanvas.SetActive(false);
+        judgeCanvas.SetActive(true);
+    }
+
+    private void CourseBack()
+    {
+        courseCanvas.SetActive(false);
     }
 
     private void Awake()
@@ -71,6 +82,7 @@ public class Buttons : MonoBehaviour
         churchCanvas.SetActive(true);
         charaCanvas.SetActive(true);
         muneCanvas.SetActive(false);
+        courseCanvas.SetActive(true);
     }
     void Start()
     {
@@ -80,6 +92,7 @@ public class Buttons : MonoBehaviour
         hBackB.GetComponent<Button>().onClick.AddListener(HistoryBack);
         muneB.GetComponent<Button>().onClick.AddListener(Mune);
         mBackB.GetComponent<Button>().onClick.AddListener(MuneBack);
+        cBackB.GetComponent<Button>().onClick.AddListener(CourseBack);
     }
 
     // Update is called once per frame
