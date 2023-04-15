@@ -1,8 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Net;
-using UnityEditor.VersionControl;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
@@ -88,7 +86,7 @@ public class Chat : MonoBehaviour
     {
         dataList.Clear();
         dataList.Add(new SendData("system", prompt));
-        string textPath = Application.dataPath + "/InerData/test.txt";
+        string textPath = Application.streamingAssetsPath + "/InerData/test.txt";
         string knowledgeText = File.ReadAllText(textPath);
         Debug.Log(knowledgeText);
         dataList.Add(new SendData("user", knowledgeText));
@@ -157,7 +155,7 @@ public class Chat : MonoBehaviour
                         dataList.Clear();
                         dataList.Clear();
                         dataList.Add(new SendData("system", prompt));
-                        string textPath = Application.dataPath + "/InerData/test.txt";
+                        string textPath = Application.streamingAssetsPath + "/InerData/test.txt";
                         string knowledgeText = File.ReadAllText(textPath);
                         Debug.Log(knowledgeText);
                         dataList.Add(new SendData("user", knowledgeText));
@@ -205,7 +203,7 @@ public class Chat : MonoBehaviour
     {
         Judge.iscorrect = false;
         black.SetActive(false);
-        saintTime = 0;
+        saintTime = ChatSave.stTime;
         this.GetComponent<AudioSource>().Play();
     }
     void Update()

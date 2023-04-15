@@ -74,7 +74,12 @@ public class Judge : MonoBehaviour
     void Start()
     {
         
-        string path = Application.dataPath + "/InerData/Answer.json";
+        string path = Application.streamingAssetsPath + "/InerData/Answer.json";
+        if (!File.Exists(path))
+        {
+            GetHistory.hQuestion.Add("aaa");
+            GetHistory.hAnswer.Add("aaa");
+        }
         string jsontext = File.ReadAllText(path);
         AnswerList answerList = JsonUtility.FromJson<AnswerList>(jsontext);
         answers = answerList.answers;

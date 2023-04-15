@@ -16,10 +16,12 @@ public class ChatSave : MonoBehaviour
     }
     public ChatData mChatData = new ChatData();
 
+    public static int stTime;
+
     public void SaveChat()
     {
 
-        string filePath = Application.dataPath + "/InerData/chatdata.json";
+        string filePath = Application.persistentDataPath + "/chatdata.json";
         mChatData.sTime = Chat.saintTime;
         mChatData.qMessages = GetHistory.hQuestion;
         mChatData.aMessages = GetHistory.hAnswer;
@@ -29,18 +31,22 @@ public class ChatSave : MonoBehaviour
 
     public void LoadChat()
     {
-        string filePath = Application.dataPath + "/InerData/chatdata.json";
+        string filePath = Application.persistentDataPath + "/chatdata.json";
+        Debug.Log(Chat.saintTime);
         if (File.Exists(filePath))
         {
             string jsonStr = File.ReadAllText(filePath);
-            mChatData = JsonUtility.FromJson<ChatData>(jsonStr);
-            Chat.saintTime = mChatData.sTime;
-            GetHistory.hQuestion = mChatData.qMessages;
-            GetHistory.hAnswer = mChatData.aMessages;
+            ChatData nChatData = JsonUtility.FromJson<ChatData>(jsonStr);
+            stTime = nChatData.sTime;
+            GetHistory.hQuestion = nChatData.qMessages;
+            GetHistory.hAnswer = nChatData.aMessages;
+            Debug.Log(Chat.saintTime);
         }
         else
         {
-            Debug.Log("ÔÝÎÞ´æµµ£¡");
+            stTime = 0;
+            GetHistory.hQuestion.Clear();
+            GetHistory.hAnswer.Clear();
         }
     }
     void Start()

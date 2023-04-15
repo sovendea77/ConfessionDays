@@ -19,6 +19,9 @@ public class CheckLoad : MonoBehaviour
     }
     public void NotLoad()
     {
+        ChatSave.stTime = 0;
+        GetHistory.hQuestion.Clear();
+        GetHistory.hAnswer.Clear();
         checkCanvas.SetActive(false);
         vedioCanvas.SetActive(true);
         videoPlayer.Play();

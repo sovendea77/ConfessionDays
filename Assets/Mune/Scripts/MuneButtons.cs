@@ -39,7 +39,7 @@ public class MuneButtons : MonoBehaviour
         {
             float color = black.GetComponent<SpriteRenderer>().color.a;
             float a = Mathf.Lerp(color, 1, 0.5f * Time.deltaTime);
-            Debug.Log(color);
+
             black.GetComponent<SpriteRenderer>().color = new UnityEngine.Color(0, 0, 0, a);
         }
 
