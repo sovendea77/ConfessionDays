@@ -24,6 +24,12 @@ public class CheckLoad : MonoBehaviour
         videoPlayer.Play();
         Invoke("Check", 2f);
     }
+    public void ChooseLoad()
+    {
+        checkCanvas.SetActive(false);
+        vedioCanvas.SetActive(true);
+        Invoke("Check", 2f);
+    }
 
     void Start()
     {

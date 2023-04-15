@@ -123,6 +123,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &111589294 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5024310668320582752, guid: 0102a26ab106b874f9687fdceaa399fd, type: 3}
+  m_PrefabInstance: {fileID: 830743063}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &133519776
 GameObject:
   m_ObjectHideFlags: 0
@@ -783,12 +788,28 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6529846722719604586, guid: 0102a26ab106b874f9687fdceaa399fd, type: 3}
   m_PrefabInstance: {fileID: 830743063}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 111589294}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 527cfc7471d50ef44a5191a4f1f9e3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &830743065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 111589294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2afd36e4af02394b8a5df3f408f403f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mChatData:
+    sTime: 0
+    qMessages: []
+    aMessages: []
 --- !u!1 &1150009784
 GameObject:
   m_ObjectHideFlags: 0
@@ -1382,6 +1403,30 @@ MonoBehaviour:
       - m_Target: {fileID: 830743064}
         m_TargetAssemblyTypeName: PlayAudio, Assembly-CSharp
         m_MethodName: PlayconfirmB
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 830743065}
+        m_TargetAssemblyTypeName: ChatSave, Assembly-CSharp
+        m_MethodName: LoadChat
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1598255412}
+        m_TargetAssemblyTypeName: CheckLoad, Assembly-CSharp
+        m_MethodName: ChooseLoad
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

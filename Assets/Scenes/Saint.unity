@@ -527,17 +527,38 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7556275535524958129, guid: ef010a4c13ef15544981c79f0aa239fa, type: 3}
   m_PrefabInstance: {fileID: 7556275536456064429}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &814021447 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5024310668320582752, guid: 0102a26ab106b874f9687fdceaa399fd, type: 3}
+  m_PrefabInstance: {fileID: 4728483742571059499}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &974207740 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6529846722719604586, guid: 0102a26ab106b874f9687fdceaa399fd, type: 3}
   m_PrefabInstance: {fileID: 4728483742571059499}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 814021447}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 527cfc7471d50ef44a5191a4f1f9e3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &974207743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 814021447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2afd36e4af02394b8a5df3f408f403f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mChatData:
+    sTime: 0
+    qMessages: []
+    aMessages: []
 --- !u!1 &1343307429 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2278858305862255724, guid: 2c3c88890e7b67948b8a64e29f963e17, type: 3}
@@ -912,6 +933,66 @@ PrefabInstance:
       propertyPath: m_Name
       value: MuneCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 1275432546014710570, guid: 14903e36c8fd49e469e70c49e3304c4f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1275432546014710570, guid: 14903e36c8fd49e469e70c49e3304c4f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1275432546014710570, guid: 14903e36c8fd49e469e70c49e3304c4f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 974207743}
+    - target: {fileID: 1275432546014710570, guid: 14903e36c8fd49e469e70c49e3304c4f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1275432546014710570, guid: 14903e36c8fd49e469e70c49e3304c4f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SaveChat
+      objectReference: {fileID: 0}
+    - target: {fileID: 1275432546014710570, guid: 14903e36c8fd49e469e70c49e3304c4f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ChatSave, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1275432546014710570, guid: 14903e36c8fd49e469e70c49e3304c4f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 1275432546537523290, guid: 14903e36c8fd49e469e70c49e3304c4f, type: 3}
+      propertyPath: m_text
+      value: "\u4FDD\u5B58\u8FDB\u5EA6"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1275432547212119276, guid: 14903e36c8fd49e469e70c49e3304c4f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1275432547212119276, guid: 14903e36c8fd49e469e70c49e3304c4f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1275432547212119276, guid: 14903e36c8fd49e469e70c49e3304c4f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 974207743}
+    - target: {fileID: 1275432547212119276, guid: 14903e36c8fd49e469e70c49e3304c4f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1275432547212119276, guid: 14903e36c8fd49e469e70c49e3304c4f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LoadChat
+      objectReference: {fileID: 0}
+    - target: {fileID: 1275432547212119276, guid: 14903e36c8fd49e469e70c49e3304c4f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ChatSave, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1275432547212119276, guid: 14903e36c8fd49e469e70c49e3304c4f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 14903e36c8fd49e469e70c49e3304c4f, type: 3}
 --- !u!1001 &4728483742571059499
@@ -969,6 +1050,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioPlayer
       objectReference: {fileID: 0}
+    - target: {fileID: 6529846722719604586, guid: 0102a26ab106b874f9687fdceaa399fd, type: 3}
+      propertyPath: judgeB
+      value: 
+      objectReference: {fileID: 8300000, guid: 9c50dc25fab7f0d47a6409f1b6c6596e, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0102a26ab106b874f9687fdceaa399fd, type: 3}
 --- !u!1001 &4940362846229991099
