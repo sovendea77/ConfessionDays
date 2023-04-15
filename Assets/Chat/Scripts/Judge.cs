@@ -32,7 +32,6 @@ public class Judge : MonoBehaviour
     public AudioClip wrongSaint;
     public AudioClip correctSaint;
     public static bool iscorrect;
-    public GameObject audioPlayer;
 
     [SerializeField] public List<Answer> answers;
 
@@ -54,22 +53,25 @@ public class Judge : MonoBehaviour
 
     public void FinishJdge()
     {
-        if (CheckAnswer(cCharacter.value, cTime.value, cPlace.value, cCrime.value))
+        if(Chat.saintTime%5 == 0 && Chat.saintTime != 0)
         {
-            audioPlayer.GetComponent<AudioSource>().clip = correctSaint;
-            audioPlayer.GetComponent<AudioSource>().Play();
-            Debug.Log("âã»ÚÕýÈ·");
-            iscorrect = true;
+            if (CheckAnswer(cCharacter.value, cTime.value, cPlace.value, cCrime.value))
+            {
+                judgeCanvas.GetComponent<AudioSource>().clip = correctSaint;
+                judgeCanvas.GetComponent<AudioSource>().Play();
+                Debug.Log("âã»ÚÕýÈ·");
+                iscorrect = true;
 
+            }
+            else
+            {
+                judgeCanvas.GetComponent<AudioSource>().clip = wrongSaint;
+                judgeCanvas.GetComponent<AudioSource>().Play();
+                Debug.Log("âã»Ú´íÎó");
+
+            }
         }
-        else
-        {
-            audioPlayer.GetComponent<AudioSource>().clip = wrongSaint;
-            audioPlayer.GetComponent<AudioSource>().Play();
-            Debug.Log("âã»Ú´íÎó");
-            
-        }
-        judgeCanvas.SetActive(false);
+
 
     }
     void Start()

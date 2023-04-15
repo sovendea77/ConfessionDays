@@ -11,6 +11,7 @@ public class Buttons : MonoBehaviour
     public GameObject hBackB;
     public GameObject muneB;
     public GameObject mBackB;
+    public GameObject sBackB;
 
     public GameObject chatCanvas;
     public GameObject historyCanvas;
@@ -25,7 +26,7 @@ public class Buttons : MonoBehaviour
         churchCanvas.SetActive(false);
         charaCanvas.SetActive(false);
         muneCanvas.SetActive(true);
-        judgeCanvas.SetActive(false);
+
     }
 
     private void MuneBack()
@@ -42,14 +43,19 @@ public class Buttons : MonoBehaviour
         churchCanvas.SetActive(false);
         charaCanvas.SetActive(false);
         historyCanvas.SetActive(true);
-        judgeCanvas.SetActive(false);
+
     }
 
     private void Saint()
     {
         judgeCanvas.SetActive(true);
+        judgeCanvas.GetComponent<Canvas>().sortingOrder = 5;
     }
 
+    private void SaintBack()
+    {
+        judgeCanvas.GetComponent<Canvas>().sortingOrder = -5;
+    }
     private void HistoryBack()
     {
         chatCanvas.SetActive(true);
@@ -61,7 +67,6 @@ public class Buttons : MonoBehaviour
     private void Awake()
     {
         chatCanvas.SetActive(true);
-        judgeCanvas.SetActive(false);
         historyCanvas.SetActive(false);
         churchCanvas.SetActive(true);
         charaCanvas.SetActive(true);
@@ -71,6 +76,7 @@ public class Buttons : MonoBehaviour
     {
         historyB.GetComponent<Button>().onClick.AddListener(History);
         saintB.GetComponent<Button>().onClick.AddListener(Saint);
+        sBackB.GetComponent<Button>().onClick.AddListener(SaintBack);
         hBackB.GetComponent<Button>().onClick.AddListener(HistoryBack);
         muneB.GetComponent<Button>().onClick.AddListener(Mune);
         mBackB.GetComponent<Button>().onClick.AddListener(MuneBack);

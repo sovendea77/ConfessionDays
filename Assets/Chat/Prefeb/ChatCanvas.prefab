@@ -75,8 +75,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -484,7 +484,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b7255c27e0f4d0f45b05f54a96ff961c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 17048b77b6e2c5b48b190f641c30ff55, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1073,7 +1073,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 59, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6711997888459812300
@@ -1306,13 +1306,9 @@ MonoBehaviour:
   isAnswer: 0
   apiUrl: http://aiopen.deno.dev/v1/chat/completions
   mModel: gpt-3.5-turbo
-  prompt: "\u4F60\u662F\u4E00\u4F4D\u751F\u6D3B\u5728\u6751\u5E84\u91CC\u7684\u4FEE\u5973\uFF0C\u8046\u542C\u73A9\u5BB6\u7684\u5FCF\u6094\uFF1B
-    \u4F60\u6536\u5230\u7684\u5E26\u6709\u771F\u76F8\u548C\u7EBF\u7D22\u7684\u4FE1\u606F\u4F5C\u4E3A\u77E5\u8BC6\u5E93\u3002
-    \u73A9\u5BB6\u5411\u4F60\u63D0\u95EE\uFF0C\u4F60\u9700\u8981\u6839\u636E\u77E5\u8BC6\u5E93\u4FE1\u606F\u56DE\u7B54\u5E76\u7ED9\u4ED6\u63D0\u793A\u3002
-    \u4F60\u6BCF\u6B21\u56DE\u7B54\u4E0D\u53EF\u4EE5\u8D85\u8FC720\u4E2A\u5B57\uFF1B\u4E0D\u53EF\u4EE5\u8D85\u8FC720\u4E2A\u5B57\u3002
-    \u5F53\u4F60\u56DE\u590D\u65F6\uFF0C\u4F60\u5FC5\u987B\u7ED3\u5408\u4E0A\u4E0B\u6587\u8BED\u5883\u5BF9\u5176\u8BED\u6C14\u8FDB\u884C\u4FEE\u9970\uFF0C\u4F60\u4E0D\u80FD\u5B8C\u5168\u7167\u642C\u77E5\u8BC6\u5E93\u4E2D\u7684\u5185\u5BB9\uFF1B
-    \u5F53\u73A9\u5BB6\u5FCF\u6094\u7684\u5185\u5BB9\u4E0E\u77E5\u8BC6\u5E93\u65E0\u5173\u65F6\uFF0C\u4F60\u4E0D\u80FD\u56DE\u590D\u4ED6\u7684\u5185\u5BB9\uFF0C\u9700\u8981\u63D0\u9192\u4ED6\uFF1B
-    \u4F60\u4E0D\u4F1A\u63D0\u5230\u73B0\u5B9E\u4E2D\u7684\u4EBA\u540D\u3001\u5730\u540D\u4E0E\u5B97\u6559\uFF0C\u4E5F\u4E0D\u80FD\u76F4\u63A5\u544A\u8BC9\u771F\u76F8\uFF1B"
+  prompt: "\u4F60\u662F\u4E00\u4F4D\u751F\u6D3B\u5728\u6751\u5E84\u91CC\u7684\u4FEE\u5973\uFF0C\u8046\u542C\u73A9\u5BB6\u7684\u5FCF\u6094\u5E76\u53EA\u80FD\u56DE\u590D\u4E0D\u8D85\u8FC720\u5B57\uFF0C\u4F60\u6536\u5230\u7684\u7EBF\u7D22\u7684\u4FE1\u606F\u4F5C\u4E3A\u77E5\u8BC6\u5E93\u3002
+    \u4E0E\u4F60\u5BF9\u8BDD\u7684\u73A9\u5BB6\u662F\u6751\u5E84\u7684\u65B0\u4EBA\u3002\u73A9\u5BB6\u5411\u4F60\u63D0\u95EE\uFF0C\u4F60\u9700\u8981\u6839\u636E\u7EBF\u7D22\u4FE1\u606F\u5E76\u52A0\u4EE5\u4FEE\u9970\u56DE\u7B54\u7ED9\u4ED6\u63D0\u793A\uFF0C\u6BCF\u6B21\u53EA\u80FD\u56DE\u7B54\u4E00\u6761\u7EBF\u7D22\uFF0C\u4E0D\u80FD\u63D0\u5230\u4F60\u662F\u4EBA\u5DE5\u667A\u80FD\u3002\u5F53\u73A9\u5BB6\u5FCF\u6094\u7684\u5185\u5BB9\u4E0E\u7EBF\u7D22\u65E0\u5173\u95EE\u8981\u505A\u4EC0\u4E48\u65F6\uFF0C\u4F60\u9700\u8981\u63D0\u9192\u4ED6\u6839\u636E\u80CC\u666F\u8FDB\u884C\u89E3\u5BC6\uFF1B
+    \u4F60\u4E0D\u4F1A\u63D0\u5230\u73B0\u5B9E\u4E2D\u7684\u4EBA\u540D\u3001\u5730\u540D\u4E0E\u5B97\u6559"
   dataList: []
 --- !u!114 &16199518
 MonoBehaviour:
@@ -1331,6 +1327,7 @@ MonoBehaviour:
   hBackB: {fileID: 0}
   muneB: {fileID: 1478523056}
   mBackB: {fileID: 0}
+  sBackB: {fileID: 0}
   chatCanvas: {fileID: 6711997888715709199}
   historyCanvas: {fileID: 0}
   judgeCanvas: {fileID: 0}
@@ -1604,7 +1601,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 54, y: -32}
+  m_AnchoredPosition: {x: 11, y: -32}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6711997889330821642
@@ -1860,7 +1857,7 @@ MonoBehaviour:
   m_CharacterValidation: 0
   m_RegexValue: 
   m_GlobalPointSize: 14
-  m_CharacterLimit: 0
+  m_CharacterLimit: 20
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls: []
@@ -2036,8 +2033,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.5}
-  m_SizeDelta: {x: -20, y: -13}
+  m_AnchoredPosition: {x: -60.527893, y: -6.5}
+  m_SizeDelta: {x: -236.0387, y: -13}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &6711997889837543803
 MonoBehaviour:
