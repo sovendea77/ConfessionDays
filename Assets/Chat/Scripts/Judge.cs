@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using System.IO;
+using Unity.VisualScripting;
+using UnityEngine.SceneManagement;
 
 [Serializable]
 public class Answer
@@ -26,9 +28,17 @@ public class Judge : MonoBehaviour
     public TMP_Dropdown cTime;
     public TMP_Dropdown cPlace;
     public TMP_Dropdown cCrime;
+    public GameObject judgeCanvas;
+    public AudioClip wrongSaint;
+    public AudioClip correctSaint;
+    public static bool iscorrect;
 
     [SerializeField] public List<Answer> answers;
 
+    public void StartJudge()
+    {
+        judgeCanvas.SetActive(true);
+    }
     public bool CheckAnswer(int character, int time, int place, int crime)
     {
         foreach (Answer answer in answers)
@@ -37,20 +47,37 @@ public class Judge : MonoBehaviour
             {
                 return true;
             }
-            //Debug.Log(answer.character);
-            //Debug.Log(answer.time);
-            //Debug.Log(answer.place);
-            //Debug.Log(answer.crime);
         }
         return false;
     }
+
+    public void FinishJdge()
+    {
+
+        if (CheckAnswer(cCharacter.value, cTime.value, cPlace.value, cCrime.value))
+        {
+            judgeCanvas.GetComponent<AudioSource>().clip = correctSaint;
+            judgeCanvas.GetComponent<AudioSource>().Play();
+            Debug.Log("âã»ÚÕýÈ·");
+            iscorrect = true;
+        }
+        else
+        {
+            judgeCanvas.GetComponent<AudioSource>().clip = wrongSaint;
+            judgeCanvas.GetComponent<AudioSource>().Play();
+            Debug.Log("âã»Ú´íÎó");
+        }
+
+        judgeCanvas.SetActive(false);
+
+    }
     void Start()
     {
+        
         string path = Application.dataPath + "/InerData/Answer.json";
         string jsontext = File.ReadAllText(path);
         AnswerList answerList = JsonUtility.FromJson<AnswerList>(jsontext);
         answers = answerList.answers;
-        Debug.Log(answers);
 
     }
 
@@ -59,19 +86,9 @@ public class Judge : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Return))
         {
-            //Debug.Log(cCharacter.value);
-            //Debug.Log(cTime.value);
-            //Debug.Log(cPlace.value);
-            //Debug.Log(cCrime.value);
-
-            if (CheckAnswer(cCharacter.value, cTime.value, cPlace.value, cCrime.value))
-            {
-                Debug.Log("âã»ÚÕýÈ·");
-            }
-            else
-            {
-                Debug.Log("âã»Ú´íÎó");
-            }
+            FinishJdge();
         }
+
+
     }
 }

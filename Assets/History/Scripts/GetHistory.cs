@@ -8,25 +8,42 @@ public class GetHistory : MonoBehaviour
     public GameObject hContent;
     public GameObject hHandle;
 
+    public List<GameObject> dialogues = new List<GameObject>();
     public static List<string> hQuestion = new List<string>();
     public static List<string> hAnswer = new List<string>();
+
 
     public Dialogue CreatDialogue(int n)
     {
         GameObject obj;
-        obj = Instantiate(hDialogue, new Vector3(480, -827 - 670 * n, 0), Quaternion.identity);
+        obj = Instantiate(hDialogue, new Vector3(480, -700 - 670 * (n-1), 0), Quaternion.identity);
         obj.transform.parent = hContent.transform;
+        dialogues.Add(obj);
         return obj.GetComponent<Dialogue>();
+    }
+
+    public void DestroyDialogue()
+    {
+        int n = dialogues.Count;
+        if(n > 0)
+        {
+            for (int i = 0; i < n; i++)
+            {
+                Destroy(dialogues[i]);
+            }
+        }
+        hContent.GetComponent<RectTransform>().position = new Vector2(63, 868);
+
     }
     public void SetDialogue()
     {
+        
         int n = hAnswer.Count;
 
         hContent.GetComponent<RectTransform>().sizeDelta = new Vector2(0, 800*n);
-        Debug.Log(hHandle.GetComponent<RectTransform>().sizeDelta);
         //hHandle.GetComponent<RectTransform>().sizeDelta = new Vector2(24.72f, 20);
 
-        for(int i = 0; i < n; i++)
+        for (int i = 0; i < n; i++)
         {
             Dialogue dia;
             dia = CreatDialogue(i);
@@ -35,19 +52,18 @@ public class GetHistory : MonoBehaviour
     }
     private void Awake()
     {
-        hQuestion.Add("test");
-        hAnswer.Add("test");
-        hQuestion.Add("test2");
-        hAnswer.Add("test2");
+
     }
+
     void Start()
     {
+        //hAnswer.Add("TEST");
+        //hQuestion.Add("aaaaaaaaaaa");
         SetDialogue();
-        Debug.Log("11");
     }
 
     void Update()
     {
-
+        //Debug.Log(hAnswer.Count);
     }
 }

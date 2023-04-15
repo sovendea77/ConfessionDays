@@ -2,21 +2,9 @@
 "answers": [
 {
 "character": 1,
-"time": 0,
-"place": 0,
-"crime": 0
-},
-{
-"character": 2,
-"time": 1,
-"place": 0,
-"crime": 0
-},
-{
-"character": 0,
-"time": 0,
-"place": 0,
-"crime": 0
+"time": 3,
+"place": 1,
+"crime": 4
 }
 ]
 }
