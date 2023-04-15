@@ -32,6 +32,7 @@ public class Judge : MonoBehaviour
     public AudioClip wrongSaint;
     public AudioClip correctSaint;
     public static bool iscorrect;
+    public GameObject audioPlayer;
 
     [SerializeField] public List<Answer> answers;
 
@@ -53,21 +54,21 @@ public class Judge : MonoBehaviour
 
     public void FinishJdge()
     {
-
         if (CheckAnswer(cCharacter.value, cTime.value, cPlace.value, cCrime.value))
         {
-            judgeCanvas.GetComponent<AudioSource>().clip = correctSaint;
-            judgeCanvas.GetComponent<AudioSource>().Play();
+            audioPlayer.GetComponent<AudioSource>().clip = correctSaint;
+            audioPlayer.GetComponent<AudioSource>().Play();
             Debug.Log("âã»ÚÕýÈ·");
             iscorrect = true;
+
         }
         else
         {
-            judgeCanvas.GetComponent<AudioSource>().clip = wrongSaint;
-            judgeCanvas.GetComponent<AudioSource>().Play();
+            audioPlayer.GetComponent<AudioSource>().clip = wrongSaint;
+            audioPlayer.GetComponent<AudioSource>().Play();
             Debug.Log("âã»Ú´íÎó");
+            
         }
-
         judgeCanvas.SetActive(false);
 
     }
@@ -75,11 +76,7 @@ public class Judge : MonoBehaviour
     {
         
         string path = Application.streamingAssetsPath + "/InerData/Answer.json";
-        if (!File.Exists(path))
-        {
-            GetHistory.hQuestion.Add("aaa");
-            GetHistory.hAnswer.Add("aaa");
-        }
+
         string jsontext = File.ReadAllText(path);
         AnswerList answerList = JsonUtility.FromJson<AnswerList>(jsontext);
         answers = answerList.answers;
