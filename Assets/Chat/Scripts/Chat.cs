@@ -52,7 +52,6 @@ public class Message
     public string content;
 }
 
-
 public class WebReqSkipCert : CertificateHandler
 {
     protected override bool ValidateCertificate(byte[] certificateData)
@@ -71,7 +70,7 @@ public class Chat : MonoBehaviour
     public GameObject saintB;
     public GameObject black;
 
-    public static int saintTime;
+    public static int saintTime = 1;
 
     public bool isAnswer;
     //apikey不要上传git
@@ -82,14 +81,23 @@ public class Chat : MonoBehaviour
 
     [SerializeField] public List<SendData> dataList = new List<SendData>();
 
+    public string[] keywords;
+
     private void Start()
     {
+        //Application.streamingAssetsPath
+        //Application.dataPath
         dataList.Clear();
         dataList.Add(new SendData("system", prompt));
         string textPath = Application.streamingAssetsPath + "/InerData/test.txt";
         string knowledgeText = File.ReadAllText(textPath);
         Debug.Log(knowledgeText);
         dataList.Add(new SendData("user", knowledgeText));
+
+        string kwPath = Application.streamingAssetsPath + "/InerData/keywords1.txt";
+        string kwText = File.ReadAllText(kwPath);
+        keywords = kwText.Split(';');
+        Debug.Log(keywords[1]);
     }
 
     IEnumerator PutText(string text)
@@ -97,18 +105,38 @@ public class Chat : MonoBehaviour
         Debug.Log(text);
         for (int j = 0; j < text.Length; j++)
         {
-            string word = text.Substring((0), j);
+            string word = text.Substring(0, j);
             bText.text = word;
             yield return new WaitForSeconds(0.1f);
         }
         yield return new WaitForSeconds(5f);
 
     }
-
-    public IEnumerator GetPostData(string postWord, string apiKey)
+    public bool CheckKeyword(string input)
     {
+        foreach(string keyword in keywords)
+        {
+            if(input.Contains(keyword))
+            {
+                Debug.Log(keyword);
+                return true;
+            }
+        }
+        return false;
+    }
+    public IEnumerator GetPostData(string inputWord, string apiKey)
+    {
+        string postWord = "default";
+
+        if (CheckKeyword(inputWord))
+        {
+            postWord = inputWord;
+        }
+
         dataList.Add(new SendData("user", postWord));
-        if (saintTime % 6 == 0 && saintTime != 0)
+
+        Debug.Log(postWord);
+        if (saintTime % 4 == 0)
         {
             GetHistory.hQuestion.Clear();
         }
@@ -121,7 +149,7 @@ public class Chat : MonoBehaviour
                 //max_tokens = 100,
                 messages = dataList
             };
-
+           
             string jsonText = JsonUtility.ToJson(postData);
             byte[] data = System.Text.Encoding.UTF8.GetBytes(jsonText);
             request.uploadHandler = new UploadHandlerRaw(data);
@@ -149,10 +177,9 @@ public class Chat : MonoBehaviour
                 string backmessage = request.downloadHandler.text;
                 BackMessage backtext = JsonUtility.FromJson<BackMessage>(backmessage);
                 {
-                    if (saintTime % 6 == 0 && saintTime != 0)
+                    if (saintTime % 4 == 0)
                     {
                         GetHistory.hAnswer.Clear();
-                        dataList.Clear();
                         dataList.Clear();
                         dataList.Add(new SendData("system", prompt));
                         string textPath = Application.streamingAssetsPath + "/InerData/test.txt";
@@ -167,7 +194,7 @@ public class Chat : MonoBehaviour
                     dataList.Add(new SendData("assistant", thmessage));
 
                     GetHistory.hAnswer.Add(thmessage);
-                    GetHistory.hQuestion.Add(postWord);
+                    GetHistory.hQuestion.Add(inputWord);
                     bTextBody.SetActive(true);
                     isAnswer = true;
                     StartCoroutine(PutText(thmessage));
@@ -179,7 +206,6 @@ public class Chat : MonoBehaviour
 
     public void StartChat()
     {
-        saintTime++;
         string input = mInput.text;
         StartCoroutine(GetPostData(input, apiKey));
         mInput.text = "";
@@ -193,6 +219,7 @@ public class Chat : MonoBehaviour
             bText.text = " ";
             bTextBody.SetActive(false);
             isAnswer = false;
+            saintTime++;
         }
         else
         {
@@ -210,7 +237,7 @@ public class Chat : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Return) && !isAnswer)
         {
-            StartChat();
+            CheckChat();
         }
         
         if(isAnswer)
@@ -222,7 +249,7 @@ public class Chat : MonoBehaviour
             inputBody.SetActive(true);
         }
         
-        if(saintTime%5 == 0 && saintTime != 0)
+        if(saintTime%3 == 0)
         {
             saintB.SetActive(true);
         }

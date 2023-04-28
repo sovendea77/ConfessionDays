@@ -19,7 +19,7 @@ public class CheckLoad : MonoBehaviour
     }
     public void NotLoad()
     {
-        ChatSave.stTime = 0;
+        ChatSave.stTime = 1;
         GetHistory.hQuestion.Clear();
         GetHistory.hAnswer.Clear();
         checkCanvas.SetActive(false);

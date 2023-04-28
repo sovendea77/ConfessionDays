@@ -16,7 +16,7 @@ public class ChatSave : MonoBehaviour
     }
     public ChatData mChatData = new ChatData();
 
-    public static int stTime;
+    public static int stTime = 1;
 
     public void SaveChat()
     {
@@ -44,7 +44,7 @@ public class ChatSave : MonoBehaviour
         }
         else
         {
-            stTime = 0;
+            stTime = 1;
             GetHistory.hQuestion.Clear();
             GetHistory.hAnswer.Clear();
         }
