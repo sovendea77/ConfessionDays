@@ -5,6 +5,12 @@
 "time": 3,
 "place": 1,
 "crime": 4
+},
+{
+"character": 2,
+"time": 3,
+"place": 3,
+"crime": 2
 }
 ]
 }

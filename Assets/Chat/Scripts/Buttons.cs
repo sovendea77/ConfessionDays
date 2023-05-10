@@ -22,6 +22,8 @@ public class Buttons : MonoBehaviour
     public GameObject muneCanvas;
     public GameObject courseCanvas;
 
+    public static bool isSaint;
+
     private void Mune()
     {
         chatCanvas.SetActive(false);
@@ -55,11 +57,13 @@ public class Buttons : MonoBehaviour
     {
         judgeCanvas.SetActive(true);
         judgeCanvas.GetComponent<Canvas>().sortingOrder = 5;
+        isSaint = true;
     }
 
     private void SaintBack()
     {
         judgeCanvas.GetComponent<Canvas>().sortingOrder = -5;
+        isSaint = false;
     }
     private void HistoryBack()
     {

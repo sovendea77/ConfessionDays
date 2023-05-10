@@ -11,19 +11,28 @@ public class PlayAudio : MonoBehaviour
     public AudioClip wrongSaint;
     public AudioClip correctSaint;
 
+
     public void PlayconfirmB()
     {
         if(Chat.saintTime % 4 == 0)
         {
-            if(Judge.iscorrect)
+            if(!Chat.isAnswer)
             {
-                this.GetComponent<AudioSource>().clip = correctSaint;
+                if (Judge.iscorrect)
+                {
+                    this.GetComponent<AudioSource>().clip = correctSaint;
+                }
+                else
+                {
+                    this.GetComponent<AudioSource>().clip = wrongSaint;
+                }
             }
             else
             {
-                this.GetComponent<AudioSource>().clip = wrongSaint;
+                this.GetComponent<AudioSource>().clip = confirmB;
             }
             Judge.iscorrect = false;
+
         }
         else
         {

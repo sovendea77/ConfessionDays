@@ -11,18 +11,21 @@ public class ChatSave : MonoBehaviour
     public class ChatData
     {
         public int sTime;
+        public int cCount;
         public List<string> qMessages;
         public List<string> aMessages;
     }
     public ChatData mChatData = new ChatData();
 
     public static int stTime = 1;
+    public static int caCount = 1;
 
     public void SaveChat()
     {
 
         string filePath = Application.persistentDataPath + "/chatdata.json";
         mChatData.sTime = Chat.saintTime;
+        mChatData.cCount = Chat.caseCount;
         mChatData.qMessages = GetHistory.hQuestion;
         mChatData.aMessages = GetHistory.hAnswer;
         string jsonStr = JsonUtility.ToJson(mChatData);
@@ -38,6 +41,7 @@ public class ChatSave : MonoBehaviour
             string jsonStr = File.ReadAllText(filePath);
             ChatData nChatData = JsonUtility.FromJson<ChatData>(jsonStr);
             stTime = nChatData.sTime;
+            caCount = nChatData.cCount;
             GetHistory.hQuestion = nChatData.qMessages;
             GetHistory.hAnswer = nChatData.aMessages;
             Debug.Log(Chat.saintTime);
@@ -45,6 +49,7 @@ public class ChatSave : MonoBehaviour
         else
         {
             stTime = 1;
+            caCount = 1;
             GetHistory.hQuestion.Clear();
             GetHistory.hAnswer.Clear();
         }
