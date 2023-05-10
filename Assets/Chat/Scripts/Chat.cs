@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using TMPro;
 using System.IO;
 using UnityEngine.SceneManagement;
+using UnityEditor.VersionControl;
 
 
 [Serializable]
@@ -73,6 +74,7 @@ public class Chat : MonoBehaviour
 
     public static int saintTime = 1;
     public static int caseCount = 1;
+    public static int end;
 
     public static bool isAnswer;
     //apikey≤ª“™…œ¥´git
@@ -106,6 +108,7 @@ public class Chat : MonoBehaviour
         }
         yield return new WaitForSeconds(1f);
         confirmButton.SetActive(true);
+        mInput.interactable = true;
 
     }
 
@@ -182,7 +185,15 @@ public class Chat : MonoBehaviour
                 anim.SetTrigger("ex" + n.ToString());
                 bTextBody.SetActive(true);
                 isAnswer = true;
-                StartCoroutine(PutText("Õ¯¬Á¥ÌŒÛ£¨«Î÷ÿ ‘°£"));
+                if (saintTime % 4 != 0)
+                {
+                    StartCoroutine(PutText("Õ¯¬Á¥ÌŒÛ£¨«Î÷ÿ ‘°£"));
+                }
+                else
+                {
+                    StartCoroutine(PutText("°≠°≠°≠°≠"));
+                }
+                
                 
                 //saintTime--;
             }
@@ -211,7 +222,14 @@ public class Chat : MonoBehaviour
                     GetHistory.hQuestion.Add(inputWord);
                     bTextBody.SetActive(true);
                     isAnswer = true;
-                    StartCoroutine(PutText(thmessage));
+                    if(saintTime%4 != 0)
+                    {
+                        StartCoroutine(PutText(thmessage));
+                    }
+                    else
+                    {
+                        StartCoroutine(PutText("°≠°≠°≠°≠"));
+                    }
 
                 }
             }
@@ -234,13 +252,27 @@ public class Chat : MonoBehaviour
             bText.text = " ";
             bTextBody.SetActive(false);
             saintTime++;
+            if (saintTime % 4 == 0 && caseCount != 7)
+            {
+                mInput.interactable = false;
+            }
+            else
+            {
+                mInput.interactable = true;
+            }
             isAnswer = false;
 
         }
         else
         {
+            if(saintTime % 4 != 0)
+            {
+                confirmButton.SetActive(false);
+                mInput.interactable = false;
+            }
             StartChat();
-            confirmButton.SetActive(false);
+            
+
         }
     }
     void Awake()
@@ -253,6 +285,7 @@ public class Chat : MonoBehaviour
     }
     void Update()
     {
+
         if (Input.GetKeyDown(KeyCode.Return) && !isAnswer && !Buttons.isSaint)
         {
             CheckChat();
@@ -298,6 +331,7 @@ public class Chat : MonoBehaviour
 
         Debug.Log(caseCount);
         Debug.Log(keywords[1]);
+        Debug.Log(saintTime);
     }
 
 

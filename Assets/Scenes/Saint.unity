@@ -645,6 +645,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mChatData:
     sTime: 0
+    cCount: 0
     qMessages: []
     aMessages: []
 --- !u!224 &1199865582 stripped
@@ -1115,6 +1116,22 @@ PrefabInstance:
     - target: {fileID: 6711997888715709199, guid: b31214aba0b73f245b06c1513dd9cb79, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6711997889559997256, guid: b31214aba0b73f245b06c1513dd9cb79, type: 3}
+      propertyPath: m_Colors.m_DisabledColor.a
+      value: 0.67058825
+      objectReference: {fileID: 0}
+    - target: {fileID: 6711997889559997256, guid: b31214aba0b73f245b06c1513dd9cb79, type: 3}
+      propertyPath: m_Colors.m_DisabledColor.b
+      value: 0.9150943
+      objectReference: {fileID: 0}
+    - target: {fileID: 6711997889559997256, guid: b31214aba0b73f245b06c1513dd9cb79, type: 3}
+      propertyPath: m_Colors.m_DisabledColor.g
+      value: 0.9150943
+      objectReference: {fileID: 0}
+    - target: {fileID: 6711997889559997256, guid: b31214aba0b73f245b06c1513dd9cb79, type: 3}
+      propertyPath: m_Colors.m_DisabledColor.r
+      value: 0.9150943
       objectReference: {fileID: 0}
     - target: {fileID: 6711997889559997256, guid: b31214aba0b73f245b06c1513dd9cb79, type: 3}
       propertyPath: m_OnSelect.m_PersistentCalls.m_Calls.Array.data[0].m_Target
