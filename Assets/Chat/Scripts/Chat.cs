@@ -8,7 +8,7 @@ using TMPro;
 using System.IO;
 using UnityEngine.SceneManagement;
 using UnityEditor.VersionControl;
-
+using Unity.VisualScripting;
 
 [Serializable]
 public class PostData
@@ -74,7 +74,8 @@ public class Chat : MonoBehaviour
 
     public static int saintTime = 1;
     public static int caseCount = 1;
-    public static int end;
+    public static int end = 0;
+    public static int wrongCount;
 
     public static bool isAnswer;
     //apikey不要上传git
@@ -185,7 +186,7 @@ public class Chat : MonoBehaviour
                 anim.SetTrigger("ex" + n.ToString());
                 bTextBody.SetActive(true);
                 isAnswer = true;
-                if (saintTime % 4 != 0)
+                if (inputWord != "")
                 {
                     StartCoroutine(PutText("网络错误，请重试。"));
                 }
@@ -222,7 +223,7 @@ public class Chat : MonoBehaviour
                     GetHistory.hQuestion.Add(inputWord);
                     bTextBody.SetActive(true);
                     isAnswer = true;
-                    if(saintTime%4 != 0)
+                    if(inputWord != "")
                     {
                         StartCoroutine(PutText(thmessage));
                     }
@@ -275,12 +276,39 @@ public class Chat : MonoBehaviour
 
         }
     }
+
+    public void CheckEnd()
+    {
+        string key = "666";
+        string input = mInput.text;
+
+        if (caseCount == 7 && saintTime % 4 == 0 && !isAnswer)
+        {
+            if (wrongCount >= 10)
+            {
+                end = 3;
+            }
+            else
+            {
+                if (input == key)
+                {
+                    end = 1;
+                }
+                else
+                {
+                    end = 2;
+                }
+            }
+        }
+
+    }
     void Awake()
     {
         Judge.iscorrect = false;
         black.SetActive(false);
         saintTime = ChatSave.stTime;
         caseCount = ChatSave.caCount;
+        //caseCount = 7;
         this.GetComponent<AudioSource>().Play();
     }
     void Update()
@@ -329,9 +357,9 @@ public class Chat : MonoBehaviour
             GetKeywords();
         }
 
-        Debug.Log(caseCount);
-        Debug.Log(keywords[1]);
-        Debug.Log(saintTime);
+        Debug.Log("case"+caseCount);
+        Debug.Log("saint"+saintTime);
+        Debug.Log("end" + end);
     }
 
 

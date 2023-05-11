@@ -7,9 +7,39 @@
 "crime": 4
 },
 {
+"character": 1,
+"time": 1,
+"place": 1,
+"crime": 1
+},
+{
 "character": 2,
+"time": 2,
+"place": 2,
+"crime": 2
+},
+{
+"character": 3,
 "time": 3,
 "place": 3,
+"crime": 3
+},
+{
+"character": 4,
+"time": 4,
+"place": 4,
+"crime": 4
+},
+{
+"character": 1,
+"time": 1,
+"place": 1,
+"crime": 1
+},
+{
+"character": 2,
+"time": 2,
+"place": 2,
 "crime": 2
 }
 ]

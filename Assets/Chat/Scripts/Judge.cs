@@ -50,24 +50,32 @@ public class Judge : MonoBehaviour
     [SerializeField] public List<Answer> answers;
     [SerializeField] public List<Option> options;
 
+    public void SetPuzzle()
+    {
+        string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "/key.txt";
+        StreamWriter writer = new StreamWriter(path, false);
+        writer.WriteLine("key «666");
+        Debug.Log(1);
+        writer.Close();
+    }
     public void ChangeCase()
     {
         if (Chat.caseCount < 7)
         {
             Chat.caseCount++;
             iscorrect = false;
-            Chat.saintTime = 1;
+            Chat.saintTime = 0;
             SetOptions();
             Invoke("PlayCG", 1f);
         }
-        else if (Chat.caseCount == 7)
+        else if (Chat.end != 0)
         {
             Invoke("PlayEnd", 1f);
         }
     }
     public void PlayEnd()
     {
-
+        SceneManager.LoadScene("End");
     }
     public void PlayCG()
     {
@@ -123,12 +131,16 @@ public class Judge : MonoBehaviour
 
     public void FinishJdge()
     {
-        if(Chat.saintTime%4 == 0)
+        if(Chat.saintTime%4 == 0 && !Chat.isAnswer)
         {
             if (CheckAnswer(cCharacter.value, cTime.value, cPlace.value, cCrime.value))
             {
                 Debug.Log("‚„ª⁄’˝»∑");
                 iscorrect = true;
+                if(Chat.caseCount == 6)
+                {
+                    SetPuzzle();
+                }
                 ChangeCase();
 
             }
@@ -136,6 +148,10 @@ public class Judge : MonoBehaviour
             {
                 Debug.Log("‚„ª⁄cw");
                 iscorrect = false;
+                if(Chat.caseCount == 7)
+                {
+                    Chat.wrongCount++;
+                }
 
             }
         }
@@ -162,10 +178,6 @@ public class Judge : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Return))
-        {
-            FinishJdge();
-        }
 
     }
 }
