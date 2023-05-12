@@ -178,6 +178,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioPlayer
       objectReference: {fileID: 0}
+    - target: {fileID: 5774024138490729748, guid: 0102a26ab106b874f9687fdceaa399fd, type: 3}
+      propertyPath: m_Volume
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6529846722719604586, guid: 0102a26ab106b874f9687fdceaa399fd, type: 3}
       propertyPath: judgeB
       value: 
@@ -347,11 +351,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 527cfc7471d50ef44a5191a4f1f9e3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1569554952 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3100251981117279243, guid: f98f9f70f2306c749b368e0a58a0d2bf, type: 3}
-  m_PrefabInstance: {fileID: 3100251981664273552}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1693045240
 GameObject:
   m_ObjectHideFlags: 0
@@ -470,14 +469,19 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
+--- !u!1 &1751704666 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3100251981696651931, guid: f98f9f70f2306c749b368e0a58a0d2bf, type: 3}
+  m_PrefabInstance: {fileID: 3100251981664273552}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1827482333 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3100251980090163944, guid: f98f9f70f2306c749b368e0a58a0d2bf, type: 3}
   m_PrefabInstance: {fileID: 3100251981664273552}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1949606770 stripped
+--- !u!1 &1949983283 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 3100251980722719995, guid: f98f9f70f2306c749b368e0a58a0d2bf, type: 3}
+  m_CorrespondingSourceObject: {fileID: 3100251980647626560, guid: f98f9f70f2306c749b368e0a58a0d2bf, type: 3}
   m_PrefabInstance: {fileID: 3100251981664273552}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3100251981664273552
@@ -582,11 +586,11 @@ PrefabInstance:
     - target: {fileID: 3100251980090163945, guid: f98f9f70f2306c749b368e0a58a0d2bf, type: 3}
       propertyPath: quitB
       value: 
-      objectReference: {fileID: 1949606770}
+      objectReference: {fileID: 1751704666}
     - target: {fileID: 3100251980090163945, guid: f98f9f70f2306c749b368e0a58a0d2bf, type: 3}
       propertyPath: startB
       value: 
-      objectReference: {fileID: 1569554952}
+      objectReference: {fileID: 1949983283}
     - target: {fileID: 3100251980722719997, guid: f98f9f70f2306c749b368e0a58a0d2bf, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 2
@@ -662,7 +666,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 8d28c5e21ecc0084f85baf988d43954c, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.1
   m_Pitch: 1
   Loop: 1
   Mute: 0

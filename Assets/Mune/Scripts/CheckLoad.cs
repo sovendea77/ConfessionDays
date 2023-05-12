@@ -19,7 +19,8 @@ public class CheckLoad : MonoBehaviour
     }
     public void NotLoad()
     {
-        ChatSave.stTime = 0;
+        ChatSave.stTime = 1;
+        ChatSave.caCount = 1;
         GetHistory.hQuestion.Clear();
         GetHistory.hAnswer.Clear();
         checkCanvas.SetActive(false);
@@ -41,7 +42,10 @@ public class CheckLoad : MonoBehaviour
         rawImage.texture = videoPlayer.targetTexture;
 
     }
-
+    public void SkipCG()
+    {
+        SceneManager.LoadScene("Saint");
+    }
     // Update is called once per frame
     void Update()
     {

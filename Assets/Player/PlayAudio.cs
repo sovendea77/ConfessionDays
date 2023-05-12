@@ -8,10 +8,37 @@ public class PlayAudio : MonoBehaviour
     public AudioClip backB;
     public AudioClip startB;
     public AudioClip judgeB;
+    public AudioClip wrongSaint;
+    public AudioClip correctSaint;
+
 
     public void PlayconfirmB()
     {
-        this.GetComponent<AudioSource>().clip = confirmB;
+        if(Chat.saintTime % 4 == 0)
+        {
+            if(!Chat.isAnswer)
+            {
+                if (Judge.iscorrect)
+                {
+                    this.GetComponent<AudioSource>().clip = correctSaint;
+                }
+                else
+                {
+                    this.GetComponent<AudioSource>().clip = wrongSaint;
+                }
+            }
+            else
+            {
+                this.GetComponent<AudioSource>().clip = confirmB;
+            }
+            Judge.iscorrect = false;
+
+        }
+        else
+        {
+            this.GetComponent<AudioSource>().clip = confirmB;
+        }
+
         this.GetComponent<AudioSource>().Play();
     }
     public void PlaybackB()

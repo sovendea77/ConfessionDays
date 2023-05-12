@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using TMPro;
 using System.IO;
 using UnityEngine.SceneManagement;
+using UnityEditor.VersionControl;
 
 
 [Serializable]
@@ -52,7 +53,6 @@ public class Message
     public string content;
 }
 
-
 public class WebReqSkipCert : CertificateHandler
 {
     protected override bool ValidateCertificate(byte[] certificateData)
@@ -67,13 +67,16 @@ public class Chat : MonoBehaviour
     public TMP_Text bText;
     public GameObject bTextBody;
     public GameObject inputBody;
+    public GameObject confirmButton;
     public Animator anim;
     public GameObject saintB;
     public GameObject black;
 
-    public static int saintTime;
+    public static int saintTime = 1;
+    public static int caseCount = 1;
+    public static int end;
 
-    public bool isAnswer;
+    public static bool isAnswer;
     //apikey²»ÒªÉÏ´«git
     private string apiKey = "sk-666";
     public string apiUrl = "http://aiopen.deno.dev/v1/chat/completions";
@@ -82,33 +85,74 @@ public class Chat : MonoBehaviour
 
     [SerializeField] public List<SendData> dataList = new List<SendData>();
 
+    public string[] keywords;
+
     private void Start()
     {
-        dataList.Clear();
-        dataList.Add(new SendData("system", prompt));
-        string textPath = Application.streamingAssetsPath + "/InerData/test.txt";
-        string knowledgeText = File.ReadAllText(textPath);
-        Debug.Log(knowledgeText);
-        dataList.Add(new SendData("user", knowledgeText));
+        //Application.streamingAssetsPath
+        //Application.dataPath
+        GetClues();
+        GetKeywords();
     }
+
+
 
     IEnumerator PutText(string text)
     {
         Debug.Log(text);
         for (int j = 0; j < text.Length; j++)
         {
-            string word = text.Substring((0), j);
+            string word = text.Substring(0, j);
             bText.text = word;
             yield return new WaitForSeconds(0.1f);
         }
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(1f);
+        confirmButton.SetActive(true);
+        mInput.interactable = true;
 
     }
 
-    public IEnumerator GetPostData(string postWord, string apiKey)
+    public void GetClues()
     {
+        dataList.Clear();
+        dataList.Add(new SendData("system", prompt));
+        string textPath = Application.dataPath + "/InerData/test" + caseCount.ToString() + ".txt";
+        string knowledgeText = File.ReadAllText(textPath);
+        Debug.Log(knowledgeText);
+        dataList.Add(new SendData("user", knowledgeText));
+    }
+    public void GetKeywords()
+    {
+        string kwPath = Application.dataPath + "/InerData/keywords" + caseCount.ToString() + ".txt"; ;
+        string kwText = File.ReadAllText(kwPath);
+        keywords = kwText.Split(';');
+       
+    }
+    public bool CheckKeyword(string input)
+    {
+        foreach(string keyword in keywords)
+        {
+            if(input.Contains(keyword))
+            {
+                Debug.Log(keyword);
+                return true;
+            }
+        }
+        return false;
+    }
+    public IEnumerator GetPostData(string inputWord, string apiKey)
+    {
+        string postWord = "default";
+
+        if (CheckKeyword(inputWord))
+        {
+            postWord = inputWord;
+        }
+
         dataList.Add(new SendData("user", postWord));
-        if (saintTime % 6 == 0 && saintTime != 0)
+
+        Debug.Log(postWord);
+        if (saintTime % 4 == 0)
         {
             GetHistory.hQuestion.Clear();
         }
@@ -121,7 +165,7 @@ public class Chat : MonoBehaviour
                 //max_tokens = 100,
                 messages = dataList
             };
-
+           
             string jsonText = JsonUtility.ToJson(postData);
             byte[] data = System.Text.Encoding.UTF8.GetBytes(jsonText);
             request.uploadHandler = new UploadHandlerRaw(data);
@@ -141,21 +185,29 @@ public class Chat : MonoBehaviour
                 anim.SetTrigger("ex" + n.ToString());
                 bTextBody.SetActive(true);
                 isAnswer = true;
-                StartCoroutine(PutText("ÍøÂç´íÎó£¬ÇëÖØÊÔ¡£"));
-                saintTime--;
+                if (saintTime % 4 != 0)
+                {
+                    StartCoroutine(PutText("ÍøÂç´íÎó£¬ÇëÖØÊÔ¡£"));
+                }
+                else
+                {
+                    StartCoroutine(PutText("¡­¡­¡­¡­"));
+                }
+                
+                
+                //saintTime--;
             }
             else
             {
                 string backmessage = request.downloadHandler.text;
                 BackMessage backtext = JsonUtility.FromJson<BackMessage>(backmessage);
                 {
-                    if (saintTime % 6 == 0 && saintTime != 0)
+                    if (saintTime % 4 == 0)
                     {
                         GetHistory.hAnswer.Clear();
                         dataList.Clear();
-                        dataList.Clear();
                         dataList.Add(new SendData("system", prompt));
-                        string textPath = Application.streamingAssetsPath + "/InerData/test.txt";
+                        string textPath = Application.streamingAssetsPath + "/InerData/test"+caseCount.ToString()+ ".txt";
                         string knowledgeText = File.ReadAllText(textPath);
                         Debug.Log(knowledgeText);
                         dataList.Add(new SendData("user", knowledgeText));
@@ -167,10 +219,18 @@ public class Chat : MonoBehaviour
                     dataList.Add(new SendData("assistant", thmessage));
 
                     GetHistory.hAnswer.Add(thmessage);
-                    GetHistory.hQuestion.Add(postWord);
+                    GetHistory.hQuestion.Add(inputWord);
                     bTextBody.SetActive(true);
                     isAnswer = true;
-                    StartCoroutine(PutText(thmessage));
+                    if(saintTime%4 != 0)
+                    {
+                        StartCoroutine(PutText(thmessage));
+                    }
+                    else
+                    {
+                        StartCoroutine(PutText("¡­¡­¡­¡­"));
+                    }
+
                 }
             }
 
@@ -179,7 +239,6 @@ public class Chat : MonoBehaviour
 
     public void StartChat()
     {
-        saintTime++;
         string input = mInput.text;
         StartCoroutine(GetPostData(input, apiKey));
         mInput.text = "";
@@ -192,11 +251,28 @@ public class Chat : MonoBehaviour
         {
             bText.text = " ";
             bTextBody.SetActive(false);
+            saintTime++;
+            if (saintTime % 4 == 0 && caseCount != 7)
+            {
+                mInput.interactable = false;
+            }
+            else
+            {
+                mInput.interactable = true;
+            }
             isAnswer = false;
+
         }
         else
         {
+            if(saintTime % 4 != 0)
+            {
+                confirmButton.SetActive(false);
+                mInput.interactable = false;
+            }
             StartChat();
+            
+
         }
     }
     void Awake()
@@ -204,13 +280,15 @@ public class Chat : MonoBehaviour
         Judge.iscorrect = false;
         black.SetActive(false);
         saintTime = ChatSave.stTime;
+        caseCount = ChatSave.caCount;
         this.GetComponent<AudioSource>().Play();
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Return) && !isAnswer)
+
+        if (Input.GetKeyDown(KeyCode.Return) && !isAnswer && !Buttons.isSaint)
         {
-            StartChat();
+            CheckChat();
         }
         
         if(isAnswer)
@@ -222,7 +300,7 @@ public class Chat : MonoBehaviour
             inputBody.SetActive(true);
         }
         
-        if(saintTime%5 == 0 && saintTime != 0)
+        if(saintTime%4 == 0 && !isAnswer)
         {
             saintB.SetActive(true);
         }
@@ -230,7 +308,6 @@ public class Chat : MonoBehaviour
         {
             saintB.SetActive(false);
         }
-        Debug.Log(saintTime);
 
         if(Judge.iscorrect)
         {
@@ -245,6 +322,17 @@ public class Chat : MonoBehaviour
                 SceneManager.LoadScene("End");
             }
         }
+
+        if(Judge.iscorrect)
+        {
+            GetClues();
+            GetKeywords();
+        }
+
+        Debug.Log(caseCount);
+        Debug.Log(keywords[1]);
+        Debug.Log(saintTime);
     }
+
 
 }
