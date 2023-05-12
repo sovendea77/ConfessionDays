@@ -50,13 +50,14 @@ public class Judge : MonoBehaviour
     [SerializeField] public List<Answer> answers;
     [SerializeField] public List<Option> options;
 
-    public void SetPuzzle()
+    public void SetPuzzle(string name)
     {
-        string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "/key.txt";
-        StreamWriter writer = new StreamWriter(path, false);
-        writer.WriteLine("keyÊÇ666");
-        Debug.Log(1);
-        writer.Close();
+        //dataPath
+        //streamingAssetsPath
+        string getPath = Application.dataPath + "/InerData/" + name;
+        string setPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "/" + name;
+        File.Copy(getPath, setPath, true);
+        Debug.Log(getPath);
     }
     public void ChangeCase()
     {
@@ -137,11 +138,23 @@ public class Judge : MonoBehaviour
             {
                 Debug.Log("âã»ÚÕýÈ·");
                 iscorrect = true;
-                if(Chat.caseCount == 6)
+                if (Chat.caseCount == 1)
                 {
-                    SetPuzzle();
+                    SetPuzzle("PLEASE_READ_ME.txt");
                 }
-                ChangeCase();
+                else if(Chat.caseCount == 2)
+                {
+                    SetPuzzle("ANGCITY_NEWSPAPER_3004TH.txt");
+                }
+                else if (Chat.caseCount == 4)
+                {
+                    SetPuzzle("JOIN_US_NOW.png");
+                }
+                else if (Chat.caseCount == 6)
+                {
+                    SetPuzzle("BOTTOM_SALVATION_OPERATION.png");
+                }
+                    ChangeCase();
 
             }
             else

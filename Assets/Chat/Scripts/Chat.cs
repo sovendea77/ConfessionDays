@@ -307,8 +307,8 @@ public class Chat : MonoBehaviour
         Judge.iscorrect = false;
         black.SetActive(false);
         saintTime = ChatSave.stTime;
-        caseCount = ChatSave.caCount;
-        //caseCount = 7;
+        //caseCount = ChatSave.caCount;
+        caseCount = 7;
         this.GetComponent<AudioSource>().Play();
     }
     void Update()
