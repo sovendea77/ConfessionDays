@@ -30,7 +30,7 @@ public class Buttons : MonoBehaviour
   public GameObject introduce;
   public GameObject guide;
 
-  // guides canvas
+    // guides canvas
   public GameObject guideStoryCanvas;
   public GameObject guideTipsCanvas;
 
@@ -118,6 +118,8 @@ public class Buttons : MonoBehaviour
         PlayerPrefs.SetInt("firstTime", 0);
       }
     });
+
+        guide.SetActive(false);
   }
 
   private void ShowGuideStory()
@@ -133,6 +135,7 @@ public class Buttons : MonoBehaviour
       guideStoryCanvas.SetActive(false);
       ShowGuideTips();
     });
+
   }
 
   private void ShowGuideTips()

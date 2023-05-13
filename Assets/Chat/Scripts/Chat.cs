@@ -79,7 +79,7 @@ public class Chat : MonoBehaviour
 
     public static bool isAnswer;
     //apikey不要上传git
-    private string apiKey = "sk-666";
+    private string apiKey = "666";
     public string apiUrl = "http://aiopen.deno.dev/v1/chat/completions";
     public string mModel = "gpt-3.5-turbo";
     public string prompt;
@@ -100,7 +100,6 @@ public class Chat : MonoBehaviour
 
     IEnumerator PutText(string text)
     {
-        Debug.Log(text);
         for (int j = 0; j < text.Length; j++)
         {
             string word = text.Substring(0, j);
@@ -117,14 +116,14 @@ public class Chat : MonoBehaviour
     {
         dataList.Clear();
         dataList.Add(new SendData("system", prompt));
-        string textPath = Application.dataPath + "/InerData/test" + caseCount.ToString() + ".txt";
+        string textPath = Application.dataPath + "/InerData/Test/test" + caseCount.ToString() + ".txt";
         string knowledgeText = File.ReadAllText(textPath);
         Debug.Log(knowledgeText);
         dataList.Add(new SendData("user", knowledgeText));
     }
     public void GetKeywords()
     {
-        string kwPath = Application.dataPath + "/InerData/keywords" + caseCount.ToString() + ".txt"; ;
+        string kwPath = Application.dataPath + "/InerData/Keyword/keywords" + caseCount.ToString() + ".txt"; ;
         string kwText = File.ReadAllText(kwPath);
         keywords = kwText.Split(';');
        
@@ -208,7 +207,7 @@ public class Chat : MonoBehaviour
                         GetHistory.hAnswer.Clear();
                         dataList.Clear();
                         dataList.Add(new SendData("system", prompt));
-                        string textPath = Application.streamingAssetsPath + "/InerData/test"+caseCount.ToString()+ ".txt";
+                        string textPath = Application.streamingAssetsPath + "/InerData/Test/test"+caseCount.ToString()+ ".txt";
                         string knowledgeText = File.ReadAllText(textPath);
                         Debug.Log(knowledgeText);
                         dataList.Add(new SendData("user", knowledgeText));
@@ -284,7 +283,7 @@ public class Chat : MonoBehaviour
 
         if (caseCount == 7 && saintTime % 4 == 0 && !isAnswer)
         {
-            if (wrongCount >= 10)
+            if (wrongCount >= 3)
             {
                 end = 3;
             }
@@ -337,16 +336,15 @@ public class Chat : MonoBehaviour
             saintB.SetActive(false);
         }
 
-        if(Judge.iscorrect)
-        {
-            black.SetActive(true);
-            float color = black.GetComponent<RawImage>().color.a;
-            float a = Mathf.Lerp(color, 1, 0.7f * Time.deltaTime);
-            Debug.Log(color);
-            black.GetComponent<RawImage>().color = new UnityEngine.Color(0, 0, 0, a);
-        }
+        //if (Judge.iscorrect)
+        //{
+        //    black.SetActive(true);
+        //    float color = black.GetComponent<RawImage>().color.a;
+        //    float a = Mathf.Lerp(color, 1, 0.7f * Time.deltaTime);
+        //    black.GetComponent<RawImage>().color = new UnityEngine.Color(0, 0, 0, a);
+        //}
 
-        if(Judge.iscorrect)
+        if (Judge.iscorrect)
         {
             GetClues();
             GetKeywords();

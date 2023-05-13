@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
 using JetBrains.Annotations;
 using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine.UI;
+using UnityEngine.Video;
 
 [Serializable]
 public class Answer
@@ -48,12 +49,26 @@ public class Judge : MonoBehaviour
     public TMP_Dropdown cCrime;
     public GameObject judgeCanvas;
     public static bool iscorrect;
+    public static bool prePlay;
+    public static bool isPlay;
 
     public Sprite dark1;
     public Sprite dark2;
     public GameObject background;
     public Animator curtain;
     public TMP_Text cNumber;
+
+    public GameObject cgCanvas;
+    public GameObject black;
+    public RawImage rawImage;
+    public VideoPlayer videoPlayer;
+    public AudioSource bgm;
+
+    public GameObject courseCanvas;
+    public GameObject introCanvas;
+    public GameObject guideBack;
+    public GameObject introduce;
+    public TMP_Text guide;
 
     [SerializeField] public List<Answer> answers;
     [SerializeField] public List<Option> options;
@@ -62,10 +77,9 @@ public class Judge : MonoBehaviour
     {
         //dataPath
         //streamingAssetsPath
-        string getPath = Application.dataPath + "/InerData/" + name;
+        string getPath = Application.dataPath + "/InerData/Puzzle/" + name;
         string setPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "/" + name;
         File.Copy(getPath, setPath, true);
-        Debug.Log(getPath);
     }
     
     public void ChangeCase()
@@ -74,7 +88,6 @@ public class Judge : MonoBehaviour
         {
             Chat.caseCount++;
             cNumber.text = "Case " + Chat.caseCount.ToString();
-            iscorrect = false;
             Chat.saintTime = 0;
             SetOptions();
             Invoke("PlayCG", 1f);
@@ -90,7 +103,46 @@ public class Judge : MonoBehaviour
     }
     public void PlayCG()
     {
+        iscorrect = false;
+        cgCanvas.SetActive(true);
+        black.SetActive(true);
+        string path = "CG/cg" + (Chat.caseCount-1).ToString();
+        VideoClip vedio = Resources.Load<VideoClip>(path);
+        videoPlayer.clip = vedio;
+        prePlay = true;
+        bgm.Pause();
 
+    }
+    public void Skip()
+    {
+        videoPlayer.Pause();
+        finishCG(videoPlayer);
+    }
+
+    private void finishCG(VideoPlayer player)
+    {
+        cgCanvas.SetActive(false);
+        rawImage.color = new Color(1, 1, 1, 0);
+        black.GetComponent<UnityEngine.UI.Image>().color = new Color(1, 1, 1, 0);
+        bgm.Play();
+
+        Invoke("GetCourse", 0.5f);
+    }
+
+    public void GetCourse()
+    {
+        Debug.Log("GetCourse");
+        courseCanvas.SetActive(true);
+        guideBack.SetActive(false);
+        introCanvas.SetActive(true);
+        introduce.SetActive(true);
+        CanvasUtils.FadeIn(this, courseCanvas.GetComponent<CanvasGroup>(), 0.5f);
+        string sPath = "Intro/intro" + Chat.caseCount.ToString();
+        string tPath = Application.dataPath + "/InerData/Intro/intro" + Chat.caseCount.ToString() + ".txt";
+        Sprite sprite = Resources.Load<Sprite>(sPath);
+        string gText = File.ReadAllText(tPath);
+        introduce.GetComponent<UnityEngine.UI.Image>().sprite = sprite;
+        guide.text = gText;
     }
     public void SetOptions()
     {
@@ -99,6 +151,7 @@ public class Judge : MonoBehaviour
         List<string> time = tOption.timeOps;
         List<string> place = tOption.placeOps;
         List<string> crime = tOption.crimeOps;
+        Debug.Log("cg");
 
         cCharacter.options.Clear();
         cTime.options.Clear();
@@ -146,7 +199,6 @@ public class Judge : MonoBehaviour
         {
             if (CheckAnswer(cCharacter.value, cTime.value, cPlace.value, cCrime.value))
             {
-                Debug.Log("âã»ÚÕýÈ·");
                 iscorrect = true;
                 if (Chat.caseCount == 1)
                 {
@@ -179,6 +231,7 @@ public class Judge : MonoBehaviour
                     Chat.wrongCount++;
                 }
 
+
             }
         }
         
@@ -187,6 +240,10 @@ public class Judge : MonoBehaviour
     }
     void Start()
     {
+        videoPlayer.targetTexture = new RenderTexture((int)rawImage.rectTransform.rect.width, (int)rawImage.rectTransform.rect.height, 0);
+        rawImage.texture = videoPlayer.targetTexture;
+        videoPlayer.loopPointReached += finishCG;
+
         // streamingAssetsPath
         string aPath = Application.dataPath + "/InerData/Answer.json";
         string jsontext1 = File.ReadAllText(aPath);
@@ -206,6 +263,22 @@ public class Judge : MonoBehaviour
 
     void Update()
     {
+        if(prePlay)
+        {
+            float color = black.GetComponent<UnityEngine.UI.Image>().color.a;
+            float a = Mathf.Lerp(color, 1, 0.7f * Time.deltaTime);
+            black.GetComponent<UnityEngine.UI.Image>().color = new Color(0, 0, 0, a);
+            if(a > 0.9f)
+            {
+                black.SetActive(false);
+                prePlay = false;
+                rawImage.color = new Color(1, 1, 1, 1);
+                Debug.Log(111);
+                videoPlayer.Play();
+            }
+        }
+
+        Debug.Log(iscorrect);
 
     }
 }
