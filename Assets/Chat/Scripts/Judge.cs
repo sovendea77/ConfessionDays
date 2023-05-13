@@ -7,6 +7,8 @@ using System.IO;
 using Unity.VisualScripting;
 using UnityEngine.SceneManagement;
 using JetBrains.Annotations;
+using Microsoft.Unity.VisualStudio.Editor;
+using UnityEngine.UI;
 
 [Serializable]
 public class Answer
@@ -47,6 +49,12 @@ public class Judge : MonoBehaviour
     public GameObject judgeCanvas;
     public static bool iscorrect;
 
+    public Sprite dark1;
+    public Sprite dark2;
+    public GameObject background;
+    public Animator curtain;
+    public TMP_Text cNumber;
+
     [SerializeField] public List<Answer> answers;
     [SerializeField] public List<Option> options;
 
@@ -59,11 +67,13 @@ public class Judge : MonoBehaviour
         File.Copy(getPath, setPath, true);
         Debug.Log(getPath);
     }
+    
     public void ChangeCase()
     {
         if (Chat.caseCount < 7)
         {
             Chat.caseCount++;
+            cNumber.text = "Case " + Chat.caseCount.ToString();
             iscorrect = false;
             Chat.saintTime = 0;
             SetOptions();
@@ -71,7 +81,7 @@ public class Judge : MonoBehaviour
         }
         else if (Chat.end != 0)
         {
-            Invoke("PlayEnd", 1f);
+            Invoke("PlayEnd", 2f);
         }
     }
     public void PlayEnd()
@@ -145,14 +155,17 @@ public class Judge : MonoBehaviour
                 else if(Chat.caseCount == 2)
                 {
                     SetPuzzle("ANGCITY_NEWSPAPER_3004TH.txt");
+                    background.GetComponent<UnityEngine.UI.Image>().sprite = dark1;
                 }
                 else if (Chat.caseCount == 4)
                 {
                     SetPuzzle("JOIN_US_NOW.png");
+                    background.GetComponent<UnityEngine.UI.Image>().sprite = dark2;
                 }
                 else if (Chat.caseCount == 6)
                 {
                     SetPuzzle("BOTTOM_SALVATION_OPERATION.png");
+                    curtain.SetBool("dark", true);
                 }
                     ChangeCase();
 
@@ -184,6 +197,8 @@ public class Judge : MonoBehaviour
         string jsontext2 = File.ReadAllText(oPath);
         OptionList optionList = JsonUtility.FromJson<OptionList>(jsontext2);
         options = optionList.options;
+
+        curtain.SetBool("dark", false);
 
         SetOptions();
     }

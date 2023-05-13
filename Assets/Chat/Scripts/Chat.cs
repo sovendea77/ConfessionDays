@@ -223,7 +223,7 @@ public class Chat : MonoBehaviour
                     GetHistory.hQuestion.Add(inputWord);
                     bTextBody.SetActive(true);
                     isAnswer = true;
-                    if(inputWord != "")
+                    if(inputWord != "" || inputWord != "")
                     {
                         StartCoroutine(PutText(thmessage));
                     }
@@ -307,8 +307,8 @@ public class Chat : MonoBehaviour
         Judge.iscorrect = false;
         black.SetActive(false);
         saintTime = ChatSave.stTime;
-        //caseCount = ChatSave.caCount;
-        caseCount = 7;
+        caseCount = ChatSave.caCount;
+        //caseCount = 7;
         this.GetComponent<AudioSource>().Play();
     }
     void Update()
@@ -341,14 +341,9 @@ public class Chat : MonoBehaviour
         {
             black.SetActive(true);
             float color = black.GetComponent<RawImage>().color.a;
-            float a = Mathf.Lerp(color, 1, 0.5f * Time.deltaTime);
+            float a = Mathf.Lerp(color, 1, 0.7f * Time.deltaTime);
             Debug.Log(color);
             black.GetComponent<RawImage>().color = new UnityEngine.Color(0, 0, 0, a);
-
-            if (black.GetComponent<RawImage>().color.a > 0.95f)
-            {
-                SceneManager.LoadScene("End");
-            }
         }
 
         if(Judge.iscorrect)

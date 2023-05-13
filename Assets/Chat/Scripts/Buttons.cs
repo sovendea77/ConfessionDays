@@ -13,6 +13,7 @@ public class Buttons : MonoBehaviour
   public GameObject mBackB;
   public GameObject sBackB;
   public GameObject cBackB;
+  public GameObject nextB;
 
   // guides btns
   public GameObject guideBackBtn;
@@ -25,6 +26,9 @@ public class Buttons : MonoBehaviour
   public GameObject churchCanvas;
   public GameObject muneCanvas;
   public GameObject courseCanvas;
+  public GameObject background;
+  public GameObject introduce;
+  public GameObject guide;
 
   // guides canvas
   public GameObject guideStoryCanvas;
@@ -33,6 +37,20 @@ public class Buttons : MonoBehaviour
   public static bool isSaint;
 
   private bool firstTime;
+
+    private void Next()
+    {
+        if(background.activeSelf)
+        {
+            background.SetActive(false);
+            introduce.SetActive(true);
+        }
+        else
+        {
+            introduce.SetActive(false);
+            guide.SetActive(true);
+        }
+    }    
 
   private void Mune()
   {
@@ -152,6 +170,7 @@ public class Buttons : MonoBehaviour
     cBackB.GetComponent<Button>().onClick.AddListener(HideCourse);
     guideBackBtn.GetComponent<Button>().onClick.AddListener(HideGuideStory);
     closeTipBtn.GetComponent<Button>().onClick.AddListener(HideGuideTips);
+    nextB.GetComponent<Button>().onClick.AddListener(Next);
 
     firstTime = PlayerPrefs.GetInt("firstTime", 1) == 1;
   }
