@@ -75,8 +75,8 @@ public class Chat : MonoBehaviour
     public static int wrongCount;
 
     public static bool isAnswer;
-    //apikeyï¿½ï¿½Òªï¿½Ï´ï¿½git
-    private string apiKey = "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";
+    //apikey²»ÒªÉÏ´«git
+    private string apiKey = "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";
     public string apiUrl = "http://aiopen.deno.dev/v1/chat/completions";
     public string mModel = "gpt-3.5-turbo";
     public string prompt;
@@ -113,14 +113,14 @@ public class Chat : MonoBehaviour
     {
         dataList.Clear();
         dataList.Add(new SendData("system", prompt));
-        string textPath = Application.dataPath + "/InerData/Test/test" + caseCount.ToString() + ".txt";
+        string textPath = Application.streamingAssetsPath + "/InerData/Test/test" + caseCount.ToString() + ".txt";
         string knowledgeText = File.ReadAllText(textPath);
         Debug.Log(knowledgeText);
         dataList.Add(new SendData("user", knowledgeText));
     }
     public void GetKeywords()
     {
-        string kwPath = Application.dataPath + "/InerData/Keyword/keywords" + caseCount.ToString() + ".txt"; ;
+        string kwPath = Application.streamingAssetsPath + "/InerData/Keyword/keywords" + caseCount.ToString() + ".txt"; ;
         string kwText = File.ReadAllText(kwPath);
         keywords = kwText.Split(';');
        
@@ -184,11 +184,11 @@ public class Chat : MonoBehaviour
                 isAnswer = true;
                 if (inputWord != "")
                 {
-                    StartCoroutine(PutText("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¡ï¿½"));
+                    StartCoroutine(PutText("ÍøÂç´íÎó£¬ÇëÖØÊÔ¡£"));
                 }
                 else
                 {
-                    StartCoroutine(PutText("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"));
+                    StartCoroutine(PutText("¡­¡­¡­¡­"));
                 }
                 
                 
@@ -204,7 +204,7 @@ public class Chat : MonoBehaviour
                         GetHistory.hAnswer.Clear();
                         dataList.Clear();
                         dataList.Add(new SendData("system", prompt));
-                        string textPath = Application.dataPath + "/InerData/Test/test"+caseCount.ToString()+ ".txt";
+                        string textPath = Application.streamingAssetsPath + "/InerData/Test/test"+caseCount.ToString()+ ".txt";
                         string knowledgeText = File.ReadAllText(textPath);
                         Debug.Log(knowledgeText);
                         dataList.Add(new SendData("user", knowledgeText));
@@ -225,7 +225,7 @@ public class Chat : MonoBehaviour
                     }
                     else
                     {
-                        StartCoroutine(PutText("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"));
+                        StartCoroutine(PutText("¡­¡­¡­¡­"));
                     }
 
                 }
@@ -325,7 +325,7 @@ public class Chat : MonoBehaviour
         
         if(saintTime%4 == 0 && !isAnswer)
         {
-            ShowSaintBtn();
+            saintB.SetActive(true);
         }
         else
         {
@@ -351,16 +351,5 @@ public class Chat : MonoBehaviour
         Debug.Log("end" + end);
     }
 
-    private bool guideSaint = false;
-
-    private void ShowSaintBtn() {
-        saintB.SetActive(true);
-
-        if (!guideSaint) {
-            Buttons btns = gameObject.GetComponent<Buttons>();
-            btns.ShowGuideSaint();
-            guideSaint = true;
-        }
-    }
 
 }
