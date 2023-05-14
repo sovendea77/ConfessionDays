@@ -113,13 +113,13 @@ public class Buttons : MonoBehaviour
     {
       courseCanvas.SetActive(false);
       // 只有第一次打开游戏才显示教程
-      if (firstTime) {
-        ShowGuideStory();
+      if (firstTime || Debug.isDebugBuild) {
+        ShowGuideTips();
         PlayerPrefs.SetInt("firstTime", 0);
       }
     });
 
-        guide.SetActive(false);
+    guide.SetActive(false);
   }
 
   private void ShowGuideStory()
@@ -160,6 +160,7 @@ public class Buttons : MonoBehaviour
     charaCanvas.SetActive(true);
     muneCanvas.SetActive(false);
     guideStoryCanvas.SetActive(false);
+    guideTipsCanvas.SetActive(false);
     ShowCourse();
   }
   void Start()
