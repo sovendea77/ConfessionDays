@@ -1345,7 +1345,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 0
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
@@ -3158,8 +3158,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 7.908386, y: 4.4484863}
+  m_SizeDelta: {x: 21.6748, y: 12.192}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2063586801
 MonoBehaviour:
@@ -3515,11 +3515,11 @@ PrefabInstance:
     - target: {fileID: 1275432546014710570, guid: 14903e36c8fd49e469e70c49e3304c4f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 974207743}
+      objectReference: {fileID: 974207740}
     - target: {fileID: 1275432546014710570, guid: 14903e36c8fd49e469e70c49e3304c4f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 974207740}
+      objectReference: {fileID: 974207743}
     - target: {fileID: 1275432546014710570, guid: 14903e36c8fd49e469e70c49e3304c4f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -3530,19 +3530,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1275432546014710570, guid: 14903e36c8fd49e469e70c49e3304c4f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SaveChat
-      objectReference: {fileID: 0}
-    - target: {fileID: 1275432546014710570, guid: 14903e36c8fd49e469e70c49e3304c4f, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: PlaybackB
       objectReference: {fileID: 0}
     - target: {fileID: 1275432546014710570, guid: 14903e36c8fd49e469e70c49e3304c4f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: SaveChat
+      objectReference: {fileID: 0}
+    - target: {fileID: 1275432546014710570, guid: 14903e36c8fd49e469e70c49e3304c4f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: ChatSave, Assembly-CSharp
+      value: PlayAudio, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1275432546014710570, guid: 14903e36c8fd49e469e70c49e3304c4f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: PlayAudio, Assembly-CSharp
+      value: ChatSave, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1275432546014710570, guid: 14903e36c8fd49e469e70c49e3304c4f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName

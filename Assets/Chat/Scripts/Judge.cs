@@ -82,7 +82,7 @@ public class Judge : MonoBehaviour
         //streamingAssetsPath
         //Path.GetDirectoryName(Application.dataPath)
         //Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
-        string getPath = Application.dataPath + "/InerData/Puzzle/" + name;
+        string getPath = Application.streamingAssetsPath + "/InerData/Puzzle/" + name;
         string setPath = Path.GetDirectoryName(Application.dataPath) + "/" + name;
         File.Copy(getPath, setPath, true);
     }
@@ -166,7 +166,7 @@ public class Judge : MonoBehaviour
         introduce.SetActive(true);
         CanvasUtils.FadeIn(this, courseCanvas.GetComponent<CanvasGroup>(), 0.5f);
         string sPath = "Intro/intro" + Chat.caseCount.ToString();
-        string tPath = Application.dataPath + "/InerData/Intro/intro" + Chat.caseCount.ToString() + ".txt";
+        string tPath = Application.streamingAssetsPath + "/InerData/Intro/intro" + Chat.caseCount.ToString() + ".txt";
         Sprite sprite = Resources.Load<Sprite>(sPath);
         string gText = File.ReadAllText(tPath);
         introduce.GetComponent<UnityEngine.UI.Image>().sprite = sprite;
@@ -274,12 +274,12 @@ public class Judge : MonoBehaviour
         videoPlayer.loopPointReached += finishCG;
 
         // streamingAssetsPath
-        string aPath = Application.dataPath + "/InerData/Answer.json";
+        string aPath = Application.streamingAssetsPath + "/InerData/Answer.json";
         string jsontext1 = File.ReadAllText(aPath);
         AnswerList answerList = JsonUtility.FromJson<AnswerList>(jsontext1);
         answers = answerList.answers;
 
-        string oPath = Application.dataPath + "/InerData/Option.json";
+        string oPath = Application.streamingAssetsPath + "/InerData/Option.json";
         string jsontext2 = File.ReadAllText(oPath);
         OptionList optionList = JsonUtility.FromJson<OptionList>(jsontext2);
         options = optionList.options;

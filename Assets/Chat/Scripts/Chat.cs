@@ -76,7 +76,7 @@ public class Chat : MonoBehaviour
 
     public static bool isAnswer;
     //apikey不要上传git
-    private string apiKey = "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";
+    private string apiKey = "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";
     public string apiUrl = "http://aiopen.deno.dev/v1/chat/completions";
     public string mModel = "gpt-3.5-turbo";
     public string prompt;
@@ -113,14 +113,14 @@ public class Chat : MonoBehaviour
     {
         dataList.Clear();
         dataList.Add(new SendData("system", prompt));
-        string textPath = Application.dataPath + "/InerData/Test/test" + caseCount.ToString() + ".txt";
+        string textPath = Application.streamingAssetsPath + "/InerData/Test/test" + caseCount.ToString() + ".txt";
         string knowledgeText = File.ReadAllText(textPath);
         Debug.Log(knowledgeText);
         dataList.Add(new SendData("user", knowledgeText));
     }
     public void GetKeywords()
     {
-        string kwPath = Application.dataPath + "/InerData/Keyword/keywords" + caseCount.ToString() + ".txt"; ;
+        string kwPath = Application.streamingAssetsPath + "/InerData/Keyword/keywords" + caseCount.ToString() + ".txt"; ;
         string kwText = File.ReadAllText(kwPath);
         keywords = kwText.Split(';');
        
@@ -204,7 +204,7 @@ public class Chat : MonoBehaviour
                         GetHistory.hAnswer.Clear();
                         dataList.Clear();
                         dataList.Add(new SendData("system", prompt));
-                        string textPath = Application.dataPath + "/InerData/Test/test"+caseCount.ToString()+ ".txt";
+                        string textPath = Application.streamingAssetsPath + "/InerData/Test/test"+caseCount.ToString()+ ".txt";
                         string knowledgeText = File.ReadAllText(textPath);
                         Debug.Log(knowledgeText);
                         dataList.Add(new SendData("user", knowledgeText));
