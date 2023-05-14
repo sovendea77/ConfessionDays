@@ -226,7 +226,7 @@ public class Buttons : MonoBehaviour
     closeGuideSaintBtn.GetComponent<Button>().onClick.AddListener(HideGuideSaint);
     closeGuideSaintBackBtn.GetComponent<Button>().onClick.AddListener(HideGuideSaintBack);
 
-    firstTime = PlayerPrefs.GetInt("firstTime", 1) == 1;
+    firstTime = PlayerPrefs.GetInt("firstTime", 1) == 0;
   }
 
   // Update is called once per frame

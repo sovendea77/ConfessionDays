@@ -76,7 +76,7 @@ public class Chat : MonoBehaviour
 
     public static bool isAnswer;
     //apikey不要上传git
-    private string apiKey = "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";
+    private string apiKey = "sk-666";
     public string apiUrl = "http://aiopen.deno.dev/v1/chat/completions";
     public string mModel = "gpt-3.5-turbo";
     public string prompt;
@@ -277,8 +277,7 @@ public class Chat : MonoBehaviour
     {
         string key = "AD2879Silentsentinel7603SDhN";
         string input = mInput.text;
-
-        if (wrongCount >= 3)
+        if (wrongCount >= 30)
         {
             SceneManager.LoadScene ("End");
             end = 3;
@@ -295,6 +294,7 @@ public class Chat : MonoBehaviour
                 end = 2;
             }
         }
+
 
     }
     void Awake()
@@ -349,6 +349,7 @@ public class Chat : MonoBehaviour
         Debug.Log("case"+caseCount);
         Debug.Log("saint"+saintTime);
         Debug.Log("end" + end);
+
     }
 
 

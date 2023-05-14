@@ -260,10 +260,8 @@ public class Judge : MonoBehaviour
                 iscorrect = false;
                 Chat.wrongCount++;
 
-
             }
         }
-        
 
 
     }
@@ -272,6 +270,7 @@ public class Judge : MonoBehaviour
         videoPlayer.targetTexture = new RenderTexture((int)rawImage.rectTransform.rect.width, (int)rawImage.rectTransform.rect.height, 0);
         rawImage.texture = videoPlayer.targetTexture;
         videoPlayer.loopPointReached += finishCG;
+        cgCanvas.SetActive(false);
 
         // streamingAssetsPath
         string aPath = Application.streamingAssetsPath + "/InerData/Answer.json";
