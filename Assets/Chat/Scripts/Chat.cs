@@ -75,7 +75,7 @@ public class Chat : MonoBehaviour
     public static int wrongCount;
 
     public static bool isAnswer;
-    //apikey²»ÒªÉÏ´«git
+    //apikeyï¿½ï¿½Òªï¿½Ï´ï¿½git
     private string apiKey = "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";
     public string apiUrl = "http://aiopen.deno.dev/v1/chat/completions";
     public string mModel = "gpt-3.5-turbo";
@@ -184,11 +184,11 @@ public class Chat : MonoBehaviour
                 isAnswer = true;
                 if (inputWord != "")
                 {
-                    StartCoroutine(PutText("ÍøÂç´íÎó£¬ÇëÖØÊÔ¡£"));
+                    StartCoroutine(PutText("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¡ï¿½"));
                 }
                 else
                 {
-                    StartCoroutine(PutText("¡­¡­¡­¡­"));
+                    StartCoroutine(PutText("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"));
                 }
                 
                 
@@ -225,7 +225,7 @@ public class Chat : MonoBehaviour
                     }
                     else
                     {
-                        StartCoroutine(PutText("¡­¡­¡­¡­"));
+                        StartCoroutine(PutText("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"));
                     }
 
                 }
@@ -325,7 +325,7 @@ public class Chat : MonoBehaviour
         
         if(saintTime%4 == 0 && !isAnswer)
         {
-            saintB.SetActive(true);
+            ShowSaintBtn();
         }
         else
         {
@@ -351,5 +351,16 @@ public class Chat : MonoBehaviour
         Debug.Log("end" + end);
     }
 
+    private bool guideSaint = false;
+
+    private void ShowSaintBtn() {
+        saintB.SetActive(true);
+
+        if (!guideSaint) {
+            Buttons btns = gameObject.GetComponent<Buttons>();
+            btns.ShowGuideSaint();
+            guideSaint = true;
+        }
+    }
 
 }
