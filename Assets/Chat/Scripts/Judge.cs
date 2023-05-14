@@ -4,10 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using System.IO;
-using Unity.VisualScripting;
 using UnityEngine.SceneManagement;
-using JetBrains.Annotations;
-using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine.UI;
 using UnityEngine.Video;
 
@@ -47,10 +44,15 @@ public class Judge : MonoBehaviour
     public TMP_Dropdown cTime;
     public TMP_Dropdown cPlace;
     public TMP_Dropdown cCrime;
+    public TMP_Text cText;
+    public TMP_Text tText;
+    public TMP_Text pText;
+    public TMP_Text crText;
+
     public GameObject judgeCanvas;
     public static bool iscorrect;
     public static bool prePlay;
-    public static bool isPlay;
+    public static bool isEnd;
 
     public Sprite dark1;
     public Sprite dark2;
@@ -63,6 +65,7 @@ public class Judge : MonoBehaviour
     public RawImage rawImage;
     public VideoPlayer videoPlayer;
     public AudioSource bgm;
+    public Texture shade;
 
     public GameObject courseCanvas;
     public GameObject introCanvas;
@@ -77,8 +80,10 @@ public class Judge : MonoBehaviour
     {
         //dataPath
         //streamingAssetsPath
+        //Path.GetDirectoryName(Application.dataPath)
+        //Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
         string getPath = Application.dataPath + "/InerData/Puzzle/" + name;
-        string setPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "/" + name;
+        string setPath = Path.GetDirectoryName(Application.dataPath) + "/" + name;
         File.Copy(getPath, setPath, true);
     }
     
@@ -98,6 +103,21 @@ public class Judge : MonoBehaviour
         }
     }
     public void PlayEnd()
+    {
+        iscorrect = false;
+        cgCanvas.SetActive(true);
+        black.SetActive(true);
+        string path = "CG/cg7";
+        VideoClip vedio = Resources.Load<VideoClip>(path);
+        videoPlayer.clip = vedio;
+        prePlay = true;
+        bgm.Pause();
+        isEnd = true;
+
+
+
+    }
+    public void TurnEnd()
     {
         SceneManager.LoadScene("End");
     }
@@ -123,10 +143,18 @@ public class Judge : MonoBehaviour
     {
         cgCanvas.SetActive(false);
         rawImage.color = new Color(1, 1, 1, 0);
+        rawImage.texture = shade;
         black.GetComponent<UnityEngine.UI.Image>().color = new Color(1, 1, 1, 0);
         bgm.Play();
 
-        Invoke("GetCourse", 0.5f);
+        if(isEnd)
+        {
+            SceneManager.LoadScene("End");
+        }
+        else
+        {
+            Invoke("GetCourse", 0.5f);
+        }
     }
 
     public void GetCourse()
@@ -174,6 +202,10 @@ public class Judge : MonoBehaviour
         {
             cCrime.options.Add(new TMP_Dropdown.OptionData(s));
         }
+        cText.text = cCharacter.options[cCharacter.value].text;
+        tText.text = cTime.options[cTime.value].text;
+        pText.text = cPlace.options[cPlace.value].text;
+        crText.text = cCrime.options[cCrime.value].text;
     }
 
     public void StartJudge()
@@ -226,10 +258,7 @@ public class Judge : MonoBehaviour
             {
                 Debug.Log("âã»Úcw");
                 iscorrect = false;
-                if(Chat.caseCount == 7)
-                {
-                    Chat.wrongCount++;
-                }
+                Chat.wrongCount++;
 
 
             }
@@ -273,12 +302,14 @@ public class Judge : MonoBehaviour
                 black.SetActive(false);
                 prePlay = false;
                 rawImage.color = new Color(1, 1, 1, 1);
-                Debug.Log(111);
+                videoPlayer.targetTexture = new RenderTexture((int)rawImage.rectTransform.rect.width, (int)rawImage.rectTransform.rect.height, 0);
+                rawImage.texture = videoPlayer.targetTexture;
                 videoPlayer.Play();
             }
         }
-
-        Debug.Log(iscorrect);
+        cNumber.text = "Case " + Chat.caseCount.ToString();
+        SetOptions();
+        
 
     }
 }

@@ -3,12 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
-using UnityEngine.UI;
 using TMPro;
 using System.IO;
 using UnityEngine.SceneManagement;
-using UnityEditor.VersionControl;
-using Unity.VisualScripting;
 
 [Serializable]
 public class PostData
@@ -79,7 +76,7 @@ public class Chat : MonoBehaviour
 
     public static bool isAnswer;
     //apikey不要上传git
-    private string apiKey = "666";
+    private string apiKey = "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";
     public string apiUrl = "http://aiopen.deno.dev/v1/chat/completions";
     public string mModel = "gpt-3.5-turbo";
     public string prompt;
@@ -207,7 +204,7 @@ public class Chat : MonoBehaviour
                         GetHistory.hAnswer.Clear();
                         dataList.Clear();
                         dataList.Add(new SendData("system", prompt));
-                        string textPath = Application.streamingAssetsPath + "/InerData/Test/test"+caseCount.ToString()+ ".txt";
+                        string textPath = Application.dataPath + "/InerData/Test/test"+caseCount.ToString()+ ".txt";
                         string knowledgeText = File.ReadAllText(textPath);
                         Debug.Log(knowledgeText);
                         dataList.Add(new SendData("user", knowledgeText));
@@ -278,25 +275,24 @@ public class Chat : MonoBehaviour
 
     public void CheckEnd()
     {
-        string key = "666";
+        string key = "AD2879Silentsentinel7603SDhN";
         string input = mInput.text;
+
+        if (wrongCount >= 3)
+        {
+            SceneManager.LoadScene ("End");
+            end = 3;
+        }
 
         if (caseCount == 7 && saintTime % 4 == 0 && !isAnswer)
         {
-            if (wrongCount >= 3)
+            if (input.ToUpper() == key.ToUpper())
             {
-                end = 3;
+                end = 1;
             }
             else
             {
-                if (input == key)
-                {
-                    end = 1;
-                }
-                else
-                {
-                    end = 2;
-                }
+                end = 2;
             }
         }
 

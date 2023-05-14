@@ -18,6 +18,7 @@ public class PlayAudio : MonoBehaviour
         {
             if(!Chat.isAnswer)
             {
+                Debug.Log(Judge.iscorrect);
                 if (Judge.iscorrect)
                 {
                     this.GetComponent<AudioSource>().clip = correctSaint;
@@ -25,6 +26,7 @@ public class PlayAudio : MonoBehaviour
                 else
                 {
                     this.GetComponent<AudioSource>().clip = wrongSaint;
+                    
                 }
             }
             else
