@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class Buttons : MonoBehaviour
 {
@@ -13,10 +14,15 @@ public class Buttons : MonoBehaviour
   public GameObject mBackB;
   public GameObject sBackB;
   public GameObject cBackB;
+  public GameObject nextB;
 
   // guides btns
   public GameObject guideBackBtn;
   public GameObject closeTipBtn;
+  public GameObject closeGuideSaintBtn;
+  public GameObject closeGuideSaintBackBtn;
+  
+  public GameObject toPromptBtn;
 
   public GameObject chatCanvas;
   public GameObject historyCanvas;
@@ -25,14 +31,35 @@ public class Buttons : MonoBehaviour
   public GameObject churchCanvas;
   public GameObject muneCanvas;
   public GameObject courseCanvas;
+  public GameObject background;
+  public GameObject introduce;
+  public GameObject guide;
 
-  // guides canvas
+    // guides canvas
   public GameObject guideStoryCanvas;
   public GameObject guideTipsCanvas;
+  public GameObject guideSaintCanvas;
+  public GameObject guideSaintBackCanvas;
+
+  public TMP_InputField prompt;
 
   public static bool isSaint;
 
   private bool firstTime;
+
+    private void Next()
+    {
+        if(background.activeSelf)
+        {
+            background.SetActive(false);
+            introduce.SetActive(true);
+        }
+        else
+        {
+            introduce.SetActive(false);
+            guide.SetActive(true);
+        }
+    }    
 
   private void Mune()
   {
@@ -67,6 +94,7 @@ public class Buttons : MonoBehaviour
     judgeCanvas.SetActive(true);
     judgeCanvas.GetComponent<Canvas>().sortingOrder = 5;
     isSaint = true;
+    ShowGuideSaintBack();
   }
 
   private void SaintBack()
@@ -95,11 +123,13 @@ public class Buttons : MonoBehaviour
     {
       courseCanvas.SetActive(false);
       // 只有第一次打开游戏才显示教程
-      if (firstTime) {
-        ShowGuideStory();
+      if (firstTime || Debug.isDebugBuild) {
+        ShowGuideTips();
         PlayerPrefs.SetInt("firstTime", 0);
       }
     });
+
+    guide.SetActive(false);
   }
 
   private void ShowGuideStory()
@@ -115,6 +145,7 @@ public class Buttons : MonoBehaviour
       guideStoryCanvas.SetActive(false);
       ShowGuideTips();
     });
+
   }
 
   private void ShowGuideTips()
@@ -131,6 +162,34 @@ public class Buttons : MonoBehaviour
     });
   }
 
+  public void ShowGuideSaint()
+  {
+    guideSaintCanvas.SetActive(true);
+    CanvasUtils.FadeIn(this, guideSaintCanvas.GetComponent<CanvasGroup>(), 0.5f);
+  }
+
+  public void HideGuideSaint()
+  {
+    CanvasUtils.FadeOut(this, guideSaintCanvas.GetComponent<CanvasGroup>(), 0.3f, () =>
+    {
+      guideSaintCanvas.SetActive(false);
+    });
+  }
+
+  public void ShowGuideSaintBack()
+  {
+    guideSaintBackCanvas.SetActive(true);
+    CanvasUtils.FadeIn(this, guideSaintBackCanvas.GetComponent<CanvasGroup>(), 0.5f);
+  }
+
+  public void HideGuideSaintBack()
+  {
+    CanvasUtils.FadeOut(this, guideSaintBackCanvas.GetComponent<CanvasGroup>(), 0.3f, () =>
+    {
+      guideSaintBackCanvas.SetActive(false);
+    });
+  }
+
   private void Awake()
   {
     chatCanvas.SetActive(true);
@@ -139,8 +198,18 @@ public class Buttons : MonoBehaviour
     charaCanvas.SetActive(true);
     muneCanvas.SetActive(false);
     guideStoryCanvas.SetActive(false);
+    guideTipsCanvas.SetActive(false);
+    guideSaintCanvas.SetActive(false);
+    guideSaintBackCanvas.SetActive(false);
     ShowCourse();
   }
+
+  private void GuideToPrompt()
+  {
+    prompt.text = "爱丽丝很感谢克里斯";
+    HideGuideTips();
+  }
+
   void Start()
   {
     historyB.GetComponent<Button>().onClick.AddListener(History);
@@ -152,6 +221,10 @@ public class Buttons : MonoBehaviour
     cBackB.GetComponent<Button>().onClick.AddListener(HideCourse);
     guideBackBtn.GetComponent<Button>().onClick.AddListener(HideGuideStory);
     closeTipBtn.GetComponent<Button>().onClick.AddListener(HideGuideTips);
+    nextB.GetComponent<Button>().onClick.AddListener(Next);
+    toPromptBtn.GetComponent<Button>().onClick.AddListener(GuideToPrompt);
+    closeGuideSaintBtn.GetComponent<Button>().onClick.AddListener(HideGuideSaint);
+    closeGuideSaintBackBtn.GetComponent<Button>().onClick.AddListener(HideGuideSaintBack);
 
     firstTime = PlayerPrefs.GetInt("firstTime", 1) == 1;
   }

@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using System.IO;
-using Unity.VisualScripting;
 using UnityEngine.SceneManagement;
-using JetBrains.Annotations;
+using UnityEngine.UI;
+using UnityEngine.Video;
 
 [Serializable]
 public class Answer
@@ -44,8 +44,34 @@ public class Judge : MonoBehaviour
     public TMP_Dropdown cTime;
     public TMP_Dropdown cPlace;
     public TMP_Dropdown cCrime;
+    public TMP_Text cText;
+    public TMP_Text tText;
+    public TMP_Text pText;
+    public TMP_Text crText;
+
     public GameObject judgeCanvas;
     public static bool iscorrect;
+    public static bool prePlay;
+    public static bool isEnd;
+
+    public Sprite dark1;
+    public Sprite dark2;
+    public GameObject background;
+    public Animator curtain;
+    public TMP_Text cNumber;
+
+    public GameObject cgCanvas;
+    public GameObject black;
+    public RawImage rawImage;
+    public VideoPlayer videoPlayer;
+    public AudioSource bgm;
+    public Texture shade;
+
+    public GameObject courseCanvas;
+    public GameObject introCanvas;
+    public GameObject guideBack;
+    public GameObject introduce;
+    public TMP_Text guide;
 
     [SerializeField] public List<Answer> answers;
     [SerializeField] public List<Option> options;
@@ -54,33 +80,97 @@ public class Judge : MonoBehaviour
     {
         //dataPath
         //streamingAssetsPath
-        string getPath = Application.dataPath + "/InerData/" + name;
-        string setPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "/" + name;
+        //Path.GetDirectoryName(Application.dataPath)
+        //Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
+        string getPath = Application.dataPath + "/InerData/Puzzle/" + name;
+        string setPath = Path.GetDirectoryName(Application.dataPath) + "/" + name;
         File.Copy(getPath, setPath, true);
-        Debug.Log(getPath);
     }
+    
     public void ChangeCase()
     {
         if (Chat.caseCount < 7)
         {
             Chat.caseCount++;
-            iscorrect = false;
+            cNumber.text = "Case " + Chat.caseCount.ToString();
             Chat.saintTime = 0;
             SetOptions();
             Invoke("PlayCG", 1f);
         }
         else if (Chat.end != 0)
         {
-            Invoke("PlayEnd", 1f);
+            Invoke("PlayEnd", 2f);
         }
     }
     public void PlayEnd()
+    {
+        iscorrect = false;
+        cgCanvas.SetActive(true);
+        black.SetActive(true);
+        string path = "CG/cg7";
+        VideoClip vedio = Resources.Load<VideoClip>(path);
+        videoPlayer.clip = vedio;
+        prePlay = true;
+        bgm.Pause();
+        isEnd = true;
+
+
+
+    }
+    public void TurnEnd()
     {
         SceneManager.LoadScene("End");
     }
     public void PlayCG()
     {
+        iscorrect = false;
+        cgCanvas.SetActive(true);
+        black.SetActive(true);
+        string path = "CG/cg" + (Chat.caseCount-1).ToString();
+        VideoClip vedio = Resources.Load<VideoClip>(path);
+        videoPlayer.clip = vedio;
+        prePlay = true;
+        bgm.Pause();
 
+    }
+    public void Skip()
+    {
+        videoPlayer.Pause();
+        finishCG(videoPlayer);
+    }
+
+    private void finishCG(VideoPlayer player)
+    {
+        cgCanvas.SetActive(false);
+        rawImage.color = new Color(1, 1, 1, 0);
+        rawImage.texture = shade;
+        black.GetComponent<UnityEngine.UI.Image>().color = new Color(1, 1, 1, 0);
+        bgm.Play();
+
+        if(isEnd)
+        {
+            SceneManager.LoadScene("End");
+        }
+        else
+        {
+            Invoke("GetCourse", 0.5f);
+        }
+    }
+
+    public void GetCourse()
+    {
+        Debug.Log("GetCourse");
+        courseCanvas.SetActive(true);
+        guideBack.SetActive(false);
+        introCanvas.SetActive(true);
+        introduce.SetActive(true);
+        CanvasUtils.FadeIn(this, courseCanvas.GetComponent<CanvasGroup>(), 0.5f);
+        string sPath = "Intro/intro" + Chat.caseCount.ToString();
+        string tPath = Application.dataPath + "/InerData/Intro/intro" + Chat.caseCount.ToString() + ".txt";
+        Sprite sprite = Resources.Load<Sprite>(sPath);
+        string gText = File.ReadAllText(tPath);
+        introduce.GetComponent<UnityEngine.UI.Image>().sprite = sprite;
+        guide.text = gText;
     }
     public void SetOptions()
     {
@@ -89,6 +179,7 @@ public class Judge : MonoBehaviour
         List<string> time = tOption.timeOps;
         List<string> place = tOption.placeOps;
         List<string> crime = tOption.crimeOps;
+        Debug.Log("cg");
 
         cCharacter.options.Clear();
         cTime.options.Clear();
@@ -111,6 +202,10 @@ public class Judge : MonoBehaviour
         {
             cCrime.options.Add(new TMP_Dropdown.OptionData(s));
         }
+        cText.text = cCharacter.options[cCharacter.value].text;
+        tText.text = cTime.options[cTime.value].text;
+        pText.text = cPlace.options[cPlace.value].text;
+        crText.text = cCrime.options[cCrime.value].text;
     }
 
     public void StartJudge()
@@ -136,7 +231,6 @@ public class Judge : MonoBehaviour
         {
             if (CheckAnswer(cCharacter.value, cTime.value, cPlace.value, cCrime.value))
             {
-                Debug.Log("âã»ÚÕýÈ·");
                 iscorrect = true;
                 if (Chat.caseCount == 1)
                 {
@@ -145,14 +239,17 @@ public class Judge : MonoBehaviour
                 else if(Chat.caseCount == 2)
                 {
                     SetPuzzle("ANGCITY_NEWSPAPER_3004TH.txt");
+                    background.GetComponent<UnityEngine.UI.Image>().sprite = dark1;
                 }
                 else if (Chat.caseCount == 4)
                 {
                     SetPuzzle("JOIN_US_NOW.png");
+                    background.GetComponent<UnityEngine.UI.Image>().sprite = dark2;
                 }
                 else if (Chat.caseCount == 6)
                 {
                     SetPuzzle("BOTTOM_SALVATION_OPERATION.png");
+                    curtain.SetBool("dark", true);
                 }
                     ChangeCase();
 
@@ -161,10 +258,8 @@ public class Judge : MonoBehaviour
             {
                 Debug.Log("âã»Úcw");
                 iscorrect = false;
-                if(Chat.caseCount == 7)
-                {
-                    Chat.wrongCount++;
-                }
+                Chat.wrongCount++;
+
 
             }
         }
@@ -174,6 +269,10 @@ public class Judge : MonoBehaviour
     }
     void Start()
     {
+        videoPlayer.targetTexture = new RenderTexture((int)rawImage.rectTransform.rect.width, (int)rawImage.rectTransform.rect.height, 0);
+        rawImage.texture = videoPlayer.targetTexture;
+        videoPlayer.loopPointReached += finishCG;
+
         // streamingAssetsPath
         string aPath = Application.dataPath + "/InerData/Answer.json";
         string jsontext1 = File.ReadAllText(aPath);
@@ -185,12 +284,32 @@ public class Judge : MonoBehaviour
         OptionList optionList = JsonUtility.FromJson<OptionList>(jsontext2);
         options = optionList.options;
 
+        curtain.SetBool("dark", false);
+
         SetOptions();
     }
 
 
     void Update()
     {
+        if(prePlay)
+        {
+            float color = black.GetComponent<UnityEngine.UI.Image>().color.a;
+            float a = Mathf.Lerp(color, 1, 0.7f * Time.deltaTime);
+            black.GetComponent<UnityEngine.UI.Image>().color = new Color(0, 0, 0, a);
+            if(a > 0.9f)
+            {
+                black.SetActive(false);
+                prePlay = false;
+                rawImage.color = new Color(1, 1, 1, 1);
+                videoPlayer.targetTexture = new RenderTexture((int)rawImage.rectTransform.rect.width, (int)rawImage.rectTransform.rect.height, 0);
+                rawImage.texture = videoPlayer.targetTexture;
+                videoPlayer.Play();
+            }
+        }
+        cNumber.text = "Case " + Chat.caseCount.ToString();
+        SetOptions();
+        
 
     }
 }

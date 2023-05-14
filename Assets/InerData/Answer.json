@@ -4,43 +4,43 @@
 "character": 1,
 "time": 3,
 "place": 1,
-"crime": 4
-},
-{
-"character": 1,
-"time": 1,
-"place": 1,
-"crime": 1
-},
-{
-"character": 2,
-"time": 2,
-"place": 2,
-"crime": 2
-},
-{
-"character": 3,
-"time": 3,
-"place": 3,
 "crime": 3
 },
 {
 "character": 4,
-"time": 4,
-"place": 4,
+"time": 3,
+"place": 0,
+"crime": 1
+},
+{
+"character": 3,
+"time": 5,
+"place": 1,
 "crime": 4
 },
 {
 "character": 1,
 "time": 1,
-"place": 1,
-"crime": 1
+"place": 4,
+"crime": 5
 },
 {
-"character": 2,
-"time": 2,
-"place": 2,
+"character": 1,
+"time": 4,
+"place": 0,
 "crime": 2
+},
+{
+"character": 4,
+"time": 1,
+"place": 4,
+"crime": 0
+},
+{
+"character": 4,
+"time": 2,
+"place": 3,
+"crime": 6
 }
 ]
 }
