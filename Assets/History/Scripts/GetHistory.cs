@@ -25,7 +25,7 @@ public class GetHistory : MonoBehaviour
     public void DestroyDialogue()
     {
         int n = dialogues.Count;
-        if(n > 0)
+        if(!dialogues.Equals(null))
         {
             for (int i = 0; i < n; i++)
             {
@@ -48,6 +48,7 @@ public class GetHistory : MonoBehaviour
             Dialogue dia;
             dia = CreatDialogue(i);
             dia.Init("»Ø´ð", "ÌáÎÊ", hAnswer[i], hQuestion[i]);
+
         }
     }
     private void Awake()
@@ -59,7 +60,7 @@ public class GetHistory : MonoBehaviour
     {
         //hAnswer.Add("TEST");
         //hQuestion.Add("aaaaaaaaaaa");
-        SetDialogue();
+        
     }
 
     void Update()

@@ -92,6 +92,7 @@ public class Judge : MonoBehaviour
         if (Chat.caseCount < 7)
         {
             Chat.caseCount++;
+            GetHistoryClue.gotClues.Clear();
             cNumber.text = "Case " + Chat.caseCount.ToString();
             Chat.saintTime = 0;
             SetOptions();
@@ -179,7 +180,7 @@ public class Judge : MonoBehaviour
         List<string> time = tOption.timeOps;
         List<string> place = tOption.placeOps;
         List<string> crime = tOption.crimeOps;
-        Debug.Log("cg");
+
 
         cCharacter.options.Clear();
         cTime.options.Clear();
@@ -291,7 +292,15 @@ public class Judge : MonoBehaviour
 
     void Update()
     {
-        if(prePlay)
+        if(Chat.saintTime == 0)
+        {
+            GetHistory.hAnswer.Clear();
+            GetHistory.hQuestion.Clear();
+        }
+
+        Debug.Log(GetHistory.hAnswer.Count + "+" +
+        GetHistory.hQuestion.Count);
+        if (prePlay)
         {
             float color = black.GetComponent<UnityEngine.UI.Image>().color.a;
             float a = Mathf.Lerp(color, 1, 0.7f * Time.deltaTime);

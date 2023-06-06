@@ -13,7 +13,15 @@ public class Dialogue : MonoBehaviour
     {
         aName.text = a;
         qName.text = b;
-        aText.text = c;
+        if(c.Length > 100)
+        {
+            aText.text = c.Substring(0, 60);
+        }
+        else
+        {
+            aText.text = c;
+        }
+
         qText.text = d;
     }
 

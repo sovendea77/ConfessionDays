@@ -76,7 +76,7 @@ public class Chat : MonoBehaviour
 
     public static bool isAnswer;
     //apikey不要上传git
-    private string apiKey = "sk-666";
+    private string apiKey = "666";
     public string apiUrl = "http://aiopen.deno.dev/v1/chat/completions";
     public string mModel = "gpt-3.5-turbo";
     public string prompt;
@@ -215,17 +215,20 @@ public class Chat : MonoBehaviour
                     string thmessage = backtext.choices[0].message.content;
                     dataList.Add(new SendData("assistant", thmessage));
 
-                    GetHistory.hAnswer.Add(thmessage);
-                    GetHistory.hQuestion.Add(inputWord);
                     bTextBody.SetActive(true);
                     isAnswer = true;
-                    if(inputWord != "" || inputWord != "")
+                    if(inputWord != "" )
                     {
                         StartCoroutine(PutText(thmessage));
+                        GetHistory.hQuestion.Add(inputWord);
+                        GetHistory.hAnswer.Add(thmessage);
+                        GetHistoryClue.gotClues.Add(thmessage);
                     }
                     else
                     {
                         StartCoroutine(PutText("…………"));
+                        GetHistory.hQuestion.Add(" ");
+                        GetHistory.hAnswer.Add("…………");
                     }
 
                 }
@@ -303,7 +306,7 @@ public class Chat : MonoBehaviour
         black.SetActive(false);
         saintTime = ChatSave.stTime;
         caseCount = ChatSave.caCount;
-        //caseCount = 7;
+        //caseCount = 5;
         this.GetComponent<AudioSource>().Play();
     }
     void Update()
@@ -348,7 +351,7 @@ public class Chat : MonoBehaviour
 
         Debug.Log("case"+caseCount);
         Debug.Log("saint"+saintTime);
-        Debug.Log("end" + end);
+        Debug.Log("w" + wrongCount);
 
     }
 

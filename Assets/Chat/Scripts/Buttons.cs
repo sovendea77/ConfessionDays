@@ -15,6 +15,8 @@ public class Buttons : MonoBehaviour
   public GameObject sBackB;
   public GameObject cBackB;
   public GameObject nextB;
+    public GameObject charaB;
+    public GameObject guideB;
 
   // guides btns
   public GameObject guideBackBtn;
@@ -34,6 +36,9 @@ public class Buttons : MonoBehaviour
   public GameObject background;
   public GameObject introduce;
   public GameObject guide;
+
+    public GameObject cCharaCanvas;
+    public GameObject cGuideCanvas;
 
     // guides canvas
   public GameObject guideStoryCanvas;
@@ -60,6 +65,20 @@ public class Buttons : MonoBehaviour
             guide.SetActive(true);
         }
     }    
+
+    private void Chara()
+    {
+        CanvasUtils.FadeIn(this, courseCanvas.GetComponent<CanvasGroup>(), 0.5f);
+        cGuideCanvas.SetActive(false);
+        cCharaCanvas.SetActive(true);
+        nextB.SetActive(false);
+    }
+    
+    private void Guide()
+    {
+        CanvasUtils.FadeIn(this, courseCanvas.GetComponent<CanvasGroup>(), 0.5f);
+        cGuideCanvas.SetActive(true);
+    }
 
   private void Mune()
   {
@@ -92,7 +111,7 @@ public class Buttons : MonoBehaviour
   private void Saint()
   {
     judgeCanvas.SetActive(true);
-    judgeCanvas.GetComponent<Canvas>().sortingOrder = 5;
+    judgeCanvas.GetComponent<Canvas>().sortingOrder = 10;
     isSaint = true;
     ShowGuideSaintBack();
   }
@@ -115,6 +134,7 @@ public class Buttons : MonoBehaviour
   {
     courseCanvas.SetActive(true);
     CanvasUtils.FadeIn(this, courseCanvas.GetComponent<CanvasGroup>(), 0.5f);
+    nextB.SetActive(true);
   }
 
   private void HideCourse()
@@ -123,7 +143,7 @@ public class Buttons : MonoBehaviour
     {
       courseCanvas.SetActive(false);
       // 只有第一次打开游戏才显示教程
-      if (firstTime || Debug.isDebugBuild) {
+      if ((Chat.caseCount == 1 && firstTime)) {
         ShowGuideTips();
         PlayerPrefs.SetInt("firstTime", 0);
       }
@@ -143,7 +163,7 @@ public class Buttons : MonoBehaviour
     CanvasUtils.FadeOut(this, guideStoryCanvas.GetComponent<CanvasGroup>(), 0.3f, () =>
     {
       guideStoryCanvas.SetActive(false);
-      ShowGuideTips();
+      //ShowGuideTips();
     });
 
   }
@@ -160,7 +180,8 @@ public class Buttons : MonoBehaviour
     {
       guideTipsCanvas.SetActive(false);
     });
-  }
+        firstTime = false;
+    }
 
   public void ShowGuideSaint()
   {
@@ -225,13 +246,15 @@ public class Buttons : MonoBehaviour
     toPromptBtn.GetComponent<Button>().onClick.AddListener(GuideToPrompt);
     closeGuideSaintBtn.GetComponent<Button>().onClick.AddListener(HideGuideSaint);
     closeGuideSaintBackBtn.GetComponent<Button>().onClick.AddListener(HideGuideSaintBack);
+        charaB.GetComponent<Button>().onClick.AddListener(Chara);
+        guideB.GetComponent<Button>().onClick.AddListener(Guide);
 
-    firstTime = PlayerPrefs.GetInt("firstTime", 1) == 0;
+        firstTime = PlayerPrefs.GetInt("firstTime", 1) == 0;
   }
 
   // Update is called once per frame
   void Update()
-  {
-
+  { 
+        Debug.Log(firstTime);
   }
 }

@@ -23,12 +23,8 @@ public class ChatSave : MonoBehaviour
     public void SaveChat()
     {
         //persistentDataPath
-        string filePath = Path.Combine(Application.persistentDataPath, "chatdata.json");
+        string filePath = Path.GetDirectoryName(Application.dataPath) + "/ConfessionDay_Data/Save/chatdata.json";
 
-        if (!Directory.Exists(filePath))
-        {
-            Directory.CreateDirectory(filePath);
-        }
         mChatData.sTime = Chat.saintTime;
         mChatData.cCount = Chat.caseCount;
         mChatData.qMessages = GetHistory.hQuestion;
@@ -39,7 +35,7 @@ public class ChatSave : MonoBehaviour
 
     public void LoadChat()
     {
-        string filePath = Path.Combine(Application.persistentDataPath, "chatdata.json");
+        string filePath = Path.GetDirectoryName(Application.dataPath) + "/ConfessionDay_Data/Save/chatdata.json";
         if (File.Exists(filePath))
         {
             string jsonStr = File.ReadAllText(filePath);

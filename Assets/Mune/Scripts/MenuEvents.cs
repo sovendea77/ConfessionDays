@@ -5,13 +5,32 @@ using UnityEngine.SceneManagement;
 
 public class MenuEvents : MonoBehaviour
 {
-    // Start is called before the first frame update
-    public void Back()
+    public GameObject volumeCanvas;
+    public GameObject menuCanvas;
+    public GameObject clueCanvas;
+
+    public void ToClue()
+
     {
+        clueCanvas.SetActive(true);
+        menuCanvas.SetActive(false);
+        clueCanvas.GetComponent<Canvas>().sortingOrder = 9;
+        menuCanvas.GetComponent<Canvas>().sortingOrder = 0;
+    }
+    public void ClueBack()
+    {
+        clueCanvas.GetComponent<Canvas>().sortingOrder = 0;
+        menuCanvas.GetComponent<Canvas>().sortingOrder = 9;
+        clueCanvas.SetActive(false);
     }
 
     public void ToMain()
     {
         SceneManager.LoadScene("MainMune");
+    }
+    public void SetVolume()
+    {
+        volumeCanvas.SetActive(true);
+        menuCanvas.SetActive(false);
     }
 }
