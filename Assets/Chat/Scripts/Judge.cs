@@ -72,9 +72,11 @@ public class Judge : MonoBehaviour
     public GameObject guideBack;
     public GameObject introduce;
     public TMP_Text guide;
+    public static String tip;
 
     [SerializeField] public List<Answer> answers;
     [SerializeField] public List<Option> options;
+
 
     public void SetPuzzle(string name)
     {
@@ -217,11 +219,31 @@ public class Judge : MonoBehaviour
     {
         Answer answer = answers[Chat.caseCount - 1];
 
+        if (character != answer.character)
+        {
+            tip += "人物 ";
+        }
+        if (time != answer.time)
+        {
+            tip += "时间 ";
+        }
+        if (place != answer.place)
+        {
+            tip += "地点 ";
+        }
+        if (crime != answer.crime)
+        {
+            tip += "罪行 ";
+        }
+
+
         if (character == answer.character && time == answer.time && place == answer.place && crime == answer.crime)
         {
+            tip = "";
             return true;
             
         }
+
 
         return false;
     }

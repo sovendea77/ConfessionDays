@@ -186,12 +186,16 @@ public class Chat : MonoBehaviour
                 {
                     StartCoroutine(PutText("网络错误，请重试。"));
                 }
-                else
+                else if(saintTime%4 != 0)
                 {
                     StartCoroutine(PutText("…………"));
                 }
-                
-                
+                else if (Judge.tip != "")
+                {
+                    StartCoroutine(PutText("再调查一下 " + Judge.tip + "吧。"));
+                }
+
+
                 //saintTime--;
             }
             else
@@ -224,11 +228,15 @@ public class Chat : MonoBehaviour
                         GetHistory.hAnswer.Add(thmessage);
                         GetHistoryClue.gotClues.Add(thmessage);
                     }
-                    else
+                    else if(saintTime % 4 != 0)
                     {
                         StartCoroutine(PutText("…………"));
                         GetHistory.hQuestion.Add(" ");
                         GetHistory.hAnswer.Add("…………");
+                    }
+                    else if(Judge.tip != "")
+                    {
+                        StartCoroutine(PutText("再调查一下 "+Judge.tip+"吧。"));
                     }
 
                 }
@@ -259,6 +267,10 @@ public class Chat : MonoBehaviour
             else
             {
                 mInput.interactable = true;
+            }
+            if(saintTime%5 == 0)
+            {
+                Judge.tip = "";
             }
             isAnswer = false;
 
