@@ -17,6 +17,7 @@ public class Buttons : MonoBehaviour
   public GameObject nextB;
     public GameObject charaB;
     public GameObject guideB;
+    public GameObject cNextB;
 
   // guides btns
   public GameObject guideBackBtn;
@@ -52,6 +53,23 @@ public class Buttons : MonoBehaviour
 
   private bool firstTime;
 
+    private void closeLastCourse()
+    {
+        cNextB.SetActive(false);
+        CanvasUtils.FadeOut(this, courseCanvas.GetComponent<CanvasGroup>(), 0.3f, () =>
+        {
+            courseCanvas.SetActive(false);
+            // 只有第一次打开游戏才显示教程
+            if (firstTime)
+            {
+                ShowGuideTips();
+                PlayerPrefs.SetInt("firstTime", 0);
+            }
+        });
+
+        guide.SetActive(false);
+    }
+
     private void Next()
     {
         if(background.activeSelf)
@@ -63,6 +81,7 @@ public class Buttons : MonoBehaviour
         {
             introduce.SetActive(false);
             guide.SetActive(true);
+            cNextB.SetActive(true);
         }
     }    
 
@@ -72,6 +91,7 @@ public class Buttons : MonoBehaviour
         cGuideCanvas.SetActive(false);
         cCharaCanvas.SetActive(true);
         nextB.SetActive(false);
+
     }
     
     private void Guide()
@@ -133,17 +153,19 @@ public class Buttons : MonoBehaviour
   private void ShowCourse()
   {
     courseCanvas.SetActive(true);
-    CanvasUtils.FadeIn(this, courseCanvas.GetComponent<CanvasGroup>(), 0.5f);
+        nextB.SetActive(true);
+        CanvasUtils.FadeIn(this, courseCanvas.GetComponent<CanvasGroup>(), 0.5f);
     nextB.SetActive(true);
   }
 
   private void HideCourse()
   {
+        cNextB.SetActive(false);
     CanvasUtils.FadeOut(this, courseCanvas.GetComponent<CanvasGroup>(), 0.3f, () =>
     {
       courseCanvas.SetActive(false);
       // 只有第一次打开游戏才显示教程
-      if ((Chat.caseCount == 1 && firstTime)) {
+      if (firstTime) {
         ShowGuideTips();
         PlayerPrefs.SetInt("firstTime", 0);
       }
@@ -248,6 +270,7 @@ public class Buttons : MonoBehaviour
     closeGuideSaintBackBtn.GetComponent<Button>().onClick.AddListener(HideGuideSaintBack);
         charaB.GetComponent<Button>().onClick.AddListener(Chara);
         guideB.GetComponent<Button>().onClick.AddListener(Guide);
+        cNextB.GetComponent<Button>().onClick.AddListener(closeLastCourse);
 
         firstTime = PlayerPrefs.GetInt("firstTime", 1) == 0;
   }

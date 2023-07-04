@@ -7,6 +7,7 @@ using System.IO;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.Video;
+using static System.Net.Mime.MediaTypeNames;
 
 [Serializable]
 public class Answer
@@ -54,8 +55,14 @@ public class Judge : MonoBehaviour
     public static bool prePlay;
     public static bool isEnd;
 
+
+    public Sprite normal;
     public Sprite dark1;
     public Sprite dark2;
+    public Sprite dark3;
+    public Sprite dark4;
+    public Sprite dark5;
+    public Sprite dark6;
     public GameObject background;
     public Animator curtain;
     public TMP_Text cNumber;
@@ -68,6 +75,7 @@ public class Judge : MonoBehaviour
     public Texture shade;
 
     public GameObject courseCanvas;
+    public GameObject nextB;
     public GameObject introCanvas;
     public GameObject guideBack;
     public GameObject introduce;
@@ -84,8 +92,8 @@ public class Judge : MonoBehaviour
         //streamingAssetsPath
         //Path.GetDirectoryName(Application.dataPath)
         //Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
-        string getPath = Application.streamingAssetsPath + "/InerData/Puzzle/" + name;
-        string setPath = Path.GetDirectoryName(Application.dataPath) + "/" + name;
+        string getPath = UnityEngine.Application.streamingAssetsPath + "/InerData/Puzzle/" + name;
+        string setPath = Path.GetDirectoryName(UnityEngine.Application.dataPath) + "/" + name;
         File.Copy(getPath, setPath, true);
     }
     
@@ -110,7 +118,8 @@ public class Judge : MonoBehaviour
         iscorrect = false;
         cgCanvas.SetActive(true);
         black.SetActive(true);
-        string path = "CG/cg7";
+        //string path = "CG/cg7";
+        string path = "CG/cg" + (Chat.caseCount).ToString();
         VideoClip vedio = Resources.Load<VideoClip>(path);
         videoPlayer.clip = vedio;
         prePlay = true;
@@ -164,12 +173,13 @@ public class Judge : MonoBehaviour
     {
         Debug.Log("GetCourse");
         courseCanvas.SetActive(true);
+        nextB.SetActive(true);
         guideBack.SetActive(false);
         introCanvas.SetActive(true);
         introduce.SetActive(true);
         CanvasUtils.FadeIn(this, courseCanvas.GetComponent<CanvasGroup>(), 0.5f);
         string sPath = "Intro/intro" + Chat.caseCount.ToString();
-        string tPath = Application.streamingAssetsPath + "/InerData/Intro/intro" + Chat.caseCount.ToString() + ".txt";
+        string tPath = UnityEngine.Application.streamingAssetsPath + "/InerData/Intro/intro" + Chat.caseCount.ToString() + ".txt";
         Sprite sprite = Resources.Load<Sprite>(sPath);
         string gText = File.ReadAllText(tPath);
         introduce.GetComponent<UnityEngine.UI.Image>().sprite = sprite;
@@ -219,22 +229,22 @@ public class Judge : MonoBehaviour
     {
         Answer answer = answers[Chat.caseCount - 1];
 
-        if (character != answer.character)
-        {
-            tip += "人物 ";
-        }
-        if (time != answer.time)
-        {
-            tip += "时间 ";
-        }
-        if (place != answer.place)
-        {
-            tip += "地点 ";
-        }
-        if (crime != answer.crime)
-        {
-            tip += "罪行 ";
-        }
+        //if (character != answer.character)
+        //{
+        //    tip += "人物 ";
+        //}
+        //if (time != answer.time)
+        //{
+        //    tip += "时间 ";
+        //}
+        //if (place != answer.place)
+        //{
+        //    tip += "地点 ";
+        //}
+        //if (crime != answer.crime)
+        //{
+        //    tip += "罪行 ";
+        //}
 
 
         if (character == answer.character && time == answer.time && place == answer.place && crime == answer.crime)
@@ -243,6 +253,42 @@ public class Judge : MonoBehaviour
             return true;
             
         }
+        else if(time == answer.time && place == answer.place)
+        {
+            List<string> tips = new List<string>();
+            tips.Add("我想你离真相很近，接下来就请为罪人献上忏悔吧。");
+            tips.Add("罪行令这片土地不再纯净，这点毋庸置疑。但真正的罪仍需你去思索、去发掘。");
+            tips.Add("我想你离真相很近了。愿主保佑逝于暴雨的灵魂。");
+            int n = UnityEngine.Random.Range(0, 3);
+            tip = tips[n];
+        }
+        else if(time == answer.time || place == answer.place)
+        {
+            List<string> tips = new List<string>();
+            tips.Add("何时，何地。这是一个需要仔细考虑的问题；");
+            tips.Add("罪人于何时、何地犯下罪行？若不知道这点，则无法为其罪过忏悔。");
+            tips.Add("这个猜测仍旧存在错误的地方，但我想你很接近了。");
+            int n = UnityEngine.Random.Range(0, 3);
+            tip = tips[n];
+        }
+        else if(crime == answer.crime)
+        {
+            List<string> tips = new List<string>();
+            tips.Add("人心的贪婪永无止境，如没有贪婪，或许世上就不会有如此多的罪恶了。");
+            tips.Add("贪欲令人感到永无止尽的痛苦，这往往是悲剧的预兆。");
+            tips.Add("我想你离真相很近了。但愿贪婪者终能获赎。");
+            int n = UnityEngine.Random.Range(0, 3);
+            tip = tips[n];
+        }
+        else if(character != answer.character && time != answer.time && place != answer.place && crime != answer.crime)
+        {
+            List<string> tips = new List<string>();
+            tips.Add("真正的罪行不在此时，不在此地，亦非此人之过。请重新想想吧。");
+            tips.Add("请再好好想想吧，谁才是真正的有罪之人呢？");
+            tips.Add("我想这个猜测并不正确。");
+            int n = UnityEngine.Random.Range(0, 3);
+            tip = tips[n];
+        }
 
 
         return false;
@@ -250,31 +296,60 @@ public class Judge : MonoBehaviour
 
     public void FinishJdge()
     {
+        if (Chat.wrongCount == 2)
+        {
+            background.GetComponent<UnityEngine.UI.Image>().sprite = dark1;
+        }
+        else if (Chat.wrongCount == 4)
+        {
+            background.GetComponent<UnityEngine.UI.Image>().sprite = dark2;
+        }
+        else if (Chat.wrongCount == 6)
+        {
+            background.GetComponent<UnityEngine.UI.Image>().sprite = dark3;
+        }
+        else if (Chat.wrongCount == 8)
+        {
+            background.GetComponent<UnityEngine.UI.Image>().sprite = dark4;
+        }
+        else if (Chat.wrongCount == 10)
+        {
+            background.GetComponent<UnityEngine.UI.Image>().sprite = dark5;
+        }
+        else if(Chat.wrongCount == 12)
+        {
+            background.GetComponent<UnityEngine.UI.Image>().sprite = dark6;
+        }
+
         if(Chat.saintTime%4 == 0 && !Chat.isAnswer)
         {
             if (CheckAnswer(cCharacter.value, cTime.value, cPlace.value, cCrime.value))
             {
                 iscorrect = true;
-                if (Chat.caseCount == 1)
-                {
-                    SetPuzzle("PLEASE_READ_ME.txt");
-                }
-                else if(Chat.caseCount == 2)
-                {
-                    SetPuzzle("ANGCITY_NEWSPAPER_3004TH.txt");
-                    background.GetComponent<UnityEngine.UI.Image>().sprite = dark1;
-                }
-                else if (Chat.caseCount == 4)
-                {
-                    SetPuzzle("JOIN_US_NOW.png");
-                    background.GetComponent<UnityEngine.UI.Image>().sprite = dark2;
-                }
-                else if (Chat.caseCount == 6)
-                {
-                    SetPuzzle("BOTTOM_SALVATION_OPERATION.png");
-                    curtain.SetBool("dark", true);
-                }
-                    ChangeCase();
+                //if (Chat.caseCount == 1)
+                //{
+                //    SetPuzzle("PLEASE_READ_ME.txt");
+                //}
+                //else if(Chat.caseCount == 2)
+                //{
+                //    SetPuzzle("ANGCITY_NEWSPAPER_3004TH.txt");
+                //    background.GetComponent<UnityEngine.UI.Image>().sprite = dark1;
+                //}
+                //else if (Chat.caseCount == 4)
+                //{
+                //    SetPuzzle("JOIN_US_NOW.png");
+                //    background.GetComponent<UnityEngine.UI.Image>().sprite = dark2;
+                //}
+                //else if (Chat.caseCount == 6)
+                //{
+                //    SetPuzzle("BOTTOM_SALVATION_OPERATION.png");
+                //    curtain.SetBool("dark", true);
+                //}
+                //ChangeCase();
+                GetHistoryClue.gotClues.Clear();
+                cNumber.text = "Case " + Chat.caseCount.ToString();
+                Chat.saintTime = 0;
+                Invoke("PlayEnd", 1f);
 
             }
             else
@@ -290,18 +365,20 @@ public class Judge : MonoBehaviour
     }
     void Start()
     {
+        background.GetComponent<UnityEngine.UI.Image>().sprite = normal;
+
         videoPlayer.targetTexture = new RenderTexture((int)rawImage.rectTransform.rect.width, (int)rawImage.rectTransform.rect.height, 0);
         rawImage.texture = videoPlayer.targetTexture;
         videoPlayer.loopPointReached += finishCG;
         cgCanvas.SetActive(false);
 
         // streamingAssetsPath
-        string aPath = Application.streamingAssetsPath + "/InerData/Answer.json";
+        string aPath = UnityEngine.Application.streamingAssetsPath + "/InerData/Answer.json";
         string jsontext1 = File.ReadAllText(aPath);
         AnswerList answerList = JsonUtility.FromJson<AnswerList>(jsontext1);
         answers = answerList.answers;
 
-        string oPath = Application.streamingAssetsPath + "/InerData/Option.json";
+        string oPath = UnityEngine.Application.streamingAssetsPath + "/InerData/Option.json";
         string jsontext2 = File.ReadAllText(oPath);
         OptionList optionList = JsonUtility.FromJson<OptionList>(jsontext2);
         options = optionList.options;

@@ -192,7 +192,7 @@ public class Chat : MonoBehaviour
                 }
                 else if (Judge.tip != "")
                 {
-                    StartCoroutine(PutText("再调查一下 " + Judge.tip + "吧。"));
+                    StartCoroutine(PutText(Judge.tip));
                 }
 
 
@@ -236,7 +236,7 @@ public class Chat : MonoBehaviour
                     }
                     else if(Judge.tip != "")
                     {
-                        StartCoroutine(PutText("再调查一下 "+Judge.tip+"吧。"));
+                        StartCoroutine(PutText(Judge.tip));
                     }
 
                 }
@@ -298,7 +298,7 @@ public class Chat : MonoBehaviour
             end = 3;
         }
 
-        if (caseCount == 7 && saintTime % 4 == 0 && !isAnswer)
+        if (saintTime % 4 == 0 && !isAnswer)
         {
             if (input.ToUpper() == key.ToUpper())
             {
