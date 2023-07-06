@@ -24,6 +24,7 @@ public class Buttons : MonoBehaviour
   public GameObject closeTipBtn;
   public GameObject closeGuideSaintBtn;
   public GameObject closeGuideSaintBackBtn;
+  public GameObject closeGuideMenuBtn;
   
   public GameObject toPromptBtn;
 
@@ -46,6 +47,7 @@ public class Buttons : MonoBehaviour
   public GameObject guideTipsCanvas;
   public GameObject guideSaintCanvas;
   public GameObject guideSaintBackCanvas;
+  public GameObject guideMenuCanvas;
 
   public TMP_InputField prompt;
 
@@ -203,6 +205,8 @@ public class Buttons : MonoBehaviour
       guideTipsCanvas.SetActive(false);
     });
         firstTime = false;
+
+      ShowGuideMenu();
     }
 
   public void ShowGuideSaint()
@@ -233,6 +237,20 @@ public class Buttons : MonoBehaviour
     });
   }
 
+  public void ShowGuideMenu()
+  {
+    guideMenuCanvas.SetActive(true);
+    CanvasUtils.FadeIn(this, guideMenuCanvas.GetComponent<CanvasGroup>(), 0.5f);
+  }
+
+  public void HideGuideMenu()
+  {
+    CanvasUtils.FadeOut(this, guideMenuCanvas.GetComponent<CanvasGroup>(), 0.3f, () =>
+    {
+      guideMenuCanvas.SetActive(false);
+    });
+  }
+
   private void Awake()
   {
     chatCanvas.SetActive(true);
@@ -244,12 +262,14 @@ public class Buttons : MonoBehaviour
     guideTipsCanvas.SetActive(false);
     guideSaintCanvas.SetActive(false);
     guideSaintBackCanvas.SetActive(false);
+    guideMenuCanvas.SetActive(false);
+
     ShowCourse();
   }
 
   private void GuideToPrompt()
   {
-    prompt.text = "爱丽丝很感谢克里斯";
+    prompt.text = "爱丽丝很感谢克里斯托弗吗？";
     HideGuideTips();
   }
 
@@ -268,11 +288,12 @@ public class Buttons : MonoBehaviour
     toPromptBtn.GetComponent<Button>().onClick.AddListener(GuideToPrompt);
     closeGuideSaintBtn.GetComponent<Button>().onClick.AddListener(HideGuideSaint);
     closeGuideSaintBackBtn.GetComponent<Button>().onClick.AddListener(HideGuideSaintBack);
-        charaB.GetComponent<Button>().onClick.AddListener(Chara);
-        guideB.GetComponent<Button>().onClick.AddListener(Guide);
-        cNextB.GetComponent<Button>().onClick.AddListener(closeLastCourse);
+    closeGuideMenuBtn.GetComponent<Button>().onClick.AddListener(HideGuideMenu);
+    charaB.GetComponent<Button>().onClick.AddListener(Chara);
+    guideB.GetComponent<Button>().onClick.AddListener(Guide);
+    cNextB.GetComponent<Button>().onClick.AddListener(closeLastCourse);
 
-        firstTime = PlayerPrefs.GetInt("firstTime", 1) == 0;
+    firstTime = PlayerPrefs.GetInt("firstTime", 1) == 0;
   }
 
   // Update is called once per frame
