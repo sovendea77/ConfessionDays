@@ -17,10 +17,12 @@ public class Buttons : MonoBehaviour
   public GameObject nextB;
     public GameObject charaB;
     public GameObject guideB;
-    public GameObject cNextB;
+    public GameObject cLastB;
+    public GameObject clueB;
+    public GameObject clueBackB;
 
-  // guides btns
-  public GameObject guideBackBtn;
+    // guides btns
+    public GameObject guideBackBtn;
   public GameObject closeTipBtn;
   public GameObject closeGuideSaintBtn;
   public GameObject closeGuideSaintBackBtn;
@@ -38,6 +40,7 @@ public class Buttons : MonoBehaviour
   public GameObject background;
   public GameObject introduce;
   public GameObject guide;
+    public GameObject clueCanvas;
 
     public GameObject cCharaCanvas;
     public GameObject cGuideCanvas;
@@ -57,7 +60,6 @@ public class Buttons : MonoBehaviour
 
     private void closeLastCourse()
     {
-        cNextB.SetActive(false);
         CanvasUtils.FadeOut(this, courseCanvas.GetComponent<CanvasGroup>(), 0.3f, () =>
         {
             courseCanvas.SetActive(false);
@@ -71,6 +73,21 @@ public class Buttons : MonoBehaviour
 
         guide.SetActive(false);
     }
+    private void Last()
+    {
+        if (introduce.activeSelf)
+        {
+            cLastB.SetActive(false);
+            background.SetActive(true);
+            introduce.SetActive(false);
+        }
+        else
+        {
+            introduce.SetActive(true);
+            guide.SetActive(false);
+            
+        }
+    }
 
     private void Next()
     {
@@ -78,12 +95,13 @@ public class Buttons : MonoBehaviour
         {
             background.SetActive(false);
             introduce.SetActive(true);
+            cLastB.SetActive(true);
         }
         else
         {
+            cLastB.SetActive(true);
             introduce.SetActive(false);
             guide.SetActive(true);
-            cNextB.SetActive(true);
         }
     }    
 
@@ -93,6 +111,7 @@ public class Buttons : MonoBehaviour
         cGuideCanvas.SetActive(false);
         cCharaCanvas.SetActive(true);
         nextB.SetActive(false);
+        cLastB.SetActive(false);
 
     }
     
@@ -100,6 +119,7 @@ public class Buttons : MonoBehaviour
     {
         CanvasUtils.FadeIn(this, courseCanvas.GetComponent<CanvasGroup>(), 0.5f);
         cGuideCanvas.SetActive(true);
+        cLastB.SetActive(false);
     }
 
   private void Mune()
@@ -130,7 +150,16 @@ public class Buttons : MonoBehaviour
 
   }
 
-  private void Saint()
+    private void Clue()
+    {
+        chatCanvas.SetActive(false);
+        churchCanvas.SetActive(false);
+        charaCanvas.SetActive(false);
+        clueCanvas.SetActive(true);
+        judgeCanvas.SetActive(false);
+
+    }
+    private void Saint()
   {
     judgeCanvas.SetActive(true);
     judgeCanvas.GetComponent<Canvas>().sortingOrder = 10;
@@ -152,7 +181,16 @@ public class Buttons : MonoBehaviour
     judgeCanvas.SetActive(true);
   }
 
-  private void ShowCourse()
+    private void ClueBack()
+    {
+        chatCanvas.SetActive(true);
+        churchCanvas.SetActive(true);
+        charaCanvas.SetActive(true);
+        clueCanvas.SetActive(false);
+        judgeCanvas.SetActive(true);
+    }
+
+    private void ShowCourse()
   {
     courseCanvas.SetActive(true);
         nextB.SetActive(true);
@@ -162,7 +200,6 @@ public class Buttons : MonoBehaviour
 
   private void HideCourse()
   {
-        cNextB.SetActive(false);
     CanvasUtils.FadeOut(this, courseCanvas.GetComponent<CanvasGroup>(), 0.3f, () =>
     {
       courseCanvas.SetActive(false);
@@ -276,22 +313,27 @@ public class Buttons : MonoBehaviour
   void Start()
   {
     historyB.GetComponent<Button>().onClick.AddListener(History);
-    saintB.GetComponent<Button>().onClick.AddListener(Saint);
+        clueB.GetComponent<Button>().onClick.AddListener(Clue);
+        saintB.GetComponent<Button>().onClick.AddListener(Saint);
     sBackB.GetComponent<Button>().onClick.AddListener(SaintBack);
     hBackB.GetComponent<Button>().onClick.AddListener(HistoryBack);
-    muneB.GetComponent<Button>().onClick.AddListener(Mune);
+        clueBackB.GetComponent<Button>().onClick.AddListener(ClueBack);
+        muneB.GetComponent<Button>().onClick.AddListener(Mune);
     mBackB.GetComponent<Button>().onClick.AddListener(MuneBack);
     cBackB.GetComponent<Button>().onClick.AddListener(HideCourse);
     guideBackBtn.GetComponent<Button>().onClick.AddListener(HideGuideStory);
     closeTipBtn.GetComponent<Button>().onClick.AddListener(HideGuideTips);
     nextB.GetComponent<Button>().onClick.AddListener(Next);
-    toPromptBtn.GetComponent<Button>().onClick.AddListener(GuideToPrompt);
+        cLastB.GetComponent<Button>().onClick.AddListener(Last);
+        toPromptBtn.GetComponent<Button>().onClick.AddListener(GuideToPrompt);
     closeGuideSaintBtn.GetComponent<Button>().onClick.AddListener(HideGuideSaint);
     closeGuideSaintBackBtn.GetComponent<Button>().onClick.AddListener(HideGuideSaintBack);
+
     closeGuideMenuBtn.GetComponent<Button>().onClick.AddListener(HideGuideMenu);
     charaB.GetComponent<Button>().onClick.AddListener(Chara);
     guideB.GetComponent<Button>().onClick.AddListener(Guide);
     cNextB.GetComponent<Button>().onClick.AddListener(closeLastCourse);
+
 
     firstTime = PlayerPrefs.GetInt("firstTime", 1) == 0;
   }

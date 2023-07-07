@@ -63,7 +63,10 @@ public class Judge : MonoBehaviour
     public Sprite dark4;
     public Sprite dark5;
     public Sprite dark6;
+    public Sprite nFate;
+    public Sprite dFate;
     public GameObject background;
+    public GameObject fate;
     public Animator curtain;
     public TMP_Text cNumber;
 
@@ -236,19 +239,19 @@ public class Judge : MonoBehaviour
 
         //if (character != answer.character)
         //{
-        //    tip += "���� ";
+        //    tip += "锟斤拷锟斤拷 ";
         //}
         //if (time != answer.time)
         //{
-        //    tip += "ʱ�� ";
+        //    tip += "时锟斤拷 ";
         //}
         //if (place != answer.place)
         //{
-        //    tip += "�ص� ";
+        //    tip += "锟截碉拷 ";
         //}
         //if (crime != answer.crime)
         //{
-        //    tip += "���� ";
+        //    tip += "锟斤拷锟斤拷 ";
         //}
 
 
@@ -261,36 +264,55 @@ public class Judge : MonoBehaviour
         else if(time == answer.time && place == answer.place)
         {
             List<string> tips = new List<string>();
-            tips.Add("������������ܽ�������������Ϊ����������ڰɡ�");
-            tips.Add("��������Ƭ���ز��ٴ����������ӹ���ɡ�����������������ȥ˼����ȥ����");
-            tips.Add("������������ܽ��ˡ�Ը���������ڱ������ꡣ");
+            tips.Add("锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷芙锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟轿拷锟斤拷锟斤拷锟斤拷锟斤拷锟节吧★拷");
+            tips.Add("锟斤拷锟斤拷锟斤拷锟斤拷片锟斤拷锟截诧拷锟劫达拷锟斤拷锟斤拷锟斤拷锟斤拷锟接癸拷锟斤拷伞锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟饺ニ硷拷锟斤拷锟饺ワ拷锟斤拷锟�");
+            tips.Add("锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷芙锟斤拷恕锟皆革拷锟斤拷锟斤拷锟斤拷锟斤拷诒锟斤拷锟斤拷锟斤拷辍�");
             int n = UnityEngine.Random.Range(0, 3);
             tip = tips[n];
         }
         else if(time == answer.time || place == answer.place)
         {
             List<string> tips = new List<string>();
-            tips.Add("��ʱ���εء�����һ����Ҫ��ϸ���ǵ����⣻");
-            tips.Add("�����ں�ʱ���εط������У�����֪����㣬���޷�Ϊ�������ڡ�");
-            tips.Add("����²��Ծɴ��ڴ���ĵط�����������ܽӽ��ˡ�");
+            tips.Add("锟斤拷时锟斤拷锟轿地★拷锟斤拷锟斤拷一锟斤拷锟斤拷要锟斤拷细锟斤拷锟角碉拷锟斤拷锟解；");
+            tips.Add("锟斤拷锟斤拷锟节猴拷时锟斤拷锟轿地凤拷锟斤拷锟斤拷锟叫ｏ拷锟斤拷锟斤拷知锟斤拷锟斤拷悖拷锟斤拷薹锟轿拷锟斤拷锟斤拷锟斤拷凇锟�");
+            tips.Add("锟斤拷锟斤拷虏锟斤拷跃纱锟斤拷诖锟斤拷锟侥地凤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷芙咏锟斤拷恕锟�");
             int n = UnityEngine.Random.Range(0, 3);
             tip = tips[n];
         }
         else if(crime == answer.crime)
         {
             List<string> tips = new List<string>();
-            tips.Add("���ĵ�̰������ֹ������û��̰�����������ϾͲ�������˶������ˡ�");
-            tips.Add("̰�����˸е�����ֹ����ʹ�࣬�������Ǳ����Ԥ�ס�");
-            tips.Add("������������ܽ��ˡ���Ը̰�������ܻ��ꡣ");
+            if(Chat.caseCount == 1)
+            {
+                tips.Add("人心的贪婪永无止境，如没有贪婪，或许世上就不会有如此多的罪恶了。");
+                tips.Add("贪欲令人感到永无止尽的痛苦，这往往是悲剧的预兆。");
+                tips.Add("我想你离真相很近了。但愿贪婪者终能获赎。");
+                int n = UnityEngine.Random.Range(0, 3);
+                tip = tips[n];
+            }
+            else
+            {
+                tips.Add(" 当人对他人的成就产生不平之时，便是嫉妒的产生。");
+                tips.Add("如果因为嫉妒犯下了罪行，那么百年之后终将反作用到嫉妒者的身上。");
+                int n = UnityEngine.Random.Range(0, 2);
+                tip = tips[n];
+            }
+        }
+        else if(character == answer.character)
+        {
+            List<string> tips = new List<string>();
+            tips.Add("我想你离真相很近了，然罪行尚未被全局揭晓。");
+            tips.Add("请再好好想想吧，罪人所犯的罪行究竟为何？");
+            tips.Add("愿罪人的灵魂终能获赎，愿主保佑人们。");
             int n = UnityEngine.Random.Range(0, 3);
             tip = tips[n];
         }
         else if(character != answer.character && time != answer.time && place != answer.place && crime != answer.crime)
         {
             List<string> tips = new List<string>();
-            tips.Add("���������в��ڴ�ʱ�����ڴ˵أ���Ǵ���֮��������������ɡ�");
-            tips.Add("���ٺú�����ɣ�˭��������������֮���أ�");
-            tips.Add("��������²Ⲣ����ȷ��");
+            tips.Add("锟斤拷锟斤拷锟斤拷锟斤拷锟叫诧拷锟节达拷时锟斤拷锟斤拷锟节此地ｏ拷锟斤拷谴锟斤拷锟街拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟缴★拷");
+            tips.Add("锟斤拷锟劫好猴拷锟斤拷锟斤拷桑锟剿拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟街拷锟斤拷兀锟�");
+            tips.Add("锟斤拷锟斤拷锟斤拷锟斤拷虏獠拷锟斤拷锟饺凤拷锟�");
             int n = UnityEngine.Random.Range(0, 3);
             tip = tips[n];
         }
@@ -308,6 +330,9 @@ public class Judge : MonoBehaviour
         else if (Chat.wrongCount == 4)
         {
             background.GetComponent<UnityEngine.UI.Image>().sprite = dark2;
+            curtain.SetBool("dark", true);
+            fate.GetComponent<UnityEngine.UI.Image>().sprite = dFate;
+
         }
         else if (Chat.wrongCount == 6)
         {
@@ -331,6 +356,9 @@ public class Judge : MonoBehaviour
             if (CheckAnswer(cCharacter.value, cTime.value, cPlace.value, cCrime.value))
             {
                 iscorrect = true;
+                background.GetComponent<UnityEngine.UI.Image>().sprite = normal;
+                curtain.SetBool("dark", false);
+                fate.GetComponent<UnityEngine.UI.Image>().sprite = nFate;
                 //if (Chat.caseCount == 1)
                 //{
                 //    SetPuzzle("PLEASE_READ_ME.txt");
@@ -359,7 +387,7 @@ public class Judge : MonoBehaviour
             }
             else
             {
-                Debug.Log("���cw");
+                Debug.Log("锟斤拷锟絚w");
                 iscorrect = false;
                 Chat.wrongCount++;
 
