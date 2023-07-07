@@ -12,4 +12,8 @@ public class ClueEvents : MonoBehaviour
         clueCanvas.SetActive(false);
 
     }
+    public void ShowMenu()
+    {
+        clueCanvas.SetActive(true);
+    }
 }

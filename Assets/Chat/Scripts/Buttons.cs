@@ -27,6 +27,8 @@ public class Buttons : MonoBehaviour
   public GameObject closeGuideSaintBtn;
   public GameObject closeGuideSaintBackBtn;
   public GameObject closeGuideMenuBtn;
+    public GameObject closeGuideHistoryBtn;
+    public GameObject closeGuideConfirmBtn;  
   
   public GameObject toPromptBtn;
 
@@ -51,24 +53,24 @@ public class Buttons : MonoBehaviour
   public GameObject guideSaintCanvas;
   public GameObject guideSaintBackCanvas;
   public GameObject guideMenuCanvas;
+    public GameObject guideHistoryCanvas;
+    public GameObject guideConfirmCanvas;
 
   public TMP_InputField prompt;
 
   public static bool isSaint;
+   private bool menuCanShow = true;
 
-  private bool firstTime;
+ 
 
     private void closeLastCourse()
     {
         CanvasUtils.FadeOut(this, courseCanvas.GetComponent<CanvasGroup>(), 0.3f, () =>
         {
             courseCanvas.SetActive(false);
-            // 只有第一次打开游戏才显示教程
-            if (firstTime)
-            {
+
+           
                 ShowGuideTips();
-                PlayerPrefs.SetInt("firstTime", 0);
-            }
         });
 
         guide.SetActive(false);
@@ -203,11 +205,8 @@ public class Buttons : MonoBehaviour
     CanvasUtils.FadeOut(this, courseCanvas.GetComponent<CanvasGroup>(), 0.3f, () =>
     {
       courseCanvas.SetActive(false);
-      // 只有第一次打开游戏才显示教程
-      if (firstTime) {
-        ShowGuideTips();
-        PlayerPrefs.SetInt("firstTime", 0);
-      }
+
+        ShowGuideMenu();
     });
 
     guide.SetActive(false);
@@ -241,9 +240,8 @@ public class Buttons : MonoBehaviour
     {
       guideTipsCanvas.SetActive(false);
     });
-        firstTime = false;
-
-      ShowGuideMenu();
+        ShowGuideConfirm();
+      
     }
 
   public void ShowGuideSaint()
@@ -276,8 +274,13 @@ public class Buttons : MonoBehaviour
 
   public void ShowGuideMenu()
   {
-    guideMenuCanvas.SetActive(true);
-    CanvasUtils.FadeIn(this, guideMenuCanvas.GetComponent<CanvasGroup>(), 0.5f);
+        if(menuCanShow)
+        {
+            guideMenuCanvas.SetActive(true);
+            CanvasUtils.FadeIn(this, guideMenuCanvas.GetComponent<CanvasGroup>(), 0.5f);
+            menuCanShow = false;
+        }
+    
   }
 
   public void HideGuideMenu()
@@ -286,9 +289,37 @@ public class Buttons : MonoBehaviour
     {
       guideMenuCanvas.SetActive(false);
     });
+        ShowGuideHistory();
   }
+    public void ShowGuideHistory()
+    {
+        guideHistoryCanvas.SetActive(true);
+        CanvasUtils.FadeIn(this, guideHistoryCanvas.GetComponent<CanvasGroup>(), 0.5f);
+    }
 
-  private void Awake()
+    public void HideGuideHistory()
+    {
+        CanvasUtils.FadeOut(this, guideHistoryCanvas.GetComponent<CanvasGroup>(), 0.3f, () =>
+        {
+            guideHistoryCanvas.SetActive(false);
+        });
+        ShowGuideTips();
+    }
+    public void ShowGuideConfirm()
+    {
+        guideConfirmCanvas.SetActive(true);
+        CanvasUtils.FadeIn(this, guideConfirmCanvas.GetComponent<CanvasGroup>(), 0.5f);
+    }
+
+    public void HideGuideConfirm()
+    {
+        CanvasUtils.FadeOut(this, guideConfirmCanvas.GetComponent<CanvasGroup>(), 0.3f, () =>
+        {
+            guideConfirmCanvas.SetActive(false);
+        });
+
+    }
+    private void Awake()
   {
     chatCanvas.SetActive(true);
     historyCanvas.SetActive(false);
@@ -306,7 +337,7 @@ public class Buttons : MonoBehaviour
 
   private void GuideToPrompt()
   {
-    prompt.text = "爱丽丝很感谢克里斯托弗吗？";
+    prompt.text = "艾与莱欧的关系如何？";
     HideGuideTips();
   }
 
@@ -332,15 +363,10 @@ public class Buttons : MonoBehaviour
     closeGuideMenuBtn.GetComponent<Button>().onClick.AddListener(HideGuideMenu);
     charaB.GetComponent<Button>().onClick.AddListener(Chara);
     guideB.GetComponent<Button>().onClick.AddListener(Guide);
-    cNextB.GetComponent<Button>().onClick.AddListener(closeLastCourse);
+        closeGuideHistoryBtn.GetComponent<Button>().onClick.AddListener(HideGuideHistory);
+        closeGuideConfirmBtn.GetComponent<Button>().onClick.AddListener(HideGuideConfirm);
 
 
-    firstTime = PlayerPrefs.GetInt("firstTime", 1) == 0;
-  }
+    }
 
-  // Update is called once per frame
-  void Update()
-  { 
-        Debug.Log(firstTime);
-  }
 }
