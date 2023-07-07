@@ -63,7 +63,10 @@ public class Judge : MonoBehaviour
     public Sprite dark4;
     public Sprite dark5;
     public Sprite dark6;
+    public Sprite nFate;
+    public Sprite dFate;
     public GameObject background;
+    public GameObject fate;
     public Animator curtain;
     public TMP_Text cNumber;
 
@@ -274,9 +277,28 @@ public class Judge : MonoBehaviour
         else if(crime == answer.crime)
         {
             List<string> tips = new List<string>();
-            tips.Add("人心的贪婪永无止境，如没有贪婪，或许世上就不会有如此多的罪恶了。");
-            tips.Add("贪欲令人感到永无止尽的痛苦，这往往是悲剧的预兆。");
-            tips.Add("我想你离真相很近了。但愿贪婪者终能获赎。");
+            if(Chat.caseCount == 1)
+            {
+                tips.Add("人心的贪婪永无止境，如没有贪婪，或许世上就不会有如此多的罪恶了。");
+                tips.Add("贪欲令人感到永无止尽的痛苦，这往往是悲剧的预兆。");
+                tips.Add("我想你离真相很近了。但愿贪婪者终能获赎。");
+                int n = UnityEngine.Random.Range(0, 3);
+                tip = tips[n];
+            }
+            else
+            {
+                tips.Add(" 当人对他人的成就产生不平之时，便是嫉妒的产生。");
+                tips.Add("如果因为嫉妒犯下了罪行，那么百年之后终将反作用到嫉妒者的身上。");
+                int n = UnityEngine.Random.Range(0, 2);
+                tip = tips[n];
+            }
+        }
+        else if(character == answer.character)
+        {
+            List<string> tips = new List<string>();
+            tips.Add("我想你离真相很近了，然罪行尚未被全局揭晓。");
+            tips.Add("请再好好想想吧，罪人所犯的罪行究竟为何？");
+            tips.Add("愿罪人的灵魂终能获赎，愿主保佑人们。");
             int n = UnityEngine.Random.Range(0, 3);
             tip = tips[n];
         }
@@ -303,6 +325,9 @@ public class Judge : MonoBehaviour
         else if (Chat.wrongCount == 4)
         {
             background.GetComponent<UnityEngine.UI.Image>().sprite = dark2;
+            curtain.SetBool("dark", true);
+            fate.GetComponent<UnityEngine.UI.Image>().sprite = dFate;
+
         }
         else if (Chat.wrongCount == 6)
         {
@@ -326,6 +351,9 @@ public class Judge : MonoBehaviour
             if (CheckAnswer(cCharacter.value, cTime.value, cPlace.value, cCrime.value))
             {
                 iscorrect = true;
+                background.GetComponent<UnityEngine.UI.Image>().sprite = normal;
+                curtain.SetBool("dark", false);
+                fate.GetComponent<UnityEngine.UI.Image>().sprite = nFate;
                 //if (Chat.caseCount == 1)
                 //{
                 //    SetPuzzle("PLEASE_READ_ME.txt");
