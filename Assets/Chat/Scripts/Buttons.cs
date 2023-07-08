@@ -332,7 +332,7 @@ public class Buttons : MonoBehaviour
     closeGuideMenuBtn.GetComponent<Button>().onClick.AddListener(HideGuideMenu);
     charaB.GetComponent<Button>().onClick.AddListener(Chara);
     guideB.GetComponent<Button>().onClick.AddListener(Guide);
-    cNextB.GetComponent<Button>().onClick.AddListener(closeLastCourse);
+    //cNextB.GetComponent<Button>().onClick.AddListener(closeLastCourse);
 
 
     firstTime = PlayerPrefs.GetInt("firstTime", 1) == 0;
