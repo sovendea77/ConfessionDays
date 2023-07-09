@@ -50,18 +50,18 @@ public class Buttons : MonoBehaviour
     // guides canvas
   public GameObject guideStoryCanvas;
   public GameObject guideTipsCanvas;
-  public GameObject guideSaintCanvas;
-  public GameObject guideSaintBackCanvas;
   public GameObject guideMenuCanvas;
     public GameObject guideHistoryCanvas;
     public GameObject guideConfirmCanvas;
+    public GameObject guideSaintTipsCanvas;
+    public GameObject guideSaintBackCanvas;
 
   public TMP_InputField prompt;
 
   public static bool isSaint;
    private bool menuCanShow = true;
-
- 
+   private bool guideSaintTipsCanvasCanShow = true;
+   private bool guideSaintBackCanvasCanShow = true;
 
     private void closeLastCourse()
     {
@@ -246,22 +246,30 @@ public class Buttons : MonoBehaviour
 
   public void ShowGuideSaint()
   {
-    guideSaintCanvas.SetActive(true);
-    CanvasUtils.FadeIn(this, guideSaintCanvas.GetComponent<CanvasGroup>(), 0.5f);
+    if (guideSaintTipsCanvasCanShow) {
+      guideSaintTipsCanvas.SetActive(true);
+      CanvasUtils.FadeIn(this, guideSaintTipsCanvas.GetComponent<CanvasGroup>(), 0.5f);
+      
+      guideSaintTipsCanvasCanShow = false;
+    }
   }
 
   public void HideGuideSaint()
   {
-    CanvasUtils.FadeOut(this, guideSaintCanvas.GetComponent<CanvasGroup>(), 0.3f, () =>
+    CanvasUtils.FadeOut(this, guideSaintTipsCanvas.GetComponent<CanvasGroup>(), 0.3f, () =>
     {
-      guideSaintCanvas.SetActive(false);
+      guideSaintTipsCanvas.SetActive(false);
     });
   }
 
   public void ShowGuideSaintBack()
   {
-    guideSaintBackCanvas.SetActive(true);
-    CanvasUtils.FadeIn(this, guideSaintBackCanvas.GetComponent<CanvasGroup>(), 0.5f);
+    if (guideSaintBackCanvasCanShow) {
+      guideSaintBackCanvas.SetActive(true);
+      CanvasUtils.FadeIn(this, guideSaintBackCanvas.GetComponent<CanvasGroup>(), 0.5f);
+      
+      guideSaintBackCanvasCanShow = false;
+    }
   }
 
   public void HideGuideSaintBack()
@@ -328,9 +336,10 @@ public class Buttons : MonoBehaviour
     muneCanvas.SetActive(false);
     guideStoryCanvas.SetActive(false);
     guideTipsCanvas.SetActive(false);
-    guideSaintCanvas.SetActive(false);
+    guideSaintTipsCanvas.SetActive(false);
     guideSaintBackCanvas.SetActive(false);
     guideMenuCanvas.SetActive(false);
+    guideSaintBackCanvas.SetActive(false);
 
     ShowCourse();
   }
