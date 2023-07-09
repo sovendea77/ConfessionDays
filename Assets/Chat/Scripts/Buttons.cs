@@ -337,6 +337,9 @@ public class Buttons : MonoBehaviour
           CanvasUtils.FadeIn(this, guideSaintDropdownCanvas.GetComponent<CanvasGroup>(), 0.5f);
 
           guideSaintDropdownCanvasCanShow = false;
+
+          // 展开第一个 dropdown
+          judgeCanvas.GetComponent<Judge>().cCharacter.Show();
         }
         
     }
