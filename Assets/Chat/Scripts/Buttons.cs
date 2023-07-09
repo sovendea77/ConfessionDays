@@ -365,6 +365,7 @@ public class Buttons : MonoBehaviour
     guideB.GetComponent<Button>().onClick.AddListener(Guide);
         closeGuideHistoryBtn.GetComponent<Button>().onClick.AddListener(HideGuideHistory);
         closeGuideConfirmBtn.GetComponent<Button>().onClick.AddListener(HideGuideConfirm);
+    //cNextB.GetComponent<Button>().onClick.AddListener(closeLastCourse);
 
 
     }

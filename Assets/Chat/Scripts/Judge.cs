@@ -398,6 +398,7 @@ public class Judge : MonoBehaviour
     }
     void Start()
     {
+        GetCourse();
         background.GetComponent<UnityEngine.UI.Image>().sprite = normal;
 
         videoPlayer.targetTexture = new RenderTexture((int)rawImage.rectTransform.rect.width, (int)rawImage.rectTransform.rect.height, 0);
