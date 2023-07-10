@@ -75,7 +75,7 @@ public class Chat : MonoBehaviour
     public static int wrongCount;
 
     public static bool isAnswer;
-    //apikeyï¿½ï¿½Òªï¿½Ï´ï¿½git
+    //apikey²»ÒªÉÏ´«git
     private string apiKey = "sk-666";
     public string apiUrl = "http://aiopen.deno.dev/v1/chat/completions";
     public string mModel = "gpt-3.5-turbo";
@@ -184,11 +184,11 @@ public class Chat : MonoBehaviour
                 isAnswer = true;
                 if (inputWord != "")
                 {
-                    StartCoroutine(PutText("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¡ï¿½"));
+                    StartCoroutine(PutText("ÍøÂç´íÎó£¬ÇëÖØÊÔ¡£"));
                 }
                 else if(saintTime%4 != 0)
                 {
-                    StartCoroutine(PutText("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"));
+                    StartCoroutine(PutText("¡­¡­¡­¡­"));
                 }
                 else if (Judge.tip != "")
                 {
@@ -230,9 +230,9 @@ public class Chat : MonoBehaviour
                     }
                     else if(saintTime % 4 != 0)
                     {
-                        StartCoroutine(PutText("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"));
+                        StartCoroutine(PutText("¡­¡­¡­¡­"));
                         GetHistory.hQuestion.Add(" ");
-                        GetHistory.hAnswer.Add("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+                        GetHistory.hAnswer.Add("¡­¡­¡­¡­");
                     }
                     else if(Judge.tip != "")
                     {
@@ -341,7 +341,6 @@ public class Chat : MonoBehaviour
         if(saintTime%4 == 0 && !isAnswer)
         {
             saintB.SetActive(true);
-            GetComponent<Buttons>().ShowGuideSaint();
         }
         else
         {

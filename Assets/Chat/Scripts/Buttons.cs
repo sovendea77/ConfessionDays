@@ -27,9 +27,6 @@ public class Buttons : MonoBehaviour
   public GameObject closeGuideSaintBtn;
   public GameObject closeGuideSaintBackBtn;
   public GameObject closeGuideMenuBtn;
-    public GameObject closeGuideHistoryBtn;
-    public GameObject closeGuideConfirmBtn;  
-    public GameObject closeGuideSaintDropdownBtn;  
   
   public GameObject toPromptBtn;
 
@@ -51,29 +48,27 @@ public class Buttons : MonoBehaviour
     // guides canvas
   public GameObject guideStoryCanvas;
   public GameObject guideTipsCanvas;
+  public GameObject guideSaintCanvas;
+  public GameObject guideSaintBackCanvas;
   public GameObject guideMenuCanvas;
-    public GameObject guideHistoryCanvas;
-    public GameObject guideConfirmCanvas;
-    public GameObject guideSaintTipsCanvas;
-    public GameObject guideSaintBackCanvas;
-    public GameObject guideSaintDropdownCanvas;
 
   public TMP_InputField prompt;
 
   public static bool isSaint;
-   private bool menuCanShow = true;
-   private bool guideSaintTipsCanvasCanShow = true;
-   private bool guideSaintBackCanvasCanShow = true;
-   private bool guideSaintDropdownCanvasCanShow = true;
+
+  private bool firstTime;
 
     private void closeLastCourse()
     {
         CanvasUtils.FadeOut(this, courseCanvas.GetComponent<CanvasGroup>(), 0.3f, () =>
         {
             courseCanvas.SetActive(false);
-
-           
+            // 只有第一次打开游戏才显示教程
+            if (firstTime)
+            {
                 ShowGuideTips();
+                PlayerPrefs.SetInt("firstTime", 0);
+            }
         });
 
         guide.SetActive(false);
@@ -169,7 +164,7 @@ public class Buttons : MonoBehaviour
     judgeCanvas.SetActive(true);
     judgeCanvas.GetComponent<Canvas>().sortingOrder = 10;
     isSaint = true;
-    ShowGuideSaintDropdown();
+    ShowGuideSaintBack();
   }
 
   private void SaintBack()
@@ -208,8 +203,11 @@ public class Buttons : MonoBehaviour
     CanvasUtils.FadeOut(this, courseCanvas.GetComponent<CanvasGroup>(), 0.3f, () =>
     {
       courseCanvas.SetActive(false);
-
-        ShowGuideMenu();
+      // 只有第一次打开游戏才显示教程
+      if (firstTime) {
+        ShowGuideTips();
+        PlayerPrefs.SetInt("firstTime", 0);
+      }
     });
 
     guide.SetActive(false);
@@ -243,36 +241,29 @@ public class Buttons : MonoBehaviour
     {
       guideTipsCanvas.SetActive(false);
     });
-        ShowGuideConfirm();
-      
+        firstTime = false;
+
+      ShowGuideMenu();
     }
 
   public void ShowGuideSaint()
   {
-    if (guideSaintTipsCanvasCanShow) {
-      guideSaintTipsCanvas.SetActive(true);
-      CanvasUtils.FadeIn(this, guideSaintTipsCanvas.GetComponent<CanvasGroup>(), 0.5f);
-      
-      guideSaintTipsCanvasCanShow = false;
-    }
+    guideSaintCanvas.SetActive(true);
+    CanvasUtils.FadeIn(this, guideSaintCanvas.GetComponent<CanvasGroup>(), 0.5f);
   }
 
   public void HideGuideSaint()
   {
-    CanvasUtils.FadeOut(this, guideSaintTipsCanvas.GetComponent<CanvasGroup>(), 0.3f, () =>
+    CanvasUtils.FadeOut(this, guideSaintCanvas.GetComponent<CanvasGroup>(), 0.3f, () =>
     {
-      guideSaintTipsCanvas.SetActive(false);
+      guideSaintCanvas.SetActive(false);
     });
   }
 
   public void ShowGuideSaintBack()
   {
-    if (guideSaintBackCanvasCanShow) {
-      guideSaintBackCanvas.SetActive(true);
-      CanvasUtils.FadeIn(this, guideSaintBackCanvas.GetComponent<CanvasGroup>(), 0.5f);
-      
-      guideSaintBackCanvasCanShow = false;
-    }
+    guideSaintBackCanvas.SetActive(true);
+    CanvasUtils.FadeIn(this, guideSaintBackCanvas.GetComponent<CanvasGroup>(), 0.5f);
   }
 
   public void HideGuideSaintBack()
@@ -285,13 +276,8 @@ public class Buttons : MonoBehaviour
 
   public void ShowGuideMenu()
   {
-        if(menuCanShow)
-        {
-            guideMenuCanvas.SetActive(true);
-            CanvasUtils.FadeIn(this, guideMenuCanvas.GetComponent<CanvasGroup>(), 0.5f);
-            menuCanShow = false;
-        }
-    
+    guideMenuCanvas.SetActive(true);
+    CanvasUtils.FadeIn(this, guideMenuCanvas.GetComponent<CanvasGroup>(), 0.5f);
   }
 
   public void HideGuideMenu()
@@ -300,80 +286,27 @@ public class Buttons : MonoBehaviour
     {
       guideMenuCanvas.SetActive(false);
     });
-        ShowGuideHistory();
   }
-    public void ShowGuideHistory()
-    {
-        guideHistoryCanvas.SetActive(true);
-        CanvasUtils.FadeIn(this, guideHistoryCanvas.GetComponent<CanvasGroup>(), 0.5f);
-    }
 
-    public void HideGuideHistory()
-    {
-        CanvasUtils.FadeOut(this, guideHistoryCanvas.GetComponent<CanvasGroup>(), 0.3f, () =>
-        {
-            guideHistoryCanvas.SetActive(false);
-        });
-        ShowGuideTips();
-    }
-    public void ShowGuideConfirm()
-    {
-        guideConfirmCanvas.SetActive(true);
-        CanvasUtils.FadeIn(this, guideConfirmCanvas.GetComponent<CanvasGroup>(), 0.5f);
-    }
-
-    public void HideGuideConfirm()
-    {
-        CanvasUtils.FadeOut(this, guideConfirmCanvas.GetComponent<CanvasGroup>(), 0.3f, () =>
-        {
-            guideConfirmCanvas.SetActive(false);
-        });
-
-    }
-    public void ShowGuideSaintDropdown()
-    {
-        if (guideSaintDropdownCanvasCanShow) {
-          guideSaintDropdownCanvas.SetActive(true);
-          CanvasUtils.FadeIn(this, guideSaintDropdownCanvas.GetComponent<CanvasGroup>(), 0.5f);
-
-          guideSaintDropdownCanvasCanShow = false;
-
-          // 展开第一个 dropdown
-          judgeCanvas.GetComponent<Judge>().cCharacter.Show();
-        }
-        
-    }
-
-    public void HideGuideSaintDropdown()
-    {
-        CanvasUtils.FadeOut(this, guideSaintDropdownCanvas.GetComponent<CanvasGroup>(), 0.3f, () =>
-        {
-            guideSaintDropdownCanvas.SetActive(false);
-        });
-        ShowGuideSaintBack();
-    }
-    private void Awake()
+  private void Awake()
   {
     chatCanvas.SetActive(true);
+    historyCanvas.SetActive(false);
     churchCanvas.SetActive(true);
     charaCanvas.SetActive(true);
-
-    historyCanvas.SetActive(false);
     muneCanvas.SetActive(false);
     guideStoryCanvas.SetActive(false);
     guideTipsCanvas.SetActive(false);
-    guideSaintTipsCanvas.SetActive(false);
+    guideSaintCanvas.SetActive(false);
     guideSaintBackCanvas.SetActive(false);
     guideMenuCanvas.SetActive(false);
-    guideSaintBackCanvas.SetActive(false);
-    guideSaintDropdownCanvas.SetActive(false);
 
     ShowCourse();
   }
 
   private void GuideToPrompt()
   {
-    prompt.text = "艾与莱欧的关系如何？";
+    prompt.text = "爱丽丝很感谢克里斯托弗吗？";
     HideGuideTips();
   }
 
@@ -399,12 +332,15 @@ public class Buttons : MonoBehaviour
     closeGuideMenuBtn.GetComponent<Button>().onClick.AddListener(HideGuideMenu);
     charaB.GetComponent<Button>().onClick.AddListener(Chara);
     guideB.GetComponent<Button>().onClick.AddListener(Guide);
-        closeGuideHistoryBtn.GetComponent<Button>().onClick.AddListener(HideGuideHistory);
-        closeGuideConfirmBtn.GetComponent<Button>().onClick.AddListener(HideGuideConfirm);
-        closeGuideSaintDropdownBtn.GetComponent<Button>().onClick.AddListener(HideGuideSaintDropdown);
     //cNextB.GetComponent<Button>().onClick.AddListener(closeLastCourse);
 
 
-    }
+    firstTime = PlayerPrefs.GetInt("firstTime", 1) == 0;
+  }
 
+  // Update is called once per frame
+  void Update()
+  { 
+        Debug.Log(firstTime);
+  }
 }
