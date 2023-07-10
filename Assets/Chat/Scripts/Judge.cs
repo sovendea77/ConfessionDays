@@ -177,9 +177,9 @@ public class Judge : MonoBehaviour
         Debug.Log("GetCourse");
         courseCanvas.SetActive(true);
         nextB.SetActive(true);
-        guideBack.SetActive(false);
-        introCanvas.SetActive(true);
-        introduce.SetActive(true);
+        guideBack.SetActive(true);
+        introCanvas.SetActive(false);
+        introduce.SetActive(false);
         CanvasUtils.FadeIn(this, courseCanvas.GetComponent<CanvasGroup>(), 0.5f);
         string sPath = "Intro/intro" + Chat.caseCount.ToString();
         string tPath = UnityEngine.Application.streamingAssetsPath + "/InerData/Intro/intro" + Chat.caseCount.ToString() + ".txt";
