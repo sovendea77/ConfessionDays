@@ -59,6 +59,7 @@ public class Buttons : MonoBehaviour
     public GameObject guideSaintDropdownCanvas;
 
   public TMP_InputField prompt;
+    public TMP_Text promotText;
 
   public static bool isSaint;
    private bool menuCanShow = true;
@@ -129,20 +130,22 @@ public class Buttons : MonoBehaviour
 
   private void Mune()
   {
-    chatCanvas.SetActive(false);
-    churchCanvas.SetActive(false);
-    charaCanvas.SetActive(false);
-    muneCanvas.SetActive(true);
-    judgeCanvas.SetActive(false);
+    //chatCanvas.SetActive(false);
+    //churchCanvas.SetActive(false);
+    //charaCanvas.SetActive(false);
+        muneCanvas.GetComponent<Canvas>().sortingOrder = 15;
+        muneCanvas.SetActive(true);
+    //judgeCanvas.SetActive(false);
   }
 
   private void MuneBack()
   {
-    chatCanvas.SetActive(true);
-    churchCanvas.SetActive(true);
-    charaCanvas.SetActive(true);
+    //chatCanvas.SetActive(true);
+    //churchCanvas.SetActive(true);
+    //charaCanvas.SetActive(true);
     muneCanvas.SetActive(false);
-    judgeCanvas.SetActive(true);
+        muneCanvas.GetComponent<Canvas>().sortingOrder = 0;
+        //judgeCanvas.SetActive(true);
   }
 
   private void History()
@@ -234,6 +237,14 @@ public class Buttons : MonoBehaviour
   private void ShowGuideTips()
   {
     guideTipsCanvas.SetActive(true);
+        if(Chat.caseCount == 1)
+        {
+            promotText.text = "向我说出你发现的线索，然后等待我的答复。\r\n例如：艾与莱欧的关系如何？";
+        }
+        else
+        {
+            promotText.text = "向我说出你发现的线索，然后等待我的答复。\r\n例如：大卫是怎么样看待汤米的？";
+        }
     CanvasUtils.FadeIn(this, guideTipsCanvas.GetComponent<CanvasGroup>(), 0.5f);
   }
 
@@ -373,7 +384,14 @@ public class Buttons : MonoBehaviour
 
   private void GuideToPrompt()
   {
-    prompt.text = "艾与莱欧的关系如何？";
+        if(Chat.caseCount == 1)
+        {
+            prompt.text = "艾与莱欧的关系如何？";
+        }
+        else
+        {
+            prompt.text = "大卫是怎么样看待汤米的？";
+        }
     HideGuideTips();
   }
 

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GetHistoryClue : MonoBehaviour
 {
+    public static bool gClue;
     public GameObject clue;
     public GameObject hContent;
     public GameObject hHandle;
@@ -36,6 +37,7 @@ public class GetHistoryClue : MonoBehaviour
     }
     public void SetClue()
     {
+        gClue = true;
 
         int n = gotClues.Count;
 

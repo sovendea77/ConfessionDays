@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GetHistory : MonoBehaviour
 {
+    public static bool history;
     public GameObject hDialogue;
     public GameObject hContent;
     public GameObject hHandle;
@@ -37,7 +38,7 @@ public class GetHistory : MonoBehaviour
     }
     public void SetDialogue()
     {
-        
+        history = true;
         int n = hAnswer.Count;
 
         hContent.GetComponent<RectTransform>().sizeDelta = new Vector2(0, 800*n);

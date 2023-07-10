@@ -237,45 +237,28 @@ public class Judge : MonoBehaviour
     {
         Answer answer = answers[Chat.caseCount - 1];
 
-        //if (character != answer.character)
-        //{
-        //    tip += "锟斤拷锟斤拷 ";
-        //}
-        //if (time != answer.time)
-        //{
-        //    tip += "时锟斤拷 ";
-        //}
-        //if (place != answer.place)
-        //{
-        //    tip += "锟截碉拷 ";
-        //}
-        //if (crime != answer.crime)
-        //{
-        //    tip += "锟斤拷锟斤拷 ";
-        //}
-
-
         if (character == answer.character && time == answer.time && place == answer.place && crime == answer.crime)
         {
             tip = "";
+            GetHistory.history = false;
+            GetHistoryClue.gClue = false;
             return true;
-            
         }
         else if(time == answer.time && place == answer.place)
         {
             List<string> tips = new List<string>();
-            tips.Add("锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷芙锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟轿拷锟斤拷锟斤拷锟斤拷锟斤拷锟节吧★拷");
-            tips.Add("锟斤拷锟斤拷锟斤拷锟斤拷片锟斤拷锟截诧拷锟劫达拷锟斤拷锟斤拷锟斤拷锟斤拷锟接癸拷锟斤拷伞锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟饺ニ硷拷锟斤拷锟饺ワ拷锟斤拷锟�");
-            tips.Add("锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷芙锟斤拷恕锟皆革拷锟斤拷锟斤拷锟斤拷锟斤拷诒锟斤拷锟斤拷锟斤拷辍�");
+            tips.Add("我想你离真相很近，接下来就请为罪人献上忏悔吧。");
+            tips.Add("罪行令这片土地不再纯净，这点毋庸置疑。但真正的罪仍需你去思索、去发掘。");
+            tips.Add("我想你离真相很近了。愿主保佑逝于暴雨的灵魂。");
             int n = UnityEngine.Random.Range(0, 3);
             tip = tips[n];
         }
         else if(time == answer.time || place == answer.place)
         {
             List<string> tips = new List<string>();
-            tips.Add("锟斤拷时锟斤拷锟轿地★拷锟斤拷锟斤拷一锟斤拷锟斤拷要锟斤拷细锟斤拷锟角碉拷锟斤拷锟解；");
-            tips.Add("锟斤拷锟斤拷锟节猴拷时锟斤拷锟轿地凤拷锟斤拷锟斤拷锟叫ｏ拷锟斤拷锟斤拷知锟斤拷锟斤拷悖拷锟斤拷薹锟轿拷锟斤拷锟斤拷锟斤拷凇锟�");
-            tips.Add("锟斤拷锟斤拷虏锟斤拷跃纱锟斤拷诖锟斤拷锟侥地凤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷芙咏锟斤拷恕锟�");
+            tips.Add("何时，何地。这是一个需要仔细考虑的问题。");
+            tips.Add("罪人于何时、何地犯下罪行？若不知道这点，则无法为其罪过忏悔。");
+            tips.Add("这个猜测仍旧存在错误的地方，但我想你很接近了。");
             int n = UnityEngine.Random.Range(0, 3);
             tip = tips[n];
         }
@@ -310,9 +293,9 @@ public class Judge : MonoBehaviour
         else if(character != answer.character && time != answer.time && place != answer.place && crime != answer.crime)
         {
             List<string> tips = new List<string>();
-            tips.Add("锟斤拷锟斤拷锟斤拷锟斤拷锟叫诧拷锟节达拷时锟斤拷锟斤拷锟节此地ｏ拷锟斤拷谴锟斤拷锟街拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟缴★拷");
-            tips.Add("锟斤拷锟劫好猴拷锟斤拷锟斤拷桑锟剿拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟街拷锟斤拷兀锟�");
-            tips.Add("锟斤拷锟斤拷锟斤拷锟斤拷虏獠拷锟斤拷锟饺凤拷锟�");
+            tips.Add("真正的罪行不在此时，不在此地，亦非此人之过。请重新想想吧。");
+            tips.Add("请再好好想想吧，谁才是真正的有罪之人呢？");
+            tips.Add("我想这个猜测并不正确。");
             int n = UnityEngine.Random.Range(0, 3);
             tip = tips[n];
         }
@@ -323,6 +306,7 @@ public class Judge : MonoBehaviour
 
     public void FinishJdge()
     {
+
         if (Chat.wrongCount == 2)
         {
             background.GetComponent<UnityEngine.UI.Image>().sprite = dark1;
@@ -387,7 +371,6 @@ public class Judge : MonoBehaviour
             }
             else
             {
-                Debug.Log("锟斤拷锟絚w");
                 iscorrect = false;
                 Chat.wrongCount++;
 
@@ -398,7 +381,10 @@ public class Judge : MonoBehaviour
     }
     void Start()
     {
-        GetCourse();
+        if(Chat.saintTime == 1 && !GetHistory.history && !GetHistoryClue.gClue)
+        {
+            GetCourse();
+        }
         background.GetComponent<UnityEngine.UI.Image>().sprite = normal;
 
         videoPlayer.targetTexture = new RenderTexture((int)rawImage.rectTransform.rect.width, (int)rawImage.rectTransform.rect.height, 0);
