@@ -179,7 +179,6 @@ public class Judge : MonoBehaviour
         nextB.SetActive(true);
         guideBack.SetActive(true);
         introCanvas.SetActive(false);
-        introduce.SetActive(false);
         CanvasUtils.FadeIn(this, courseCanvas.GetComponent<CanvasGroup>(), 0.5f);
         string sPath = "Intro/intro" + Chat.caseCount.ToString();
         string tPath = UnityEngine.Application.streamingAssetsPath + "/InerData/Intro/intro" + Chat.caseCount.ToString() + ".txt";
@@ -383,9 +382,11 @@ public class Judge : MonoBehaviour
     {
         if(Chat.saintTime == 1 && !GetHistory.history && !GetHistoryClue.gClue)
         {
+            Chat.wrongCount = 0;
             GetCourse();
+            background.GetComponent<UnityEngine.UI.Image>().sprite = normal;
         }
-        background.GetComponent<UnityEngine.UI.Image>().sprite = normal;
+        
 
         videoPlayer.targetTexture = new RenderTexture((int)rawImage.rectTransform.rect.width, (int)rawImage.rectTransform.rect.height, 0);
         rawImage.texture = videoPlayer.targetTexture;

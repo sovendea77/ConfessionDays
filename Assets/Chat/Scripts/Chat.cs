@@ -76,7 +76,7 @@ public class Chat : MonoBehaviour
 
     public static bool isAnswer;
     //apikey不要上传git
-    private string apiKey = "sk-6";
+    private string apiKey = "sk-66";
     public string apiUrl = "http://aiopen.deno.dev/v1/chat/completions";
     public string mModel = "gpt-3.5-turbo";
     public string prompt;

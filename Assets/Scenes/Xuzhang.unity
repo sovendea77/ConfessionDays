@@ -212,7 +212,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 255117980}
+      - m_Target: {fileID: 1598255412}
         m_TargetAssemblyTypeName: CaseChoose, Assembly-CSharp
         m_MethodName: Case1
         m_Mode: 1
@@ -286,7 +286,6 @@ GameObject:
   - component: {fileID: 255117979}
   - component: {fileID: 255117978}
   - component: {fileID: 255117977}
-  - component: {fileID: 255117980}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -378,23 +377,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!114 &255117980
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 255117975}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1f23457b1b92d54cb525f15073431f9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rawImage: {fileID: 723263381}
-  videoPlayer: {fileID: 723263380}
-  checkCanvas: {fileID: 1540367650}
-  vedioCanvas: {fileID: 636483076}
-  ischeck: 0
 --- !u!1 &636483076
 GameObject:
   m_ObjectHideFlags: 0
@@ -679,7 +661,7 @@ VideoPlayer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 723263378}
   m_Enabled: 1
-  m_VideoClip: {fileID: 32900000, guid: b5a10061af2569545906fcc5fd76bc3e, type: 3}
+  m_VideoClip: {fileID: 32900000, guid: 458954137edc73f448e09da8195ad36a, type: 3}
   m_TargetCameraAlpha: 1
   m_TargetCamera3DLayout: 0
   m_TargetCamera: {fileID: 0}
@@ -914,7 +896,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 255117980}
+      - m_Target: {fileID: 1598255412}
         m_TargetAssemblyTypeName: CaseChoose, Assembly-CSharp
         m_MethodName: Case2
         m_Mode: 1
@@ -1011,9 +993,9 @@ RectTransform:
   m_Father: {fileID: 636483080}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.9343959, y: 0.058000002}
-  m_AnchorMax: {x: 0.9343959, y: 0.058000002}
-  m_AnchoredPosition: {x: -2.2352295, y: -16.473999}
+  m_AnchorMin: {x: 0.94400007, y: 0.95829636}
+  m_AnchorMax: {x: 0.94400007, y: 0.95829636}
+  m_AnchoredPosition: {x: -1, y: -3}
   m_SizeDelta: {x: 153.5295, y: 58.9479}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1147400724
@@ -1061,7 +1043,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1598255412}
-        m_TargetAssemblyTypeName: CheckLoad, Assembly-CSharp
+        m_TargetAssemblyTypeName: CaseChoose, Assembly-CSharp
         m_MethodName: SkipCG
         m_Mode: 1
         m_Arguments:
@@ -1608,7 +1590,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1598255407}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0fa0e62604e99824e9deba15e0e14576, type: 3}
+  m_Script: {fileID: 11500000, guid: c1f23457b1b92d54cb525f15073431f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   rawImage: {fileID: 723263381}

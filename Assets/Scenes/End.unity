@@ -258,8 +258,8 @@ MonoBehaviour:
   videoPlayer: {fileID: 1355852284}
   vedioCanvas: {fileID: 853180594}
   trueEnd: {fileID: 32900000, guid: 11a617d9ef461d647944c9da5b50aba0, type: 3}
-  normalEnd: {fileID: 32900000, guid: 136e99ec7da82964db85373d8968d32c, type: 3}
-  badEnd: {fileID: 32900000, guid: 4263d2335a8c12d478ba14bb0b4b3f53, type: 3}
+  normalEnd: {fileID: 32900000, guid: 65ca31a15a3536047b2909be5e4d23d2, type: 3}
+  badEnd: {fileID: 32900000, guid: 73e94ae7f12e6154f90a334aa9c833cd, type: 3}
 --- !u!1 &853180594
 GameObject:
   m_ObjectHideFlags: 0
